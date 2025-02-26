@@ -1,0 +1,9 @@
+@import "tailwindcss";
+body {
+  background-color: gray;
+}
+
+@theme {
+  --color-blanchOrange: oklch(97.08% 0.0208 88.72);
+  --color-footerBlue: oklch(80.92% 0.0646 230.67);
+}
