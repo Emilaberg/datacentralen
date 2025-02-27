@@ -1,8 +1,12 @@
 import React from 'react'
+import HeroBanner from '../../components/Herobanner/HeroBanner'
 
 const Index = () => {
   return (
-    <div className='bg-blanchOrange w-full h-96'><h1 className="text-3xl font-bold underline">Hello index world!</h1></div>
+    <section className='bg-blanchOrange'>
+      <HeroBanner/>
+    </section>
+    
   )
 }
 

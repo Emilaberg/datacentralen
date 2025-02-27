@@ -9,7 +9,7 @@ import linkedinIcon from "../../assets/icons/linkedin.svg"
 
 const Footer = () => {
   return (
-    <footer className='flex justify-between items-center  relative bottom-0 h-56 bg-footerBlue w-full py-9 px-20'>
+    <footer className='flex justify-between items-center mt-auto h-56 bg-footerBlue w-full py-9 px-20'>
         <section className='flex w-1/2 justify-between h-full'>
             <img src={footerImage} alt="bild" />
             <ul className='mr-10 flex flex-col justify-evenly'>
