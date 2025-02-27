@@ -3,7 +3,7 @@ import HeroBanner from '../../components/Herobanner/HeroBanner'
 
 const Index = () => {
   return (
-    <section className='bg-blanchOrange'>
+    <section>
       <HeroBanner/>
     </section>
     
