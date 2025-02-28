@@ -1,4 +1,6 @@
 import React from 'react'
+import AlgoritmTester from '../../components/AlgoritmTester/AlgoritmTester'
+
 
 const Laroportal = () => {
   return (
@@ -33,6 +35,9 @@ engagerande sätt.</p>
         </article>
       </section>
 
+      <section className="mx-20 mb-40 px-12 py-18 border-dashed border-[#8f8f8f] border-2">
+            <AlgoritmTester/>
+      </section>
     </>
 
   )
