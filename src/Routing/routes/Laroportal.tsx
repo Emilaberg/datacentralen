@@ -57,7 +57,7 @@ const dataStructures = [
 
 const Laroportal = () => {
   return (
-    <section className="h-screen mt-40 flex items-center flex-col gap-20">
+    <section className="h-full mt-40 flex items-center flex-col gap-20 mb-50">
       <section>
         <LaroContainer
           laroType="Sorterings Algoritmer"
