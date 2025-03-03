@@ -1,14 +1,13 @@
 import React from "react";
 import HeroBanner from "../../components/Herobanner/HeroBanner";
-import TeachingCard from "../../components/Teachingmaterials/TeachingCard";
-import Teachingmaterialscontainer from "../../components/Teachingmaterials/TeachingmMterialsContainer";
+import TeachingMaterialsContainer from "../../components/Teachingmaterials/TeachingMaterialsContainer";
 
 const Index = () => {
   return (
     <section className="bg-blanchOrange">
       <HeroBanner />
       <section className="flex items-center justify-center mb-50">
-        <Teachingmaterialscontainer />
+        <TeachingMaterialsContainer />
       </section>
     </section>
   );

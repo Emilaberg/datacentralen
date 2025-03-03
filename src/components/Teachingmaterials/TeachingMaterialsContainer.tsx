@@ -52,16 +52,6 @@ const TeachingCards = [
   },
 ];
 
-{
-  /* <TeachingCard
-algorithmType="Sorterings algoritm"
-algorithmName="QuickSort"
-algorithmDescription="Dela upp listan vid en pivot och sortera delarna rekursivt"
-gradientColor1="#F9B66B"
-gradientColor2="#F7E6D3"
-/> */
-}
-
 const Teachingmaterialscontainer = () => {
   return (
     <div className="">
