@@ -28,7 +28,6 @@ const Navbar = () => {
             <Link className='hover:underline' to="#" >Om projektet</Link>
             {auth.token && (<span>inloggad</span>)}
 
-            <div id="text">{text}</div>
         </div>
         <Link className="mr-32 bg-black text-white flex gap-2 py-2 px-4 rounded-[10px]" to={"https://github.com/"}><span className='hover:underline'>Github</span><img src={githubIcon} alt="github icon" /></Link>
     </nav>
