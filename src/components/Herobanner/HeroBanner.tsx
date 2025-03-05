@@ -2,7 +2,7 @@ import React from "react";
 
 const HeroBanner = () => {
   return (
-    <section className="h-screen flex flex-col gap-10 items-center mt-40">
+    <section className="h-[calc(100vh*0.65)] flex flex-col gap-10 items-center mt-40">
       <article className="relative w-2/3 xl:w-1/2">
         {/* blur */}
         <div className="absolute w-60 h-60 bg-[#A0DABA] rounded-full  right-0 z-0 -bottom-10  blur-[100px] hover:blur-[50px] transition-all ease-in duration-100"></div>
