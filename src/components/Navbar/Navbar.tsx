@@ -3,8 +3,11 @@ import { Link } from "react-router-dom";
 import iconImage from "../../assets/icons/iconImage.svg";
 import githubIcon from "../../assets/icons/Github.svg";
 import arrowIcon from "../../assets/icons/arrowicon.svg";
+import { useAuth } from '../../Auth/AuthProvider'
+
 
 const Navbar = () => {
+    const auth = useAuth();
   return (
     <nav className="relative z-50 font-roboto flex justify-between h-24 items-center py-5 ">
       <img className="ml-16" src={iconImage} alt="bild" />
@@ -37,6 +40,8 @@ const Navbar = () => {
         <Link className="hover:underline" to="#">
           Om projektet
         </Link>
+        {auth.token && (<span>inloggad</span>)}
+
       </div>
       <Link
         className="mr-32 bg-black text-white flex gap-2 py-2 px-4 rounded-[10px]"
