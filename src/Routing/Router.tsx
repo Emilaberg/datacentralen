@@ -4,10 +4,13 @@ import Index from './routes/Index'
 import Navbar from '../components/Navbar/Navbar'
 import Footer from '../components/Footer/Footer'
 import Laroportal from './routes/Laroportal'
+import AuthProvider from '../Auth/AuthProvider'
 
 function Router() {
   return (
     <BrowserRouter>
+      <AuthProvider>
+
         <Navbar/>
         <Routes >
             <Route index element={<Index/>}/>
@@ -16,6 +19,8 @@ function Router() {
             <Route path='*' element={<div>error 404</div>}/>
         </Routes>
         <Footer/>
+      </AuthProvider>
+
     </BrowserRouter>
 
   )
