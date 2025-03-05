@@ -12,7 +12,7 @@ body {
 
 @theme {
   --font-sans: "IBM Plex Mono";
-  --font-roboto: "Roboto";
+  --font-roboto: "Roboto" "sans-serif";
   --color-blanchOrange: oklch(97.08% 0.0208 88.72);
   --color-footerBlue: oklch(80.92% 0.0646 230.67);
 }
