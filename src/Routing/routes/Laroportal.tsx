@@ -1,46 +1,77 @@
-import React from 'react'
-import AlgoritmTester from '../../components/AlgoritmTester/AlgoritmTester'
+import React from "react";
+import LaroContainer from "../../components/Laroportal/LaroContainer";
 
+const sortingAlgorithms = [
+  {
+    algorithmType: "Sorterings algoritm",
+    algorithmName: "QuickSort",
+    algorithmDescription:
+      "Dela upp listan vid en pivot och sortera delarna rekursivt",
+    gradientColor1: "#F9B66B",
+    gradientColor2: "#F7E6D3",
+  },
+  {
+    algorithmType: "Sorterings algoritm",
+    algorithmName: "HeapSort",
+    algorithmDescription:
+      "Använder en heap för att sortera genom att extrahera största/minsta elementet.",
+    gradientColor1: "#79ACE4",
+    gradientColor2: "#D3E4F7",
+  },
+  {
+    algorithmType: "Sorterings algoritm",
+    algorithmName: "BubbleSort",
+    algorithmDescription:
+      "Jämför och byter intilliggande element tills listan är sorterad",
+    gradientColor1: "#A6E386",
+    gradientColor2: "#E1EEDA",
+  },
+];
+
+const dataStructures = [
+  {
+    algorithmType: "Datastruktur",
+    algorithmName: "Array",
+    algorithmDescription:
+      "En samling av element lagrade i en ordnad sekvens, åtkomliga via index.",
+    gradientColor1: "#83EDBB",
+    gradientColor2: "#D3F7E6",
+  },
+  {
+    algorithmType: "Datastruktur",
+    algorithmName: "Stack",
+    algorithmDescription:
+      "Element läggs till och tas bort i en ordning som följer Last In, First Out",
+    gradientColor1: "#DFB0F6",
+    gradientColor2: "#E6E0E9",
+  },
+  {
+    algorithmType: "Datastruktur",
+    algorithmName: "Hash Table",
+    algorithmDescription:
+      "Lagrar nyckel-värdepar och använder en hash-funktion för snabb åtkomst.",
+    gradientColor1: "#F5F886",
+    gradientColor2: "#F6F7D3",
+  },
+];
 
 const Laroportal = () => {
   return (
-    <>
-      <section className='mt-48 flex flex-col items-center'>
-          <article className='w-2/3 xl:w-1/3'>
-            <h1 className='text-5xl mb-8'>Testa en algoritm</h1>
-            <p className='px-4'>Välkommen till vår interaktiva algoritmverkstad! Här kan du leka med olika algoritmer 
-och se hur de fungerar visuellt, samtidigt som du lär dig något nytt på ett roligt och 
-engagerande sätt.</p>
-
-          </article>
-
-          <article className='w-2/3 xl:w-1/3 px-4 mt-7'>
-            <h2>
-            klicka på knappen för att testa en algoritm
-            </h2>
-            <button className='mt-7 ml-10 py-2 px-3 hover:text-white hover:bg-[#A0DABA] rounded-xl hover:border hover:border-black transition-colors ease-in duration-100'>Testa en Algoritm</button>
-
-          </article>
+    <section className="h-full mt-40 flex items-center flex-col gap-20 mb-50">
+      <section>
+        <LaroContainer
+          laroType="Sorterings Algoritmer"
+          teachingCards={sortingAlgorithms}
+        />
       </section>
-
-      <section className='mt-72 mb-20 flex justify-center'>
-        <article className='flex items-center'>
-          <span className='mr-10 font-semibold text-3xl'>Välj</span>
-          <select name="" id="" className='bg-white border border-black rounded-lg h-full px-6'>
-            <option value="">Merge Sort</option>
-            <option value="">Merge Sort</option>
-            <option value="">Merge Sort</option>
-            <option value="">Merge Sort</option>
-          </select>
-        </article>
+      <section>
+        <LaroContainer
+          laroType="Data strukturer"
+          teachingCards={dataStructures}
+        />
       </section>
+    </section>
+  );
+};
 
-      <section className="mx-20 mb-40 px-12 py-18 border-dashed border-[#8f8f8f] border-2">
-            <AlgoritmTester/>
-      </section>
-    </>
-
-  )
-}
-
-export default Laroportal
+export default Laroportal;
