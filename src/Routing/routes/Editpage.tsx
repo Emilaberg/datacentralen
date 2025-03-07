@@ -17,7 +17,7 @@ const Editpage = () => {
     let textContent = await uploadedFile.text();
 
     if (documentType === "md") {
-      textContent = marked(textContent);
+      textContent = await marked(textContent);
     }
 
     console.log(typeof textContent);
