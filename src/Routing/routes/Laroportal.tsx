@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
 const Laroportal = () => {
-  return (
-    <div>Laroportal</div>
-  )
-}
+  return <div>Laroportal</div>;
+};
 
-export default Laroportal
+export default Laroportal;

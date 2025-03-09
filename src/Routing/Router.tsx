@@ -1,24 +1,25 @@
-import React from 'react'
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import Index from './routes/Index'
-import Navbar from '../components/Navbar/Navbar'
-import Footer from '../components/Footer/Footer'
-import Laroportal from './routes/Laroportal'
+import React from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Index from "./routes/Index";
+import Navbar from "../components/Navbar/Navbar";
+import Footer from "../components/Footer/Footer";
+import Laroportal from "./routes/Laroportal";
+import ReadingPage from "./routes/ReadingPage.js";
 
 function Router() {
   return (
     <BrowserRouter>
-        <Navbar/>
-        <Routes >
-            <Route index element={<Index/>}/>
-            <Route path='laroportal' element={<Laroportal/>}/>
-            <Route path="/laroportal/:id" element={<div>specific id</div>}/> 
-            <Route path='*' element={<div>error 404</div>}/>
-        </Routes>
-        <Footer/>
+      <Navbar />
+      <Routes>
+        <Route index element={<Index />} />
+        <Route path="laroportal" element={<Laroportal />} />
+        <Route path="/laroportal/:id" element={<div>specific id</div>} />
+        <Route path="readingpage/:id" element={<ReadingPage />} />
+        <Route path="*" element={<div>error 404</div>} />
+      </Routes>
+      <Footer />
     </BrowserRouter>
-
-  )
+  );
 }
 
-export default Router
+export default Router;
