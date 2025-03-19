@@ -1,4 +1,5 @@
 import TeachingCard from "./TeachingCard";
+import { useAuth } from "../../Auth/AuthProvider";
 
 const TeachingCards = [
   {
@@ -52,8 +53,10 @@ const TeachingCards = [
 ];
 
 const Teachingmaterialscontainer = () => {
+  const auth = useAuth();
   return (
     <div className="">
+      {auth.token && (<span>du är inloggad</span>)}
       <div className="flex justify-center mb-15 text-5xl underline">
         <h1>Läromedel</h1>
       </div>
