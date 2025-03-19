@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import TeachingCard from "./TeachingCard";
-import "./animations.css"; // Import the CSS file
+import "./animations.css";
 
 type TeachingCardType = {
   algorithmType: string;
@@ -23,6 +23,8 @@ const LaroContainer: React.FC<LaroContainerProps> = ({
   const [isAnimating, setIsAnimating] = useState(false);
   const [isFadingOut, setIsFadingOut] = useState(false);
   const [nextPage, setNextPage] = useState<number | null>(null);
+  const [animationDirection, setAnimationDirection] =
+    useState("slide-out-left");
   const cardsPerPage = 4;
 
   const indexOfLastCard = currentPage * cardsPerPage;
@@ -37,12 +39,12 @@ const LaroContainer: React.FC<LaroContainerProps> = ({
       const fadeOutTimeout = setTimeout(() => {
         setCurrentPage(nextPage);
         setIsFadingOut(false);
-      }, 400); // Match this duration with your animation duration
+      }, 400);
 
       const animationTimeout = setTimeout(() => {
         setIsAnimating(false);
         setNextPage(null);
-      }, 800); // Ensure this duration is longer than the animation duration
+      }, 800);
 
       return () => {
         clearTimeout(fadeOutTimeout);
@@ -53,6 +55,9 @@ const LaroContainer: React.FC<LaroContainerProps> = ({
 
   const pageChangeAnimation = (page: number) => {
     if (isAnimating || page === currentPage) return;
+    setAnimationDirection(
+      page > currentPage ? "slide-out-left" : "slide-out-right"
+    );
     setNextPage(page);
   };
 
@@ -63,7 +68,11 @@ const LaroContainer: React.FC<LaroContainerProps> = ({
         <div className="flex justify-center items-center mt-10 ">
           <div
             className={`grid grid-cols-2 gap-10 transition-transform duration-500 ease-in-out ${
-              isFadingOut ? "slide-out-right" : "slide-in-left"
+              isFadingOut
+                ? animationDirection
+                : animationDirection === "slide-out-left"
+                ? "slide-in-right"
+                : "slide-in-left"
             }`}
           >
             {currentCards.map((card, index) => (
