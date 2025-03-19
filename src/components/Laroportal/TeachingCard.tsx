@@ -14,7 +14,7 @@ type CardComponentProps = {
   gradientColor2: string;
 };
 
-const teachingCard: React.FC<CardComponentProps> = ({
+const TeachingCard: React.FC<CardComponentProps> = ({
   algorithmType,
   algorithmName,
   algorithmDescription,
@@ -65,4 +65,4 @@ const teachingCard: React.FC<CardComponentProps> = ({
   );
 };
 
-export default teachingCard;
+export default TeachingCard;
