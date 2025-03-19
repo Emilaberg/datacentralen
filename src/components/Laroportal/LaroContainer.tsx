@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import TeachingCard from "./TeachingCard";
-import "./animations.css"; // Import the CSS file
+import "./animations.css";
 
 type TeachingCardType = {
   algorithmType: string;
@@ -37,12 +37,12 @@ const LaroContainer: React.FC<LaroContainerProps> = ({
       const fadeOutTimeout = setTimeout(() => {
         setCurrentPage(nextPage);
         setIsFadingOut(false);
-      }, 400); // Match this duration with your animation duration
+      }, 400);
 
       const animationTimeout = setTimeout(() => {
         setIsAnimating(false);
         setNextPage(null);
-      }, 800); // Ensure this duration is longer than the animation duration
+      }, 800);
 
       return () => {
         clearTimeout(fadeOutTimeout);
