@@ -1,4 +1,3 @@
-import React from "react";
 import TeachingCard from "./TeachingCard";
 import { useAuth } from "../../Auth/AuthProvider";
 

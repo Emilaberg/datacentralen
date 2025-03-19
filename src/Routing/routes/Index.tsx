@@ -1,6 +1,6 @@
 import React from "react";
 import HeroBanner from "../../components/Herobanner/HeroBanner";
-import TeachingMaterialsContainer from "../../components/Teachingmaterials/TeachingMaterialsContainer";
+import TeachingMaterialsContainer from "../../components/Laroportal/TeachingMaterialsContainer";
 
 const Index = () => {
   return (

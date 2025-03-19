@@ -1,4 +1,3 @@
-import React from "react";
 import LaroContainer from "../../components/Laroportal/LaroContainer";
 
 const sortingAlgorithms = [
@@ -26,6 +25,54 @@ const sortingAlgorithms = [
     gradientColor1: "#A6E386",
     gradientColor2: "#E1EEDA",
   },
+  {
+    algorithmType: "Sorterings algoritm",
+    algorithmName: "QuickSort",
+    algorithmDescription:
+      "Dela upp listan vid en pivot och sortera delarna rekursivt",
+    gradientColor1: "#F9B66B",
+    gradientColor2: "#F7E6D3",
+  },
+  {
+    algorithmType: "Sorterings algoritm",
+    algorithmName: "BubbleSort",
+    algorithmDescription:
+      "Jämför och byter intilliggande element tills listan är sorterad",
+    gradientColor1: "#A6E386",
+    gradientColor2: "#E1EEDA",
+  },
+  {
+    algorithmType: "Sorterings algoritm",
+    algorithmName: "BubbleSort",
+    algorithmDescription:
+      "Jämför och byter intilliggande element tills listan är sorterad",
+    gradientColor1: "#A6E386",
+    gradientColor2: "#E1EEDA",
+  },
+  {
+    algorithmType: "Sorterings algoritm",
+    algorithmName: "BubbleSort",
+    algorithmDescription:
+      "Jämför och byter intilliggande element tills listan är sorterad",
+    gradientColor1: "#A6E386",
+    gradientColor2: "#E1EEDA",
+  },
+  {
+    algorithmType: "Sorterings algoritm",
+    algorithmName: "BubbleSort",
+    algorithmDescription:
+      "Jämför och byter intilliggande element tills listan är sorterad",
+    gradientColor1: "#A6E386",
+    gradientColor2: "#E1EEDA",
+  },
+  {
+    algorithmType: "Sorterings algoritm",
+    algorithmName: "BubbleSort",
+    algorithmDescription:
+      "Jämför och byter intilliggande element tills listan är sorterad",
+    gradientColor1: "#A6E386",
+    gradientColor2: "#E1EEDA",
+  },
 ];
 
 const dataStructures = [
@@ -44,6 +91,22 @@ const dataStructures = [
       "Element läggs till och tas bort i en ordning som följer Last In, First Out",
     gradientColor1: "#DFB0F6",
     gradientColor2: "#E6E0E9",
+  },
+  {
+    algorithmType: "Datastruktur",
+    algorithmName: "Hash Table",
+    algorithmDescription:
+      "Lagrar nyckel-värdepar och använder en hash-funktion för snabb åtkomst.",
+    gradientColor1: "#F5F886",
+    gradientColor2: "#F6F7D3",
+  },
+  {
+    algorithmType: "Datastruktur",
+    algorithmName: "Hash Table",
+    algorithmDescription:
+      "Lagrar nyckel-värdepar och använder en hash-funktion för snabb åtkomst.",
+    gradientColor1: "#F5F886",
+    gradientColor2: "#F6F7D3",
   },
   {
     algorithmType: "Datastruktur",
