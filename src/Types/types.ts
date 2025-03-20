@@ -22,3 +22,9 @@ export interface ArticleProps {
     likes: number,
     content: string
 }
+
+export interface ArticleDTOProps {
+    id: number,
+    title: string,
+    description: string,
+}
