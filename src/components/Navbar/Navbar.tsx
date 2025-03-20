@@ -2,24 +2,28 @@ import React from "react";
 import { Link } from "react-router-dom";
 import githubIcon from "../../assets/icons/Github.svg";
 import arrowIcon from "../../assets/icons/arrowicon.svg";
-import { useAuth } from '../../Auth/AuthProvider'
-import webIcon from "../../assets/icons/webIconSVG.svg"
+import { useAuth } from "../../Auth/AuthProvider";
+import webIcon from "../../assets/icons/webIconSVG.svg";
 
 const Navbar = () => {
-    const auth = useAuth();
+  const auth = useAuth();
   return (
     <nav className="relative z-50 font-roboto flex justify-between h-24 items-center py-5 ">
-      <img className="ml-16 max-w-56" src={webIcon} alt="bild" />
+      <Link to="/">
+        <img className="ml-16 max-w-56" src={webIcon} alt="bild" />
+      </Link>
       <div className="flex w-1/2 justify-evenly items-center capitalize">
         <Link className="hover:underline" to="/" replace>
           startsida
         </Link>
         <div className="group relative flex border-2 border-footerBlue rounded-lg px-3 py-1 ">
-          Testa algoritmen <img className="ml-2" src={arrowIcon} alt="" />
+          <Link to="testa-algoritm" className="relative flex items-center z-10">
+            Testa algoritmen <img className="ml-2 w-2" src={arrowIcon} alt="" />
+          </Link>
           <div className="absolute w-full left-0 top-0 hidden group-hover:block">
             <ul className=" w-full mt-10 hidden group-hover:block bg-white px-3 py-2 capitalize">
               <li>
-                <Link to="testa-algoritm">Testa algoritmen</Link>
+                <Link to="#">nånting</Link>
               </li>
               <li>
                 <Link to="#">nånting</Link>
@@ -36,15 +40,15 @@ const Navbar = () => {
         <Link className="hover:underline" to="laroportal">
           Läroportal
         </Link>
-        <Link className="hover:underline" to="#">
+        <Link className="hover:underline" to="about-us">
           Om projektet
         </Link>
-        {auth.token && (<span>inloggad</span>)}
-
+        {auth.token && <span>inloggad</span>}
       </div>
       <Link
         className="mr-32 bg-black text-white flex gap-2 py-2 px-4 rounded-[10px]"
-        to={"https://github.com/"}
+        to={"https://github.com/Emilaberg/datacentralen"}
+        target="_blank"
       >
         <span className="hover:underline">Github</span>
         <img src={githubIcon} alt="github icon" />

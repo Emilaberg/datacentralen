@@ -4,7 +4,7 @@ import TeachingMaterialsContainer from "../../components/Laroportal/TeachingMate
 
 const Index = () => {
   return (
-    <section className="bg-blanchOrange">
+    <section>
       <HeroBanner />
       <section className="flex items-center justify-center mb-50">
         <TeachingMaterialsContainer />

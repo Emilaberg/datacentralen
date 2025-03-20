@@ -24,6 +24,7 @@ const TeachingCard: React.FC<CardComponentProps> = ({
 }) => {
   const navigate = useNavigate();
   const RouteToText = (link: string | undefined) => {
+    console.log(link)
     if (link === undefined) {
       return;
     }
