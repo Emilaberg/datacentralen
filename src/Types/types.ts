@@ -12,3 +12,13 @@ export interface ProviderProps {
     login (data: LoginType ): void,
     logout() :void,
 }
+
+export interface ArticleProps {
+    id: number,
+    title: string,
+    author: string,
+    posted: Date,
+    lastEdited: Date,
+    likes: number,
+    content: string
+}
