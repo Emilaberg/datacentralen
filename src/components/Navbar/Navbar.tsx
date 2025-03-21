@@ -17,10 +17,10 @@ const Navbar = () => {
         <Link className="hover:underline" to="/" replace>
           startsida
         </Link>
-        <div className="group relative flex border-2 border-footerBlue rounded-lg px-3 py-1 ">
+        <Link to="testa-algoritm" className="group relative flex border-2 border-footerBlue rounded-lg px-3 py-1 ">
           Testa algoritmen <img className="ml-2" src={arrowIcon} alt="" />
           <Submenu/>
-        </div>
+        </Link>
         <Link className="hover:underline" to="laroportal">
           Läroportal
         </Link>
