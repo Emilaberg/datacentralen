@@ -41,7 +41,7 @@ const TeachingCard: React.FC<CardComponentProps> = ({
       <div className="w-48 h-6 bg-white rounded-xl flex items-center justify-center">
         <p
           className="text-sm font-extrabold"
-          style={{ color: `${gradientColor2}` }}
+          style={{ color: `${gradientColor1}` }}
         >
           {algorithmType}
         </p>

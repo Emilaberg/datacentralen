@@ -3,7 +3,7 @@ import HeroBanner from "../../components/Herobanner/HeroBanner";
 import TeachingMaterialsContainer from "../../components/Laroportal/TeachingMaterialsContainer";
 import ApiService from "../../Services/ApiService";
 import { useQuery } from "@tanstack/react-query";
-import { ArticleProps, ArticleCardDTOProps } from "../../Types/types";
+import { ArticleProps } from "../../Types/types";
 
 const Index = () => {
   //exempel på hur man kan hämta och använda useQuery
@@ -20,7 +20,7 @@ const Index = () => {
       queryKey: ["articlesCard"],
     }
   );
-  console.log(articlesCardData);
+
   return (
     <section>
       <HeroBanner />
