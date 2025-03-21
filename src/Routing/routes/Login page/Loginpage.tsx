@@ -13,7 +13,7 @@ const Loginpage = () => {
   return (
     <section className="bg-linear-to-br from-0% from-[#E08B2C] to-100% to-[#FF5BB5] w-full h-screen flex items-center justify-center ">
       <section className="bg-white h-1/2 w-[1200px] flex items-center shadow-2xl">
-        <div className="relative bg-amber-200 w-3/5 h-full overflow-hidden">
+        <div className="relative  w-3/5 h-full overflow-hidden">
           <img src={webIcon} alt="" className="relative z-20 w-60 mt-5 ml-10" />
           <div className="w-[750px] h-[750px] bg-linear-to-br from-0% from-[#EEB87D] to-70% to-[#FFAD53] rounded-full absolute right-10 bottom-1/3 shadow-2xl z-0 flex justify-center items-center">
             <div className=" mt-20">
