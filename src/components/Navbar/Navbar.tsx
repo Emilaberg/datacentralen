@@ -7,10 +7,12 @@ import webIcon from "../../assets/icons/webIconSVG.svg"
 import Submenu from "./Submenu";
 
 const Navbar = () => {
-    const auth = useAuth();
+  const auth = useAuth();
   return (
     <nav className="relative z-50 font-roboto flex justify-between h-24 items-center py-5 ">
-      <img className="ml-16 max-w-56" src={webIcon} alt="bild" />
+      <Link to="/">
+        <img className="ml-16 max-w-56" src={webIcon} alt="bild" />
+      </Link>
       <div className="flex w-1/2 justify-evenly items-center capitalize">
         <Link className="hover:underline" to="/" replace>
           startsida
@@ -22,15 +24,15 @@ const Navbar = () => {
         <Link className="hover:underline" to="laroportal">
           Läroportal
         </Link>
-        <Link className="hover:underline" to="#">
+        <Link className="hover:underline" to="about-us">
           Om projektet
         </Link>
-        {auth.token && (<span>inloggad</span>)}
-
+        {auth.token && <span>inloggad</span>}
       </div>
       <Link
         className="mr-32 bg-black text-white flex gap-2 py-2 px-4 rounded-[10px]"
-        to={"https://github.com/"}
+        to={"https://github.com/Emilaberg/datacentralen"}
+        target="_blank"
       >
         <span className="hover:underline">Github</span>
         <img src={githubIcon} alt="github icon" />

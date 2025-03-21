@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const HeroBanner = () => {
   return (
@@ -14,12 +15,12 @@ const HeroBanner = () => {
         </h1>
       </article>
       <article className="relative z-10 flex justify-between w-1/3 font-semibold">
-        <button className="py-2 px-3 hover:text-white hover:bg-[#A0DABA] rounded-xl hover:border hover:border-black transition-colors ease-in duration-100">
+        <Link to="testa-algoritm" className="py-2 px-3 hover:text-white hover:bg-[#A0DABA] rounded-xl hover:border hover:border-black transition-colors ease-in duration-100">
           Testa en Algoritm
-        </button>
-        <button className="py-2 px-3 hover:text-white hover:bg-[#A0DABA] rounded-xl hover:border hover:border-black">
+        </Link>
+        <Link to="laroportal" className="py-2 px-3 hover:text-white hover:bg-[#A0DABA] rounded-xl hover:border hover:border-black">
           Läs mer
-        </button>
+        </Link>
       </article>
     </section>
   );
