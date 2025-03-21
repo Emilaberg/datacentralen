@@ -6,15 +6,13 @@ import AuthProvider from "../../Auth/AuthProvider";
 
 const Layout = () => {
   return (
-    <AuthProvider>
-      <section className="flex flex-col min-h-screen">
-        <Navbar />
-        <Outlet/>
-        {/* {children} */}
+    <section className="flex flex-col min-h-screen">
+      <Navbar />
+      <Outlet />
+      {/* {children} */}
 
-        <Footer />
-      </section>
-    </AuthProvider>
+      <Footer />
+    </section>
   );
 };
 

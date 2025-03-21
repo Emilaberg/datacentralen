@@ -2,13 +2,27 @@ import React, { useState } from "react";
 import webIcon from "../../../assets/icons/webIconSVG.svg";
 import userIcon from "../../../assets/icons/userIcon.svg";
 import passwordIcon from "../../../assets/icons/passwordIcon.svg";
+import { useAuth } from "../../../Auth/AuthProvider";
+const validNames = ["admin"];
+const validpWord = ["admin123"];
 
 const Loginpage = () => {
+  const auth = useAuth();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     console.log(username + " " + password);
+    
+
+    if(validNames.includes(username) && validpWord.includes(password)) {
+      console.log("first")
+      auth.login({email: username, password: password})
+
+
+    }
+
+    
   };
   return (
     <section className="bg-linear-to-br from-0% from-[#E08B2C] to-100% to-[#FF5BB5] w-full h-screen flex items-center justify-center ">
@@ -48,7 +62,7 @@ const Loginpage = () => {
                     className="px-6 border-b-1 border-[#E08B2C] text-white w-full h-full py-2 text-lg font-bold"
                     type="text"
                     name=""
-                    id=""
+                    id="username"
                   />
                 </span>
               </div>
@@ -64,7 +78,7 @@ const Loginpage = () => {
                     className="px-6 border-b-1 border-[#E08B2C] text-[#E08B2C] w-full py-2 text-lg font-bold"
                     type="password"
                     name=""
-                    id=""
+                    id="password"
                   />
                 </span>
                 <h3>Glömt lösenord</h3>
@@ -74,6 +88,7 @@ const Loginpage = () => {
                 type="button"
                 onClick={() => handleSubmit()}
                 className="bg-[#E08B2C] text-white font-bold text-lg px-4 py-1 w-fit mx-auto hover:bg-[#f69c34] cursor-pointer hover:rounded-2xl transition-all ease-in-out"
+                
               >
                 logga in
               </button>
