@@ -24,7 +24,7 @@ const TeachingCard: React.FC<CardComponentProps> = ({
 }) => {
   const navigate = useNavigate();
   const RouteToText = (link: string | undefined) => {
-    console.log(link)
+    console.log(link);
     if (link === undefined) {
       return;
     }
@@ -39,7 +39,10 @@ const TeachingCard: React.FC<CardComponentProps> = ({
       }}
     >
       <div className="w-48 h-6 bg-white rounded-xl flex items-center justify-center">
-        <p className="text-sm" style={{ color: `${gradientColor1}` }}>
+        <p
+          className="text-sm font-extrabold"
+          style={{ color: `${gradientColor2}` }}
+        >
           {algorithmType}
         </p>
       </div>
