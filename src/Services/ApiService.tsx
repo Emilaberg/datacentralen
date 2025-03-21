@@ -34,11 +34,18 @@ const ApiService = () => {
     return data;
   };
 
+  const ArticlesDTO = async () => {
+    const data = await ApiCaller("https://localhost:7033/api/Article/TitleDescription");
+
+    return data;
+  }
+
 
   //bygg på med Fetch anrop
   
   return {
     Articles,
+    ArticlesDTO
   };
 };
 

@@ -4,6 +4,7 @@ import githubIcon from "../../assets/icons/Github.svg";
 import arrowIcon from "../../assets/icons/arrowicon.svg";
 import { useAuth } from '../../Auth/AuthProvider'
 import webIcon from "../../assets/icons/webIconSVG.svg"
+import Submenu from "./Submenu";
 
 const Navbar = () => {
     const auth = useAuth();
@@ -16,22 +17,7 @@ const Navbar = () => {
         </Link>
         <div className="group relative flex border-2 border-footerBlue rounded-lg px-3 py-1 ">
           Testa algoritmen <img className="ml-2" src={arrowIcon} alt="" />
-          <div className="absolute w-full left-0 top-0 hidden group-hover:block">
-            <ul className=" w-full mt-10 hidden group-hover:block bg-white px-3 py-2 capitalize">
-              <li>
-                <Link to="testa-algoritm">Testa algoritmen</Link>
-              </li>
-              <li>
-                <Link to="#">nånting</Link>
-              </li>
-              <li>
-                <Link to="#">nånting</Link>
-              </li>
-              <li>
-                <Link to="#">nånting</Link>
-              </li>
-            </ul>
-          </div>
+          <Submenu/>
         </div>
         <Link className="hover:underline" to="laroportal">
           Läroportal
