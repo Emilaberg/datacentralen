@@ -8,24 +8,24 @@ import linkedinIcon from "../../assets/icons/linkedin.svg"
 import { useAuth } from '../../Auth/AuthProvider'
 
 const validNames = ["admin"];
-const validpWord = ["admin123"]
+const validpWord = ["admin123"];
 
 
 const Footer = () => {
 
     
-    const auth = useAuth();
-    const [fName, setName] = useState("");
-    const [pWord, setpWord] = useState("");
+    // const auth = useAuth();
+    // const [fName, setName] = useState("");
+    // const [pWord, setpWord] = useState("");
 
 
-    const handleSubmit = (e: any) => {
-        e.preventDefault();
-        if(validNames.includes(fName) && validpWord.includes(pWord)) auth.login({email:fName, password: pWord})
-        console.log(fName + " " + pWord);
-    }
+    // const handleSubmit = (e: any) => {
+    //     e.preventDefault();
+    //     if(validNames.includes(fName) && validpWord.includes(pWord)) auth.login({email:fName, password: pWord})
+    //     console.log(fName + " " + pWord);
+    // }
   return (
-    <footer className='flex justify-between items-center mt-auto h-56 bg-footerBlue w-full py-9 px-20'>
+    <footer className='flex justify-center items-center mt-auto h-56 bg-footerBlue w-full py-9 px-20'>
         <section className='flex w-1/2 justify-between h-full'>
             <img src={footerImage} alt="bild" />
             <ul className='mr-10 flex flex-col justify-evenly'>
@@ -50,7 +50,7 @@ const Footer = () => {
 
         </section>
 
-        <section>
+        {/* <section>
             {auth.token && (<div> du är inloggad <br /> token: {auth.token} <button onClick={auth.logout}>logout</button></div>)}
             {auth.token === "" && (
                 <div>
@@ -63,7 +63,7 @@ const Footer = () => {
                     </form>
                 </div>
             )}
-        </section>
+        </section> */}
         
         
     </footer>
