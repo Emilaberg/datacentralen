@@ -50,7 +50,7 @@ const TeachingCard: React.FC<CardComponentProps> = ({
         <h1 className="text-6xl font-mono">{algorithmName}</h1>
       </div>
       <div className="mt-5 w-full">
-        <p className="font-sans font-medium text-[#837868] text-xl tracking-tight">
+        <p className="font-sans font-medium text-[#837868] text-lg tracking-tight">
           {algorithmDescription}
         </p>
       </div>

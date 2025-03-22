@@ -57,7 +57,11 @@ const TeachingMaterialsContainer = ({
       <div className="max-w-[1350px] h-[1400px] px-4 border border-dashed border-black flex justify-center pt-15">
         <div className="grid grid-cols-2 h-72 gap-15">
           <AnimatePresence key={sortStatus}>
-            {isLoading && <div>Loading...</div>}
+            {isLoading && (
+              <div className="flex w-full h-full justify-center items-center">
+                Loading...
+              </div>
+            )}
             {filteredCards?.slice(0, 6).map((card, index) => (
               <motion.div
                 key={index}
