@@ -12,17 +12,28 @@ const Loginpage = () => {
   const [password, setPassword] = useState("");
 
   const handleSubmit = async () => {
-    console.log(username + " " + password);
-    
+    try {
+      const response = await fetch("https://localhost:7033/api/Auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ userName: username, password }),
+      });
 
-    if(validNames.includes(username) && validpWord.includes(password)) {
-      console.log("first")
-      auth.login({email: username, password: password})
+      if (!response.ok) {
+        console.error("Login failed");
+        return;
+      }
 
+      const token = await response.text();
+      localStorage.setItem("token", token);
 
+      auth.login({ email: username, password });
+      console.log("✅ Token stored in localStorage:", token);
+    } catch (error) {
+      console.error("Login error:", error);
     }
-
-    
   };
   return (
     <section className="bg-linear-to-br from-0% from-[#E08B2C] to-100% to-[#FF5BB5] w-full h-screen flex items-center justify-center ">
@@ -72,7 +83,7 @@ const Loginpage = () => {
                   Lösenord
                 </label>
                 <span className="relative flex items-center">
-                    <img className="absolute w-4" src={passwordIcon} alt="" />
+                  <img className="absolute w-4" src={passwordIcon} alt="" />
                   <input
                     onChange={(e) => setPassword(e.target.value)}
                     className="px-6 border-b-1 border-[#E08B2C] text-[#E08B2C] w-full py-2 text-lg font-bold"
@@ -88,7 +99,6 @@ const Loginpage = () => {
                 type="button"
                 onClick={() => handleSubmit()}
                 className="bg-[#E08B2C] text-white font-bold text-lg px-4 py-1 w-fit mx-auto hover:bg-[#f69c34] cursor-pointer hover:rounded-2xl transition-all ease-in-out"
-                
               >
                 logga in
               </button>

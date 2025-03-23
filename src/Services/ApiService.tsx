@@ -9,43 +9,45 @@ const ApiService = () => {
   const ApiCaller = async (url: string) => {
     await new Promise((resolve) => setTimeout(resolve, 1000));
 
-    let response: Response;
-
     try {
-      response = await fetch(url);
+      const response = await fetch(url);
+
+      if (!response.ok) {
+        console.error("Bad response:", response.statusText);
+        return [];
+      }
 
       const data = await response.json();
-      //används ej
-      let messageObject: MessageProps = {
-        content: data,
-        message: response.statusText,
-      };
 
-    //   return messageObject;
+      // Optional structure
+      // const messageObject: MessageProps = {
+      //   content: data,
+      //   message: response.statusText,
+      // };
+
       return data;
     } catch (error) {
-      console.log(error, "error message: check Api");
+      console.error("API fetch error:", error);
+      return []; // ✅ Prevents React Query from crashing
     }
   };
 
   const Articles = async () => {
     const data = await ApiCaller("https://localhost:7033/api/Article");
-
     return data;
   };
 
   const ArticlesDTO = async () => {
-    const data = await ApiCaller("https://localhost:7033/api/Article/TitleDescription");
-
+    const data = await ApiCaller(
+      "https://localhost:7033/api/Article/TitleDescription"
+    );
     return data;
-  }
+  };
 
-
-  //bygg på med Fetch anrop
-  
+  // ✅ Final return inside ApiService function
   return {
     Articles,
-    ArticlesDTO
+    ArticlesDTO,
   };
 };
 
