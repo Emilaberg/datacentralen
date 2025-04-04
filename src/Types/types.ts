@@ -36,6 +36,7 @@ export type selectedAlgorithmTypes = "bubble" | "insertion" | "none";
 
 export interface AlgorithmContextType {
     array: number[],
+    defaultArray: number[],
     selectedAlgorithm: selectedAlgorithmTypes,
     timeComplexity: string | undefined,
     amountOfIterations: number ,
@@ -51,7 +52,6 @@ export interface AlgorithmContextType {
     
     bubbleSort(arr:number[]): Promise<void>,
     selectionSort(arr:number[]): Promise<void>,
-    
 }
 
 export interface AlgorithmProviderProps {

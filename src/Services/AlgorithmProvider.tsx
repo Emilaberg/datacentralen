@@ -24,6 +24,9 @@ const AlgorithmProvider = ({
   const [array, updateArray] = useState([
     9, 8, 7, 6, 5, 4, 3, 2, 1, 23, 4, 5, 7654, 7, 3, 356, 23, 46, 743, 2,
   ]);
+  const [defaultArray] = useState([
+    9, 8, 7, 6, 5, 4, 3, 2, 1, 23, 4, 5, 7654, 7, 3, 356, 23, 46, 743, 2,
+  ]);
 
   async function bubbleSort(arr: number[]) {
     let iterations: number = 0
@@ -82,6 +85,7 @@ const AlgorithmProvider = ({
   const ContextValues = useMemo(
     () => ({
       array,
+      defaultArray,
       selectedAlgorithm,
       timeComplexity,
       amountOfIterations,
@@ -99,6 +103,7 @@ const AlgorithmProvider = ({
     }),
     [
       array,
+      defaultArray,
       selectedAlgorithm,
       timeComplexity,
       amountOfIterations,

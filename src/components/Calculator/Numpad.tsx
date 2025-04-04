@@ -60,23 +60,28 @@ const Numpad = () => {
             break;
     }
   }
+
+  const reset = () => {
+    AlgorithmProvider.updateArray([...AlgorithmProvider.defaultArray])
+  }
+  
   return (
     <>
       <article>
         <div className="mb-2 w-72 flex justify-between text-[#777777]">
           <button
             type="button"
-            onClick={() => trigger("rensa")}
+            onClick={() => AlgorithmProvider.updateArray([])}
             className="hover:underline cursor-pointer"
           >
             rensa
           </button>
           <button
             type="button"
-            onClick={() => trigger("slumpa")}
+            onClick={reset}
             className="hover:underline cursor-pointer"
           >
-            slumpa
+            reset / slumpa
           </button>
         </div>
         <div className="w-72 grid grid-cols-3 grid-rows-4 gap-3 justify-items-center">
