@@ -36,24 +36,24 @@ const AlgorithmProvider = ({
           [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]];
         }
       }
+      setAmountOfIterations(amountOfIterations => amountOfIterations + 1); // addera iterationer för ui
       iterations++
-      setAmountOfIterations(amountOfIterations + 1); // addera iterationer för ui
+      console.log(amountOfIterations);
 
       updateArray([...arr]); //uppdatera arrayen för varje iteration
 
     }
     const endTime = Date.now();
-    
     const timeDiff = ((endTime - startTime) - (iterations*iterationSpeed));
     setTimeElapsed(timeDiff);
     setTimeComplexity("O(n²)");
-
-
   }
 
   async function selectionSort(arr: number[]) {
+    let iterations: number = 0
     const n = arr.length;
 
+    const startTime = Date.now();
     for (let i = 0; i < n - 1; i++) {
       await new Promise((resolve) => setTimeout(resolve, iterationSpeed));
       let minIndex = i;
@@ -65,9 +65,16 @@ const AlgorithmProvider = ({
       }
       // Swap the found minimum element with the first unsorted element
       [arr[i], arr[minIndex]] = [arr[minIndex], arr[i]];
+
+      iterations++
+      setAmountOfIterations(amountOfIterations => amountOfIterations + 1);
       updateArray([...arr]);
     }
-    // return arr;
+    const endTime = Date.now();
+
+    const timeDiff = ((endTime - startTime) - (iterations*iterationSpeed));
+    setTimeElapsed(timeDiff);
+    setTimeComplexity("O(n²)");
   }
 
   const ContextValues = useMemo(

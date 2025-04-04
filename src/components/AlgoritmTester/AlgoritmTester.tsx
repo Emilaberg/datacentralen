@@ -5,12 +5,13 @@ import { useAlgorithm } from "../../Services/AlgorithmProvider";
 const AlgoritmTester = () => {
   const AlgorithmProvider = useAlgorithm();
 
-  
   return AlgorithmProvider.selectedAlgorithm !== "" ? (
     <>
       <article className="">
         <h2 className="text-lg text-[#777777] font-light">vald algoritm</h2>
-        <h1 className="text-5xl mt-4 mb-3">{AlgorithmProvider.selectedAlgorithm}</h1>
+        <h1 className="text-5xl mt-4 mb-3">
+          {AlgorithmProvider.selectedAlgorithm}
+        </h1>
         <h2 className="text-lg text-[#777777] font-light ">
           tidskomplexitet: {AlgorithmProvider.timeComplexity}
         </h2>
@@ -24,13 +25,40 @@ const AlgoritmTester = () => {
 
             <h3 className="flex text-lg font-light">
               antal <br /> förflyttnigar:{" "}
-              <span className="ml-auto mt-auto"> {AlgorithmProvider.amountOfIterations === 0 ? "-" : AlgorithmProvider.amountOfIterations} steg</span>
+              <span className="ml-auto mt-auto">
+                {" "}
+                {AlgorithmProvider.amountOfIterations === 0
+                  ? "-"
+                  : AlgorithmProvider.amountOfIterations}{" "}
+                steg
+              </span>
             </h3>
             <hr className="my-2" />
 
             <h3 className="flex text-lg font-light">
-              tid: <span className="ml-auto mt-auto">{AlgorithmProvider.timeElapsed} ms</span>
+              tid:{" "}
+              <span className="ml-auto mt-auto">
+                {AlgorithmProvider.timeElapsed} ms
+              </span>
             </h3>
+          </article>
+
+          <article>
+            <div className="flex gap-2 h-96 mt-7 items-end">
+              {AlgorithmProvider.array.map((item, index) => (
+                <div
+                  key={index}
+                  className={`relative w-4 bg-black`}
+                  style={{
+                    height: `${
+                      (item / 10) * 100 > 100 ? 100 : (item / 10) * 100
+                    }%`,
+                  }}
+                >
+                  <span className="absolute top-full mt-2">{item}</span>
+                </div>
+              ))}
+            </div>
           </article>
         </section>
 
@@ -39,25 +67,28 @@ const AlgoritmTester = () => {
         </section>
       </section>
 
-      <section className="flex flex-col items-center">
+      <section className="flex flex-col items-center mt-20">
         <div className="flex gap-2 ">
-        {AlgorithmProvider.array.map((item,index) => (
-          <span key={index} className="border-2 border-black px-3 py-2">
-            {item}
-          </span>
-        ) )}
-        
+          {AlgorithmProvider.array.map((item, index) => (
+            <span key={index} className="border-2 border-black px-3 py-2">
+              {item}
+            </span>
+          ))}
         </div>
-        <div className="flex gap-2 h-96 mt-2 items-end">
-        {AlgorithmProvider.array.map((item,index) => (
-          <div key={index} className={`relative w-4 bg-black`} style={{height: `${(item/10)*100 > 100 ? 100 :(item/10)*100}%`}}>
-            <span className="absolute top-full">{item}</span>
-          </div>
-        ) )}
-        </div>
-        {/* <button onClick={() => sortArray(array)} className="border-2 border-black my-6 px-2 py-1 hover:bg-gray-400 cursor-pointer">sort</button> */}
-        <button onClick={() => AlgorithmProvider.bubbleSort(AlgorithmProvider.array)} className="border-2 border-black my-6 px-2 py-1 hover:bg-gray-400 cursor-pointer">sort bubblesort</button>
-        <button onClick={() => AlgorithmProvider.selectionSort(AlgorithmProvider.array)} className="border-2 border-black my-6 px-2 py-1 hover:bg-gray-400 cursor-pointer">sort selectionsort</button>
+        <button
+          onClick={() => AlgorithmProvider.bubbleSort(AlgorithmProvider.array)}
+          className="border-2 border-black my-6 px-2 py-1 hover:bg-gray-400 cursor-pointer"
+        >
+          sort bubblesort
+        </button>
+        <button
+          onClick={() =>
+            AlgorithmProvider.selectionSort(AlgorithmProvider.array)
+          }
+          className="border-2 border-black my-6 px-2 py-1 hover:bg-gray-400 cursor-pointer"
+        >
+          sort selectionsort
+        </button>
       </section>
     </>
   ) : (
