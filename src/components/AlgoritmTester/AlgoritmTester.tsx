@@ -5,7 +5,7 @@ import { useAlgorithm } from "../../Services/AlgorithmProvider";
 const AlgoritmTester = () => {
   const AlgorithmProvider = useAlgorithm();
 
-  return AlgorithmProvider.selectedAlgorithm !== "" ? (
+  return AlgorithmProvider.selectedAlgorithm !== "none" ? (
     <>
       <article className="">
         <h2 className="text-lg text-[#777777] font-light">vald algoritm</h2>

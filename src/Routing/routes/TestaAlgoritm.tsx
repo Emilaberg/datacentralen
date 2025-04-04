@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import AlgoritmTester from "../../components/AlgoritmTester/AlgoritmTester";
 import AlgorithmProvider from "../../Services/AlgorithmProvider";
+import { selectedAlgorithmTypes } from "../../Types/types";
 // import bubblesort from "../../Algorithms/Bubblesort/bubblesort";
 
 
 const TestaAlgoritm = () => {
 
-  const [selectedAlgorithm,setSelectedeAlgorithm] = useState<string>(""); 
+  const [selectedAlgorithm,setSelectedeAlgorithm] = useState<selectedAlgorithmTypes>("none"); 
 
   return (
     <>
@@ -33,17 +34,13 @@ const TestaAlgoritm = () => {
           <span className="mr-10 font-semibold text-3xl">Välj</span>
           <select
             onChange={(e) => setSelectedeAlgorithm(e.target.value)}
-            
             name=""
             id=""
             className="bg-white border border-black rounded-lg h-full px-6"
           >
-            <option value="">- Välj en algoritm -</option>
-            <option value="mergesort">Merge Sort</option>
-            <option value="bubblesort">bubble Sort</option>
-            <option value="insertionsort">Insertion Sort</option>
-            <option value="heapsort">Heap sort</option>
-            <option value="Selectionsort">Selection sort</option>
+            <option value="none">- Välj en algoritm -</option>
+            <option value="bubble">bubble Sort</option>
+            <option value="insertion">Insertion Sort</option>
           </select>
         </article>
       </section>

@@ -19,6 +19,8 @@ const AlgorithmProvider = ({
 
   const [timeElapsed, setTimeElapsed] = useState<number>(0);
   
+  const [previewInput, setPreviewInput] = useState<string>("");
+
   const [array, updateArray] = useState([
     9, 8, 7, 6, 5, 4, 3, 2, 1, 23, 4, 5, 7654, 7, 3, 356, 23, 46, 743, 2,
   ]);
@@ -85,10 +87,13 @@ const AlgorithmProvider = ({
       amountOfIterations,
       iterationSpeed,
       timeElapsed,
+      previewInput,
+      setPreviewInput,
       setTimeElapsed,
       setTimeComplexity,
       setAmountOfIterations,
       setIterationSpeed,
+      updateArray,
       bubbleSort,
       selectionSort,
     }),
@@ -99,10 +104,13 @@ const AlgorithmProvider = ({
       amountOfIterations,
       iterationSpeed,
       timeElapsed,
+      previewInput,
+      setPreviewInput,
       setTimeElapsed,
       setTimeComplexity,
       setAmountOfIterations,
       setIterationSpeed,
+      updateArray,
       bubbleSort,
       selectionSort,
     ]
