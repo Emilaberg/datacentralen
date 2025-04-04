@@ -1,20 +1,30 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { useAlgorithm } from '../../Services/AlgorithmProvider';
+import { iterationSpeedTypes } from '../../Types/types';
 
 const Calculator = () => {
+    const AlgorithmProvider = useAlgorithm();
+
+    const [activeSpeed,setActiveSpeed] = useState<string>("b1");
 
     const trigger = (value: string | number) => {
         console.log(value);
     }
 
+    const changeSpeed =  (speed:iterationSpeedTypes,btn: "1x" | "2x" | "3x" | '4x') => {
+        setActiveSpeed(btn)
+        AlgorithmProvider.setIterationSpeed(speed)
+    }
   return (
     
     <section className='flex flex-col items-center my-2 gap-5'>
         <section className='w-full xl:w-[500px] px-10'>
             <div className='flex justify-end gap-2 '>
                 <h2 className='text-[#777777]'>hastighet:</h2>
-                <button onClick={() => trigger("1x")} type='button' className='hover:underline cursor-pointer text-lg  font-light'>1x</button>
-                <button onClick={() => trigger("2x")} type='button' className='hover:underline cursor-pointer text-[#777777] text-lg  font-thin'>2x</button>
-                <button onClick={() => trigger("3x")} type='button' className='hover:underline cursor-pointer text-[#777777] text-lg  font-thin'>3x</button>
+                <button onClick={() => changeSpeed(1000,'1x')} type='button' className={`hover:underline active:text-black cursor-pointer ${activeSpeed === '1x' ? 'text-black font-medium': 'text-[#777777] font-thin'} text-lg `}>1x</button>
+                <button onClick={() => changeSpeed(500,'2x')} type='button' className={`hover:underline active:text-black cursor-pointer ${activeSpeed === '2x' ? 'text-black font-medium': 'text-[#777777] font-thin'} text-lg  `}>2x</button>
+                <button onClick={() => changeSpeed(250,'3x')} type='button' className={`hover:underline active:text-black cursor-pointer ${activeSpeed === '3x' ? 'text-black font-medium': 'text-[#777777] font-thin'} text-lg  `}>3x</button>
+                <button onClick={() => changeSpeed(100,'4x')} type='button' className={`hover:underline active:text-black cursor-pointer ${activeSpeed === '4x' ? 'text-black font-medium': 'text-[#777777] font-thin'} text-lg  `}>4x</button>
             </div>
             {/* screen */}
             <article className='mt-3 px-8 py-7 border border-solid border-[#CECECE] rounded-xl flex gap-4 items-center'>
