@@ -67,29 +67,6 @@ const AlgoritmTester = () => {
         </section>
       </section>
 
-      <section className="flex flex-col items-center mt-20">
-        <div className="flex gap-2 ">
-          {AlgorithmProvider.array.map((item, index) => (
-            <span key={index} className="border-2 border-black px-3 py-2">
-              {item}
-            </span>
-          ))}
-        </div>
-        <button
-          onClick={() => AlgorithmProvider.bubbleSort(AlgorithmProvider.array)}
-          className="border-2 border-black my-6 px-2 py-1 hover:bg-gray-400 cursor-pointer"
-        >
-          sort bubblesort
-        </button>
-        <button
-          onClick={() =>
-            AlgorithmProvider.selectionSort(AlgorithmProvider.array)
-          }
-          className="border-2 border-black my-6 px-2 py-1 hover:bg-gray-400 cursor-pointer"
-        >
-          sort selectionsort
-        </button>
-      </section>
     </>
   ) : (
     "välj en algoritm"
