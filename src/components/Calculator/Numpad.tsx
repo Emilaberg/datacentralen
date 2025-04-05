@@ -14,11 +14,12 @@ const Numpad = () => {
     const input = AlgorithmProvider.previewInput;
 
     //remove added number
-    if (input === "") {
+    if (input === "-") {
         const arrayInput = AlgorithmProvider.array;
         arrayInput.pop();
 
       AlgorithmProvider.updateArray([...arrayInput])
+      return;
     }
     const x = input.split("");
     x.pop();
@@ -37,12 +38,15 @@ const Numpad = () => {
   };
 
   const saveNumberToArray = () => {
-    const array = AlgorithmProvider.array;
     const inputToSave = AlgorithmProvider.previewInput;
+    if(inputToSave === "-") return;
+
+    const array = AlgorithmProvider.array;
     const parsedInput = parseInt(inputToSave);
     array.push(parsedInput);
 
     AlgorithmProvider.updateArray([...array]);
+    AlgorithmProvider.setPreviewInput("-");
   }
 
   const runSelectedAlgorithm = () => {
