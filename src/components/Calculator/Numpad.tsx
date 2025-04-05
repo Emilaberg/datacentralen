@@ -1,5 +1,6 @@
 import React from "react";
 import { useAlgorithm } from "../../Services/AlgorithmProvider";
+const MINIMUM_COUNT = 2;
 
 const Numpad = () => {
   const AlgorithmProvider = useAlgorithm();
@@ -39,14 +40,14 @@ const Numpad = () => {
 
   const saveNumberToArray = () => {
     const inputToSave = AlgorithmProvider.previewInput;
-    if(inputToSave === "-") return;
+    if(inputToSave === "") return;
 
     const array = AlgorithmProvider.array;
     const parsedInput = parseInt(inputToSave);
     array.push(parsedInput);
 
     AlgorithmProvider.updateArray([...array]);
-    AlgorithmProvider.setPreviewInput("-");
+    AlgorithmProvider.setPreviewInput("");
   }
 
   const runSelectedAlgorithm = () => {
@@ -69,13 +70,17 @@ const Numpad = () => {
     AlgorithmProvider.updateArray([...AlgorithmProvider.defaultArray])
   }
   
+  const clear = () => {
+    AlgorithmProvider.updateArray([]);
+    AlgorithmProvider.setPreviewInput("");
+  }
   return (
     <>
       <article>
         <div className="mb-2 w-72 flex justify-between text-[#777777]">
           <button
             type="button"
-            onClick={() => AlgorithmProvider.updateArray([])}
+            onClick={clear}
             className="hover:underline cursor-pointer"
           >
             rensa
@@ -179,21 +184,24 @@ const Numpad = () => {
         <button
           type="button"
           onClick={saveNumberToArray}
-          className="cursor-pointer hover:bg-[#f6aa54] w-18 h-16 rounded-lg text-lg text-white  bg-[#F9B66B]"
+          disabled={AlgorithmProvider.previewInput === "" ? true : false}
+          className="cursor-pointer disabled:bg-[#f6aa54]/20 hover:bg-[#f6aa54] w-18 h-16 rounded-lg text-lg text-white  bg-[#F9B66B]"
         >
           spara
         </button>
         <button
           type="button"
+          disabled={AlgorithmProvider.array.length < MINIMUM_COUNT ? true : false}
           onClick={runSelectedAlgorithm}
-          className="cursor-pointer hover:bg-[#50a045] w-18 h-16 rounded-lg text-2xl text-white font-semibold bg-[#62A958]"
+          className="cursor-pointer disabled:bg-[#50a045]/20 hover:bg-[#50a045] w-18 h-16 rounded-lg text-2xl text-white font-semibold bg-[#62A958]"
         >
           GO
         </button>
         <button
           type="button"
+          disabled={AlgorithmProvider.array.length === 0 ? true : false}
           onClick={popLastNumber}
-          className="cursor-pointer hover:bg-[#da4f47] w-18 h-16 rounded-lg text-lg bg-[#e0655e] text-white"
+          className="cursor-pointer disabled:bg-[#da4f47]/20 hover:bg-[#da4f47] w-18 h-16 rounded-lg text-lg bg-[#e0655e] text-white"
         >
           radera
         </button>
