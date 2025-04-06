@@ -1,14 +1,20 @@
 import React, { useEffect, useState } from "react";
 import AlgoritmTester from "../../components/AlgoritmTester/AlgoritmTester";
-import AlgorithmProvider from "../../Services/AlgorithmProvider";
+import AlgorithmProvider, { useAlgorithm } from "../../Services/AlgorithmProvider";
 import { selectedAlgorithmTypes } from "../../Types/types";
 // import bubblesort from "../../Algorithms/Bubblesort/bubblesort";
 
 
 const TestaAlgoritm = () => {
+  // const [selectedAlgorithm,setSelectedeAlgorithm] = useState<selectedAlgorithmTypes>(selectedAlgorithmTypes.none); 
+  const algorithmProvider = useAlgorithm();
 
-  const [selectedAlgorithm,setSelectedeAlgorithm] = useState<selectedAlgorithmTypes>("none"); 
-
+  const changeSelectedAlgorithm = (e: React.ChangeEvent) => {
+    const target = e.target as HTMLSelectElement;
+    const value = target.value as selectedAlgorithmTypes
+    algorithmProvider.setSelectedeAlgorithm(value)
+    algorithmProvider.resetAlgorithm();
+  }
   return (
     <>
       <section className="mt-48 flex flex-col items-center">
@@ -33,23 +39,25 @@ const TestaAlgoritm = () => {
         <article className="flex items-center">
           <span className="mr-10 font-semibold text-3xl">Välj</span>
           <select
-            onChange={(e) => setSelectedeAlgorithm(e.target.value)}
+            onChange={(e) => changeSelectedAlgorithm(e)}
             name=""
             id=""
             className="bg-white border border-black rounded-lg h-full px-6"
           >
-            <option value="none">- Välj en algoritm -</option>
-            <option value="bubble">bubble Sort</option>
-            <option value="insertion">Insertion Sort</option>
+            <option value={selectedAlgorithmTypes.none}>- Välj en algoritm -</option>
+            <option value={selectedAlgorithmTypes.bubble}>bubble Sort</option>
+            <option value={selectedAlgorithmTypes.selection}>Selection Sort</option>
           </select>
         </article>
       </section>
 
 
       <section className="mx-20 mb-40 px-12 py-18 border-dashed border-[#8f8f8f] border-2">
-        <AlgorithmProvider selectedAlgorithm={selectedAlgorithm}>
+        {/* <AlgorithmProvider selectedAlgorithm={selectedAlgorithm}>
           <AlgoritmTester />
-        </AlgorithmProvider>
+        </AlgorithmProvider> */}
+        <AlgoritmTester />
+
       </section>
       
     </>

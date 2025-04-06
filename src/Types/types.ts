@@ -30,9 +30,18 @@ export interface ArticleDTOProps {
     title: string,
     description: string,
 }
-export type iterationSpeedTypes = 1000 | 500 | 250 | 100;
+export enum iterationSpeedTypes {
+    FASTER = 100,
+    STANDARD = 250,
+    SLOWER = 500,
+    SlOWEST = 1000
+} 
 
-export type selectedAlgorithmTypes = "bubble" | "insertion" | "none";
+export enum selectedAlgorithmTypes {
+    bubble= "bubble",
+    selection= "selection",
+    none= "none"
+};
 
 export interface AlgorithmContextType {
     array: number[],
@@ -43,6 +52,7 @@ export interface AlgorithmContextType {
     iterationSpeed: number | null,
     timeElapsed: number,
     previewInput: string,
+    setSelectedeAlgorithm: React.Dispatch<React.SetStateAction<selectedAlgorithmTypes>>,
     setPreviewInput: React.Dispatch<React.SetStateAction<string>>,
     setTimeElapsed: React.Dispatch<React.SetStateAction<number>>,
     setTimeComplexity: React.Dispatch<React.SetStateAction<string | undefined>>,
@@ -52,9 +62,11 @@ export interface AlgorithmContextType {
     
     bubbleSort(arr:number[]): Promise<void>,
     selectionSort(arr:number[]): Promise<void>,
+
+    resetAlgorithm(): void;
 }
 
 export interface AlgorithmProviderProps {
     children: ReactNode,
-    selectedAlgorithm: "bubble" | "insertion" | "none";
+    // selectedAlgorithm: selectedAlgorithmTypes;
 }

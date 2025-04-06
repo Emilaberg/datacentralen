@@ -1,5 +1,6 @@
 import React from "react";
 import { useAlgorithm } from "../../Services/AlgorithmProvider";
+import shuffle from "../../tools/Fisher-yates-shuffle/shuffle";
 const MINIMUM_COUNT = 2;
 
 const Numpad = () => {
@@ -15,7 +16,7 @@ const Numpad = () => {
     const input = AlgorithmProvider.previewInput;
 
     //remove added number
-    if (input === "-") {
+    if (input === "") {
         const arrayInput = AlgorithmProvider.array;
         arrayInput.pop();
 
@@ -51,11 +52,14 @@ const Numpad = () => {
   }
 
   const runSelectedAlgorithm = () => {
+    AlgorithmProvider.setAmountOfIterations(0);
+    AlgorithmProvider.setTimeElapsed(0);
+
     switch (AlgorithmProvider.selectedAlgorithm) {
         case "bubble":
             AlgorithmProvider.bubbleSort(AlgorithmProvider.array);
             break;  
-        case "insertion":
+        case "selection":
             AlgorithmProvider.bubbleSort(AlgorithmProvider.array);
             break;  
         case "none":
@@ -74,6 +78,13 @@ const Numpad = () => {
     AlgorithmProvider.updateArray([]);
     AlgorithmProvider.setPreviewInput("");
   }
+  
+  function shuffleArray(): void {
+    const shuffledArray = shuffle(AlgorithmProvider.array);
+
+    AlgorithmProvider.updateArray([...shuffledArray]);
+  }
+
   return (
     <>
       <article>
@@ -90,7 +101,14 @@ const Numpad = () => {
             onClick={reset}
             className="hover:underline cursor-pointer"
           >
-            reset / slumpa
+            reset
+          </button>
+          <button
+            type="button"
+            onClick={shuffleArray}
+            className="hover:underline cursor-pointer"
+          >
+            slumpa
           </button>
         </div>
         <div className="w-72 grid grid-cols-3 grid-rows-4 gap-3 justify-items-center">

@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useMemo, useState } from "react";
-import { AlgorithmContextType, AlgorithmProviderProps, iterationSpeedTypes } from "../Types/types";
+import { AlgorithmContextType, AlgorithmProviderProps, iterationSpeedTypes, selectedAlgorithmTypes } from "../Types/types";
 
 const AlgorithmContext = createContext<AlgorithmContextType | undefined>(
   undefined
@@ -7,7 +7,6 @@ const AlgorithmContext = createContext<AlgorithmContextType | undefined>(
 
 const AlgorithmProvider = ({
   children,
-  selectedAlgorithm,
 }: AlgorithmProviderProps) => {
   const [timeComplexity, setTimeComplexity] = useState<string | undefined>("");
 
@@ -15,18 +14,31 @@ const AlgorithmProvider = ({
     0
   );
 
-  const [iterationSpeed, setIterationSpeed] = useState<iterationSpeedTypes>(1000);
+  const [selectedAlgorithm, setSelectedeAlgorithm] = useState(selectedAlgorithmTypes.none);
+  const [iterationSpeed, setIterationSpeed] = useState<iterationSpeedTypes>(iterationSpeedTypes.STANDARD);
 
   const [timeElapsed, setTimeElapsed] = useState<number>(0);
   
   const [previewInput, setPreviewInput] = useState<string>("");
 
   const [array, updateArray] = useState([
-    9, 8, 7, 6, 5, 4, 3, 2, 1, 23, 4, 5, 7654, 7, 3, 356, 23, 46, 743, 2,
+    9, 8, 7, 6, 5, 4, 3, 2, 1, 23, 4, 5, 75, 7, 3, 356, 23, 46, 743, 2,
   ]);
   const [defaultArray] = useState([
-    9, 8, 7, 6, 5, 4, 3, 2, 1, 23, 4, 5, 7654, 7, 3, 356, 23, 46, 743, 2,
+    9, 8, 7, 6, 5, 4, 3, 2, 1, 23, 4, 5, 75, 7, 3, 356, 23, 46, 743, 2,
   ]);
+
+  /**
+   * resets
+   * tidkomplexitet,all metrics,hastighet
+   */
+  const resetAlgorithm = () => {
+    setTimeComplexity("");
+    setAmountOfIterations(0);
+    setTimeElapsed(0);
+    setIterationSpeed(iterationSpeedTypes.STANDARD);
+  }
+
 
   async function bubbleSort(arr: number[]) {
     let iterations: number = 0
@@ -43,7 +55,6 @@ const AlgorithmProvider = ({
       }
       setAmountOfIterations(amountOfIterations => amountOfIterations + 1); // addera iterationer för ui
       iterations++
-      console.log(amountOfIterations);
 
       updateArray([...arr]); //uppdatera arrayen för varje iteration
 
@@ -92,6 +103,7 @@ const AlgorithmProvider = ({
       iterationSpeed,
       timeElapsed,
       previewInput,
+      setSelectedeAlgorithm,
       setPreviewInput,
       setTimeElapsed,
       setTimeComplexity,
@@ -100,6 +112,7 @@ const AlgorithmProvider = ({
       updateArray,
       bubbleSort,
       selectionSort,
+      resetAlgorithm,
     }),
     [
       array,
@@ -110,6 +123,7 @@ const AlgorithmProvider = ({
       iterationSpeed,
       timeElapsed,
       previewInput,
+      setSelectedeAlgorithm,
       setPreviewInput,
       setTimeElapsed,
       setTimeComplexity,
@@ -118,6 +132,7 @@ const AlgorithmProvider = ({
       updateArray,
       bubbleSort,
       selectionSort,
+      resetAlgorithm,
     ]
   );
 

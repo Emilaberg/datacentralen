@@ -1,11 +1,13 @@
 import React, { useContext } from "react";
 import Calculator from "../Calculator/Calculator";
 import { useAlgorithm } from "../../Services/AlgorithmProvider";
+import { selectedAlgorithmTypes } from "../../Types/types";
+import BarChart from "./BarChart";
 
 const AlgoritmTester = () => {
   const AlgorithmProvider = useAlgorithm();
 
-  return AlgorithmProvider.selectedAlgorithm !== "none" ? (
+  return AlgorithmProvider.selectedAlgorithm !== selectedAlgorithmTypes.none ? (
     <>
       <article className="">
         <h2 className="text-lg text-[#777777] font-light">vald algoritm</h2>
@@ -43,23 +45,7 @@ const AlgoritmTester = () => {
             </h3>
           </article>
 
-          <article>
-            <div className="flex gap-2 h-96 mt-7 items-end">
-              {AlgorithmProvider.array.map((item, index) => (
-                <div
-                  key={index}
-                  className={`relative w-4 bg-black`}
-                  style={{
-                    height: `${
-                      (item / 10) * 100 > 100 ? 100 : (item / 10) * 100
-                    }%`,
-                  }}
-                >
-                  <span className="absolute top-full mt-2">{item}</span>
-                </div>
-              ))}
-            </div>
-          </article>
+          <BarChart/>    
         </section>
 
         <section className="w-1/2 xl:w-1/3">
