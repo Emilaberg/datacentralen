@@ -44,7 +44,7 @@ const AlgoritmTester = () => {
             </h3>
           </article>
 
-          <BarChart/>    
+          <BarChart array={AlgorithmProvider.array}/>    
         </section>
 
         <section className="w-1/2 xl:w-1/3">

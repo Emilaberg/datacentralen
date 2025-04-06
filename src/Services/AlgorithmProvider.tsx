@@ -18,6 +18,8 @@ const AlgorithmProvider = ({ children }: AlgorithmProviderProps) => {
 
   const [isAlgorithmRunning, setIsAlgorithmRunning] = useState<boolean>(false);
 
+  const [showModal, setShowModal] = useState<boolean>(false);
+
   const [selectedAlgorithm, setSelectedeAlgorithm] = useState(
     selectedAlgorithmTypes.none
   );
@@ -143,6 +145,8 @@ const AlgorithmProvider = ({ children }: AlgorithmProviderProps) => {
       timeElapsed,
       previewInput,
       isAlgorithmRunning,
+      showModal,
+      setShowModal,
       setIsAlgorithmRunning,
       setSelectedeAlgorithm,
       setPreviewInput,
@@ -167,6 +171,8 @@ const AlgorithmProvider = ({ children }: AlgorithmProviderProps) => {
       timeElapsed,
       previewInput,
       isAlgorithmRunning,
+      showModal,
+      setShowModal,
       setIsAlgorithmRunning,
       setSelectedeAlgorithm,
       setPreviewInput,

@@ -2,6 +2,8 @@ import { ReactNode } from "react";
 
 export const MINIMUM_COUNT = 4;
 
+export const MAXIMUM_GENERATED_ARRAY_LENGTH = 20;
+export const MINIMUM_ARRAY_VALUE_RANGE = 10;
 export type LoginType = {
   email: string;
   password: string;
@@ -53,6 +55,8 @@ export interface AlgorithmContextType {
   timeElapsed: number;
   previewInput: string;
   isAlgorithmRunning: boolean;
+  showModal: boolean;
+  setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
   setIsAlgorithmRunning: React.Dispatch<React.SetStateAction<boolean>>;
   setSelectedeAlgorithm: React.Dispatch<
     React.SetStateAction<selectedAlgorithmTypes>

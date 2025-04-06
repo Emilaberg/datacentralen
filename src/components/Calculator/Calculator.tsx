@@ -22,6 +22,10 @@ const Calculator = () => {
   return (
     <section className="flex flex-col items-center my-2 gap-5">
       <section className="w-full xl:w-[500px] px-10">
+        <div className="bg-gray-200 flex flex-wrap justify-between">
+          <button onClick={() => AlgorithmProvider.setShowModal(true)} className="border-2 px-2 rounded-lg cursor-alias">
+            Array builder
+          </button>
         <div className="flex justify-end gap-2 ">
           <h2 className="text-[#777777]">hastighet:</h2>
           <button
@@ -72,6 +76,7 @@ const Calculator = () => {
           >
             4x
           </button>
+        </div>
         </div>
         {/* screen */}
         <CalculatorScreen />
