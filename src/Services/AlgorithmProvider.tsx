@@ -31,9 +31,8 @@ const AlgorithmProvider = ({ children }: AlgorithmProviderProps) => {
 
   const [previewInput, setPreviewInput] = useState<string>("");
 
-  const [array, updateArray] = useState([
-    9, 8, 7, 6, 5, 4, 3, 2, 1, 23, 4, 5, 75, 7, 3, 356, 23, 46, 743, 2,
-  ]);
+  const [array, updateArray] = useState<number[] | []>([]);
+  
   const [defaultArray] = useState([
     9, 8, 7, 6, 5, 4, 3, 2, 1, 23, 4, 5, 75, 7, 3, 356, 23, 46, 743, 2,
   ]);

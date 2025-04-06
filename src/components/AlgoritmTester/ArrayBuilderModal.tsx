@@ -51,6 +51,7 @@ const ArrayBuilderModal = () => {
   };
 
   const useArray = () => {
+    AlgorithmProvider.resetAlgorithm(false);
     AlgorithmProvider.updateArray([...previewArray]);
     AlgorithmProvider.setShowModal(false);
   };
@@ -91,7 +92,7 @@ const ArrayBuilderModal = () => {
               value={arraySize}
               min={MINIMUM_COUNT}
               max={MAXIMUM_GENERATED_ARRAY_LENGTH}
-              onChange={(e) => setArraySize(e.target.value)}
+              onChange={(e) => setArraySize(parseInt(e.target.value))}
               type="range"
               name=""
               id=""
