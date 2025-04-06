@@ -32,7 +32,7 @@ const Calculator = () => {
               AlgorithmProvider.iterationSpeed === iterationSpeedTypes.SlOWEST
                 ? "text-black font-medium"
                 : "text-[#777777] font-thin"
-            } text-lg disabled:opacity-20`}
+            } text-lg disabled:opacity-20 disabled:cursor-not-allowed`}
           >
             1x
           </button>
@@ -44,7 +44,7 @@ const Calculator = () => {
               AlgorithmProvider.iterationSpeed === iterationSpeedTypes.SLOWER
                 ? "text-black font-medium"
                 : "text-[#777777] font-thin"
-            } text-lg disabled:opacity-20`}
+            } text-lg disabled:opacity-20 disabled:cursor-not-allowed`}
           >
             2x
           </button>
@@ -56,7 +56,7 @@ const Calculator = () => {
               AlgorithmProvider.iterationSpeed === iterationSpeedTypes.STANDARD
                 ? "text-black font-medium"
                 : "text-[#777777] font-thin"
-            } text-lg disabled:opacity-20`}
+            } text-lg disabled:opacity-20 disabled:cursor-not-allowed`}
           >
             3x
           </button>
@@ -68,7 +68,7 @@ const Calculator = () => {
               AlgorithmProvider.iterationSpeed === iterationSpeedTypes.FASTER
                 ? "text-black font-medium"
                 : "text-[#777777] font-thin"
-            } text-lg disabled:opacity-20`}
+            } text-lg disabled:opacity-20 disabled:cursor-not-allowed`}
           >
             4x
           </button>

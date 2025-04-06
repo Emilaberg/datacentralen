@@ -42,7 +42,7 @@ const TestaAlgoritm = () => {
             disabled={AlgorithmProvider.isAlgorithmRunning}
             name=""
             id=""
-            className="bg-white border border-black rounded-lg h-full px-6 disabled:opacity-20"
+            className="bg-white border border-black rounded-lg h-full px-6 disabled:opacity-20 disabled:cursor-not-allowed"
           >
             <option value={selectedAlgorithmTypes.none}>- Välj en algoritm -</option>
             <option value={selectedAlgorithmTypes.bubble}>bubble Sort</option>

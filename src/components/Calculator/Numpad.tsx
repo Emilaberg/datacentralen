@@ -83,7 +83,7 @@ const Numpad = () => {
             type="button"
             disabled={AlgorithmProvider.isAlgorithmRunning}
             onClick={clear}
-            className="hover:underline cursor-pointer disabled:opacity-20"
+            className="hover:underline cursor-pointer disabled:opacity-20 disabled:cursor-not-allowed"
           >
             rensa
           </button>
@@ -91,7 +91,7 @@ const Numpad = () => {
             type="button"
             disabled={AlgorithmProvider.isAlgorithmRunning}
             onClick={reset}
-            className="hover:underline cursor-pointer disabled:opacity-20"
+            className="hover:underline cursor-pointer disabled:opacity-20 disabled:cursor-not-allowed"
           >
             reset
           </button>
@@ -99,7 +99,7 @@ const Numpad = () => {
             type="button"
             disabled={AlgorithmProvider.isAlgorithmRunning}
             onClick={shuffleArray}
-            className="hover:underline cursor-pointer disabled:opacity-20"
+            className="hover:underline cursor-pointer disabled:opacity-20 disabled:cursor-not-allowed"
           >
             slumpa
           </button>
@@ -109,7 +109,7 @@ const Numpad = () => {
             type="button"
             disabled={AlgorithmProvider.isAlgorithmRunning}
             onClick={() => setPreviewInput("7")}
-            className="hover:bg-[#CECECE] cursor-pointer text-3xl w-18 h-18 bg-[#F3F3F3] border border-solid border-[#CECECE] rounded-lg disabled:opacity-20"
+            className="hover:bg-[#CECECE] cursor-pointer text-3xl w-18 h-18 bg-[#F3F3F3] border border-solid border-[#CECECE] rounded-lg disabled:opacity-20 disabled:cursor-not-allowed"
           >
             7
           </button>
@@ -117,7 +117,7 @@ const Numpad = () => {
             type="button"
             disabled={AlgorithmProvider.isAlgorithmRunning}
             onClick={() => setPreviewInput("8")}
-            className="hover:bg-[#CECECE] cursor-pointer text-3xl w-18 h-18 bg-[#F3F3F3] border border-solid border-[#CECECE] rounded-lg disabled:opacity-20"
+            className="hover:bg-[#CECECE] cursor-pointer text-3xl w-18 h-18 bg-[#F3F3F3] border border-solid border-[#CECECE] rounded-lg disabled:opacity-20 disabled:cursor-not-allowed"
           >
             8
           </button>
@@ -125,7 +125,7 @@ const Numpad = () => {
             type="button"
             disabled={AlgorithmProvider.isAlgorithmRunning}
             onClick={() => setPreviewInput("9")}
-            className="hover:bg-[#CECECE] cursor-pointer text-3xl w-18 h-18 bg-[#F3F3F3] border border-solid border-[#CECECE] rounded-lg disabled:opacity-20"
+            className="hover:bg-[#CECECE] cursor-pointer text-3xl w-18 h-18 bg-[#F3F3F3] border border-solid border-[#CECECE] rounded-lg disabled:opacity-20 disabled:cursor-not-allowed"
           >
             9
           </button>
@@ -133,7 +133,7 @@ const Numpad = () => {
             type="button"
             disabled={AlgorithmProvider.isAlgorithmRunning}
             onClick={() => setPreviewInput("4")}
-            className="hover:bg-[#CECECE] cursor-pointer text-3xl w-18 h-18 bg-[#F3F3F3] border border-solid border-[#CECECE] rounded-lg disabled:opacity-20"
+            className="hover:bg-[#CECECE] cursor-pointer text-3xl w-18 h-18 bg-[#F3F3F3] border border-solid border-[#CECECE] rounded-lg disabled:opacity-20 disabled:cursor-not-allowed"
           >
             4
           </button>
@@ -141,7 +141,7 @@ const Numpad = () => {
             type="button"
             disabled={AlgorithmProvider.isAlgorithmRunning}
             onClick={() => setPreviewInput("5")}
-            className="hover:bg-[#CECECE] cursor-pointer text-3xl w-18 h-18 bg-[#F3F3F3] border border-solid border-[#CECECE] rounded-lg disabled:opacity-20"
+            className="hover:bg-[#CECECE] cursor-pointer text-3xl w-18 h-18 bg-[#F3F3F3] border border-solid border-[#CECECE] rounded-lg disabled:opacity-20 disabled:cursor-not-allowed"
           >
             5
           </button>
@@ -149,7 +149,7 @@ const Numpad = () => {
             type="button"
             disabled={AlgorithmProvider.isAlgorithmRunning}
             onClick={() => setPreviewInput("6")}
-            className="hover:bg-[#CECECE] cursor-pointer text-3xl w-18 h-18 bg-[#F3F3F3] border border-solid border-[#CECECE] rounded-lg disabled:opacity-20"
+            className="hover:bg-[#CECECE] cursor-pointer text-3xl w-18 h-18 bg-[#F3F3F3] border border-solid border-[#CECECE] rounded-lg disabled:opacity-20 disabled:cursor-not-allowed"
           >
             6
           </button>
@@ -157,7 +157,7 @@ const Numpad = () => {
             type="button"
             disabled={AlgorithmProvider.isAlgorithmRunning}
             onClick={() => setPreviewInput("1")}
-            className="hover:bg-[#CECECE] cursor-pointer text-3xl w-18 h-18 bg-[#F3F3F3] border border-solid border-[#CECECE] rounded-lg disabled:opacity-20"
+            className="hover:bg-[#CECECE] cursor-pointer text-3xl w-18 h-18 bg-[#F3F3F3] border border-solid border-[#CECECE] rounded-lg disabled:opacity-20 disabled:cursor-not-allowed"
           >
             1
           </button>
@@ -165,7 +165,7 @@ const Numpad = () => {
             type="button"
             disabled={AlgorithmProvider.isAlgorithmRunning}
             onClick={() => setPreviewInput("2")}
-            className="hover:bg-[#CECECE] cursor-pointer text-3xl w-18 h-18 bg-[#F3F3F3] border border-solid border-[#CECECE] rounded-lg disabled:opacity-20"
+            className="hover:bg-[#CECECE] cursor-pointer text-3xl w-18 h-18 bg-[#F3F3F3] border border-solid border-[#CECECE] rounded-lg disabled:opacity-20 disabled:cursor-not-allowed"
           >
             2
           </button>
@@ -173,7 +173,7 @@ const Numpad = () => {
             type="button"
             disabled={AlgorithmProvider.isAlgorithmRunning}
             onClick={() => setPreviewInput("3")}
-            className="hover:bg-[#CECECE] cursor-pointer text-3xl w-18 h-18 bg-[#F3F3F3] border border-solid border-[#CECECE] rounded-lg disabled:opacity-20"
+            className="hover:bg-[#CECECE] cursor-pointer text-3xl w-18 h-18 bg-[#F3F3F3] border border-solid border-[#CECECE] rounded-lg disabled:opacity-20 disabled:cursor-not-allowed"
           >
             3
           </button>
@@ -181,7 +181,7 @@ const Numpad = () => {
             type="button"
             disabled={AlgorithmProvider.isAlgorithmRunning}
             onClick={invertNumber}
-            className="hover:bg-[#CECECE] cursor-pointer text-3xl w-18 h-18 bg-[#F3F3F3] border border-solid border-[#CECECE] rounded-lg disabled:opacity-20"
+            className="hover:bg-[#CECECE] cursor-pointer text-3xl w-18 h-18 bg-[#F3F3F3] border border-solid border-[#CECECE] rounded-lg disabled:opacity-20 disabled:cursor-not-allowed"
           >
             +/-
           </button>
@@ -189,15 +189,15 @@ const Numpad = () => {
             type="button"
             disabled={AlgorithmProvider.isAlgorithmRunning}
             onClick={() => setPreviewInput("0")}
-            className="hover:bg-[#CECECE] cursor-pointer text-3xl w-18 h-18 bg-[#F3F3F3] border border-solid border-[#CECECE] rounded-lg disabled:opacity-20"
+            className="hover:bg-[#CECECE] cursor-pointer text-3xl w-18 h-18 bg-[#F3F3F3] border border-solid border-[#CECECE] rounded-lg disabled:opacity-20 disabled:cursor-not-allowed"
           >
             0
           </button>
           <button
             type="button"
-            disabled={AlgorithmProvider.isAlgorithmRunning}
+            disabled={true} // not implemented
             onClick={() => trigger("comma")}
-            className="hover:bg-[#CECECE] cursor-pointer text-3xl w-18 h-18 bg-[#F3F3F3] border border-solid border-[#CECECE] rounded-lg disabled:opacity-20"
+            className="hover:bg-[#CECECE] cursor-pointer text-3xl w-18 h-18 bg-[#F3F3F3] border border-solid border-[#CECECE] rounded-lg disabled:opacity-20 disabled:cursor-not-allowed"
           >
             ,
           </button>
@@ -208,7 +208,7 @@ const Numpad = () => {
           type="button"
           onClick={saveNumberToArray}
           disabled={AlgorithmProvider.previewInput === "" || AlgorithmProvider.isAlgorithmRunning ? true : false}
-          className="cursor-pointer disabled:bg-[#f6aa54]/20 hover:bg-[#f6aa54] w-18 h-16 rounded-lg text-lg text-white  bg-[#F9B66B]"
+          className="cursor-pointer hover:bg-[#f6aa54] w-18 h-16 rounded-lg text-lg text-white  bg-[#F9B66B] disabled:bg-[#f6aa54]/20 disabled:cursor-not-allowed"
         >
           spara
         </button>
@@ -216,7 +216,7 @@ const Numpad = () => {
           type="button"
           disabled={AlgorithmProvider.array.length < MINIMUM_COUNT || AlgorithmProvider.isAlgorithmRunning ? true : false}
           onClick={runSelectedAlgorithm}
-          className="cursor-pointer disabled:bg-[#50a045]/20 hover:bg-[#50a045] w-18 h-16 rounded-lg text-2xl text-white font-semibold bg-[#62A958]"
+          className="cursor-pointer hover:bg-[#50a045] w-18 h-16 rounded-lg text-2xl text-white font-semibold bg-[#62A958] disabled:bg-[#50a045]/20 disabled:cursor-not-allowed"
         >
           GO
         </button>
@@ -224,7 +224,7 @@ const Numpad = () => {
           type="button"
           disabled={AlgorithmProvider.array.length === 0 || AlgorithmProvider.isAlgorithmRunning ? true : false}
           onClick={popLastNumber}
-          className="cursor-pointer disabled:bg-[#da4f47]/20 hover:bg-[#da4f47] w-18 h-16 rounded-lg text-lg bg-[#e0655e] text-white"
+          className="cursor-pointer hover:bg-[#da4f47] w-18 h-16 rounded-lg text-lg bg-[#e0655e] text-white disabled:bg-[#da4f47]/20 disabled:cursor-not-allowed"
         >
           radera
         </button>
