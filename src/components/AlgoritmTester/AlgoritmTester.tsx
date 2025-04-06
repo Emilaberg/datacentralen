@@ -18,7 +18,7 @@ const AlgoritmTester = () => {
           tidskomplexitet: {AlgorithmProvider.timeComplexity}
         </h2>
       </article>
-
+{"algoritm körs " + AlgorithmProvider.isAlgorithmRunning}
       <section className="flex justify-between xl:justify-center">
         <section className="w-1/2 xl:w-1/3">
           <article className="flex flex-col bg-[#e1e1e1]/50 px-8 py-2 mt-14 w-5/6 rounded-xl">

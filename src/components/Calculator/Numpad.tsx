@@ -1,6 +1,7 @@
 import React from "react";
 import { useAlgorithm } from "../../Services/AlgorithmProvider";
 import shuffle from "../../tools/Fisher-yates-shuffle/shuffle";
+import { selectedAlgorithmTypes } from "../../Types/types";
 const MINIMUM_COUNT = 2;
 
 const Numpad = () => {
@@ -33,6 +34,7 @@ const Numpad = () => {
 
   const invertNumber = () => {
     const input = AlgorithmProvider.previewInput;
+    if(input === "") return
     const x = parseInt(input);
     const opposite = x - x * 2;
 
@@ -52,33 +54,21 @@ const Numpad = () => {
   }
 
   const runSelectedAlgorithm = () => {
-    AlgorithmProvider.setAmountOfIterations(0);
-    AlgorithmProvider.setTimeElapsed(0);
+    AlgorithmProvider.resetAlgorithm(false);
 
-    switch (AlgorithmProvider.selectedAlgorithm) {
-        case "bubble":
-            AlgorithmProvider.bubbleSort(AlgorithmProvider.array);
-            break;  
-        case "selection":
-            AlgorithmProvider.bubbleSort(AlgorithmProvider.array);
-            break;  
-        case "none":
-            throw new Error("no algorithm chosen");
-        default:
-            alert("run selected algo could find matching name")
-            break;
-    }
+    AlgorithmProvider.start();
   }
 
   const reset = () => {
     AlgorithmProvider.updateArray([...AlgorithmProvider.defaultArray])
+    AlgorithmProvider.resetAlgorithm(false);
   }
   
   const clear = () => {
     AlgorithmProvider.updateArray([]);
-    AlgorithmProvider.setPreviewInput("");
+    AlgorithmProvider.resetAlgorithm(false);
   }
-  
+
   function shuffleArray(): void {
     const shuffledArray = shuffle(AlgorithmProvider.array);
 
@@ -91,22 +81,25 @@ const Numpad = () => {
         <div className="mb-2 w-72 flex justify-between text-[#777777]">
           <button
             type="button"
+            disabled={AlgorithmProvider.isAlgorithmRunning}
             onClick={clear}
-            className="hover:underline cursor-pointer"
+            className="hover:underline cursor-pointer disabled:opacity-20"
           >
             rensa
           </button>
           <button
             type="button"
+            disabled={AlgorithmProvider.isAlgorithmRunning}
             onClick={reset}
-            className="hover:underline cursor-pointer"
+            className="hover:underline cursor-pointer disabled:opacity-20"
           >
             reset
           </button>
           <button
             type="button"
+            disabled={AlgorithmProvider.isAlgorithmRunning}
             onClick={shuffleArray}
-            className="hover:underline cursor-pointer"
+            className="hover:underline cursor-pointer disabled:opacity-20"
           >
             slumpa
           </button>
@@ -114,85 +107,97 @@ const Numpad = () => {
         <div className="w-72 grid grid-cols-3 grid-rows-4 gap-3 justify-items-center">
           <button
             type="button"
+            disabled={AlgorithmProvider.isAlgorithmRunning}
             onClick={() => setPreviewInput("7")}
-            className="hover:bg-[#CECECE] cursor-pointer text-3xl w-18 h-18 bg-[#F3F3F3] border border-solid border-[#CECECE] rounded-lg"
+            className="hover:bg-[#CECECE] cursor-pointer text-3xl w-18 h-18 bg-[#F3F3F3] border border-solid border-[#CECECE] rounded-lg disabled:opacity-20"
           >
             7
           </button>
           <button
             type="button"
+            disabled={AlgorithmProvider.isAlgorithmRunning}
             onClick={() => setPreviewInput("8")}
-            className="hover:bg-[#CECECE] cursor-pointer text-3xl w-18 h-18 bg-[#F3F3F3] border border-solid border-[#CECECE] rounded-lg"
+            className="hover:bg-[#CECECE] cursor-pointer text-3xl w-18 h-18 bg-[#F3F3F3] border border-solid border-[#CECECE] rounded-lg disabled:opacity-20"
           >
             8
           </button>
           <button
             type="button"
+            disabled={AlgorithmProvider.isAlgorithmRunning}
             onClick={() => setPreviewInput("9")}
-            className="hover:bg-[#CECECE] cursor-pointer text-3xl w-18 h-18 bg-[#F3F3F3] border border-solid border-[#CECECE] rounded-lg"
+            className="hover:bg-[#CECECE] cursor-pointer text-3xl w-18 h-18 bg-[#F3F3F3] border border-solid border-[#CECECE] rounded-lg disabled:opacity-20"
           >
             9
           </button>
           <button
             type="button"
+            disabled={AlgorithmProvider.isAlgorithmRunning}
             onClick={() => setPreviewInput("4")}
-            className="hover:bg-[#CECECE] cursor-pointer text-3xl w-18 h-18 bg-[#F3F3F3] border border-solid border-[#CECECE] rounded-lg"
+            className="hover:bg-[#CECECE] cursor-pointer text-3xl w-18 h-18 bg-[#F3F3F3] border border-solid border-[#CECECE] rounded-lg disabled:opacity-20"
           >
             4
           </button>
           <button
             type="button"
+            disabled={AlgorithmProvider.isAlgorithmRunning}
             onClick={() => setPreviewInput("5")}
-            className="hover:bg-[#CECECE] cursor-pointer text-3xl w-18 h-18 bg-[#F3F3F3] border border-solid border-[#CECECE] rounded-lg"
+            className="hover:bg-[#CECECE] cursor-pointer text-3xl w-18 h-18 bg-[#F3F3F3] border border-solid border-[#CECECE] rounded-lg disabled:opacity-20"
           >
             5
           </button>
           <button
             type="button"
+            disabled={AlgorithmProvider.isAlgorithmRunning}
             onClick={() => setPreviewInput("6")}
-            className="hover:bg-[#CECECE] cursor-pointer text-3xl w-18 h-18 bg-[#F3F3F3] border border-solid border-[#CECECE] rounded-lg"
+            className="hover:bg-[#CECECE] cursor-pointer text-3xl w-18 h-18 bg-[#F3F3F3] border border-solid border-[#CECECE] rounded-lg disabled:opacity-20"
           >
             6
           </button>
           <button
             type="button"
+            disabled={AlgorithmProvider.isAlgorithmRunning}
             onClick={() => setPreviewInput("1")}
-            className="hover:bg-[#CECECE] cursor-pointer text-3xl w-18 h-18 bg-[#F3F3F3] border border-solid border-[#CECECE] rounded-lg"
+            className="hover:bg-[#CECECE] cursor-pointer text-3xl w-18 h-18 bg-[#F3F3F3] border border-solid border-[#CECECE] rounded-lg disabled:opacity-20"
           >
             1
           </button>
           <button
             type="button"
+            disabled={AlgorithmProvider.isAlgorithmRunning}
             onClick={() => setPreviewInput("2")}
-            className="hover:bg-[#CECECE] cursor-pointer text-3xl w-18 h-18 bg-[#F3F3F3] border border-solid border-[#CECECE] rounded-lg"
+            className="hover:bg-[#CECECE] cursor-pointer text-3xl w-18 h-18 bg-[#F3F3F3] border border-solid border-[#CECECE] rounded-lg disabled:opacity-20"
           >
             2
           </button>
           <button
             type="button"
+            disabled={AlgorithmProvider.isAlgorithmRunning}
             onClick={() => setPreviewInput("3")}
-            className="hover:bg-[#CECECE] cursor-pointer text-3xl w-18 h-18 bg-[#F3F3F3] border border-solid border-[#CECECE] rounded-lg"
+            className="hover:bg-[#CECECE] cursor-pointer text-3xl w-18 h-18 bg-[#F3F3F3] border border-solid border-[#CECECE] rounded-lg disabled:opacity-20"
           >
             3
           </button>
           <button
             type="button"
+            disabled={AlgorithmProvider.isAlgorithmRunning}
             onClick={invertNumber}
-            className="hover:bg-[#CECECE] cursor-pointer text-3xl w-18 h-18 bg-[#F3F3F3] border border-solid border-[#CECECE] rounded-lg"
+            className="hover:bg-[#CECECE] cursor-pointer text-3xl w-18 h-18 bg-[#F3F3F3] border border-solid border-[#CECECE] rounded-lg disabled:opacity-20"
           >
             +/-
           </button>
           <button
             type="button"
+            disabled={AlgorithmProvider.isAlgorithmRunning}
             onClick={() => setPreviewInput("0")}
-            className="hover:bg-[#CECECE] cursor-pointer text-3xl w-18 h-18 bg-[#F3F3F3] border border-solid border-[#CECECE] rounded-lg"
+            className="hover:bg-[#CECECE] cursor-pointer text-3xl w-18 h-18 bg-[#F3F3F3] border border-solid border-[#CECECE] rounded-lg disabled:opacity-20"
           >
             0
           </button>
           <button
             type="button"
+            disabled={AlgorithmProvider.isAlgorithmRunning}
             onClick={() => trigger("comma")}
-            className="hover:bg-[#CECECE] cursor-pointer text-3xl w-18 h-18 bg-[#F3F3F3] border border-solid border-[#CECECE] rounded-lg"
+            className="hover:bg-[#CECECE] cursor-pointer text-3xl w-18 h-18 bg-[#F3F3F3] border border-solid border-[#CECECE] rounded-lg disabled:opacity-20"
           >
             ,
           </button>
@@ -202,14 +207,14 @@ const Numpad = () => {
         <button
           type="button"
           onClick={saveNumberToArray}
-          disabled={AlgorithmProvider.previewInput === "" ? true : false}
+          disabled={AlgorithmProvider.previewInput === "" || AlgorithmProvider.isAlgorithmRunning ? true : false}
           className="cursor-pointer disabled:bg-[#f6aa54]/20 hover:bg-[#f6aa54] w-18 h-16 rounded-lg text-lg text-white  bg-[#F9B66B]"
         >
           spara
         </button>
         <button
           type="button"
-          disabled={AlgorithmProvider.array.length < MINIMUM_COUNT ? true : false}
+          disabled={AlgorithmProvider.array.length < MINIMUM_COUNT || AlgorithmProvider.isAlgorithmRunning ? true : false}
           onClick={runSelectedAlgorithm}
           className="cursor-pointer disabled:bg-[#50a045]/20 hover:bg-[#50a045] w-18 h-16 rounded-lg text-2xl text-white font-semibold bg-[#62A958]"
         >
@@ -217,7 +222,7 @@ const Numpad = () => {
         </button>
         <button
           type="button"
-          disabled={AlgorithmProvider.array.length === 0 ? true : false}
+          disabled={AlgorithmProvider.array.length === 0 || AlgorithmProvider.isAlgorithmRunning ? true : false}
           onClick={popLastNumber}
           className="cursor-pointer disabled:bg-[#da4f47]/20 hover:bg-[#da4f47] w-18 h-16 rounded-lg text-lg bg-[#e0655e] text-white"
         >

@@ -1,24 +1,31 @@
 import React, { createContext, useContext, useMemo, useState } from "react";
-import { AlgorithmContextType, AlgorithmProviderProps, iterationSpeedTypes, selectedAlgorithmTypes } from "../Types/types";
+import {
+  AlgorithmContextType,
+  AlgorithmProviderProps,
+  iterationSpeedTypes,
+  selectedAlgorithmTypes,
+} from "../Types/types";
 
 const AlgorithmContext = createContext<AlgorithmContextType | undefined>(
   undefined
 );
 
-const AlgorithmProvider = ({
-  children,
-}: AlgorithmProviderProps) => {
+const AlgorithmProvider = ({ children }: AlgorithmProviderProps) => {
   const [timeComplexity, setTimeComplexity] = useState<string | undefined>("");
 
-  const [amountOfIterations, setAmountOfIterations] = useState<number >(
-    0
+  const [amountOfIterations, setAmountOfIterations] = useState<number>(0);
+
+  const [isAlgorithmRunning, setIsAlgorithmRunning] = useState<boolean>(false);
+
+  const [selectedAlgorithm, setSelectedeAlgorithm] = useState(
+    selectedAlgorithmTypes.none
+  );
+  const [iterationSpeed, setIterationSpeed] = useState<iterationSpeedTypes>(
+    iterationSpeedTypes.STANDARD
   );
 
-  const [selectedAlgorithm, setSelectedeAlgorithm] = useState(selectedAlgorithmTypes.none);
-  const [iterationSpeed, setIterationSpeed] = useState<iterationSpeedTypes>(iterationSpeedTypes.STANDARD);
-
   const [timeElapsed, setTimeElapsed] = useState<number>(0);
-  
+
   const [previewInput, setPreviewInput] = useState<string>("");
 
   const [array, updateArray] = useState([
@@ -32,16 +39,38 @@ const AlgorithmProvider = ({
    * resets
    * tidkomplexitet,all metrics,hastighet
    */
-  const resetAlgorithm = () => {
+  const resetAlgorithm = (resetSpeed: boolean) => {
     setTimeComplexity("");
     setAmountOfIterations(0);
     setTimeElapsed(0);
-    setIterationSpeed(iterationSpeedTypes.STANDARD);
+    setPreviewInput("");
+    if (resetSpeed) setIterationSpeed(iterationSpeedTypes.STANDARD);
+  };
+
+  /**
+   * starts algorithm and sets locked variables
+   * @param arr
+   */
+  async function start() {
+    setIsAlgorithmRunning(true)
+    switch (selectedAlgorithm) {
+      case selectedAlgorithmTypes.bubble:
+        await bubbleSort(array);
+        break;
+      case selectedAlgorithmTypes.selection:
+        await selectionSort(array);
+        break;
+      case selectedAlgorithmTypes.none:
+        throw new Error("no algorithm chosen");
+      default:
+        alert("run selected algo could find matching name");
+        break;
+    }
+    setIsAlgorithmRunning(false);
   }
 
-
   async function bubbleSort(arr: number[]) {
-    let iterations: number = 0
+    let iterations: number = 0;
     const len = arr.length;
 
     const startTime = Date.now();
@@ -53,22 +82,22 @@ const AlgorithmProvider = ({
           [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]];
         }
       }
-      setAmountOfIterations(amountOfIterations => amountOfIterations + 1); // addera iterationer för ui
-      iterations++
+      setAmountOfIterations((amountOfIterations) => amountOfIterations + 1); // addera iterationer för ui
+      iterations++;
 
       updateArray([...arr]); //uppdatera arrayen för varje iteration
-
     }
     const endTime = Date.now();
-    const timeDiff = ((endTime - startTime) - (iterations*iterationSpeed));
+    const timeDiff = endTime - startTime - iterations * iterationSpeed;
     setTimeElapsed(timeDiff);
     setTimeComplexity("O(n²)");
   }
 
   async function selectionSort(arr: number[]) {
-    let iterations: number = 0
+    let iterations: number = 0;
     const n = arr.length;
 
+    // setIsAlgorithmRunning(true);
     const startTime = Date.now();
     for (let i = 0; i < n - 1; i++) {
       await new Promise((resolve) => setTimeout(resolve, iterationSpeed));
@@ -82,13 +111,14 @@ const AlgorithmProvider = ({
       // Swap the found minimum element with the first unsorted element
       [arr[i], arr[minIndex]] = [arr[minIndex], arr[i]];
 
-      iterations++
-      setAmountOfIterations(amountOfIterations => amountOfIterations + 1);
+      iterations++;
+      setAmountOfIterations((amountOfIterations) => amountOfIterations + 1);
       updateArray([...arr]);
     }
+    // setIsAlgorithmRunning(false);
     const endTime = Date.now();
 
-    const timeDiff = ((endTime - startTime) - (iterations*iterationSpeed));
+    const timeDiff = endTime - startTime - iterations * iterationSpeed;
     setTimeElapsed(timeDiff);
     setTimeComplexity("O(n²)");
   }
@@ -103,6 +133,8 @@ const AlgorithmProvider = ({
       iterationSpeed,
       timeElapsed,
       previewInput,
+      isAlgorithmRunning,
+      setIsAlgorithmRunning,
       setSelectedeAlgorithm,
       setPreviewInput,
       setTimeElapsed,
@@ -113,6 +145,7 @@ const AlgorithmProvider = ({
       bubbleSort,
       selectionSort,
       resetAlgorithm,
+      start,
     }),
     [
       array,
@@ -123,6 +156,8 @@ const AlgorithmProvider = ({
       iterationSpeed,
       timeElapsed,
       previewInput,
+      isAlgorithmRunning,
+      setIsAlgorithmRunning,
       setSelectedeAlgorithm,
       setPreviewInput,
       setTimeElapsed,
@@ -133,6 +168,7 @@ const AlgorithmProvider = ({
       bubbleSort,
       selectionSort,
       resetAlgorithm,
+      start,
     ]
   );
 

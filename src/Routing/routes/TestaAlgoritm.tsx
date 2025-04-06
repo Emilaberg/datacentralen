@@ -6,14 +6,13 @@ import { selectedAlgorithmTypes } from "../../Types/types";
 
 
 const TestaAlgoritm = () => {
-  // const [selectedAlgorithm,setSelectedeAlgorithm] = useState<selectedAlgorithmTypes>(selectedAlgorithmTypes.none); 
-  const algorithmProvider = useAlgorithm();
+  const AlgorithmProvider = useAlgorithm();
 
   const changeSelectedAlgorithm = (e: React.ChangeEvent) => {
     const target = e.target as HTMLSelectElement;
     const value = target.value as selectedAlgorithmTypes
-    algorithmProvider.setSelectedeAlgorithm(value)
-    algorithmProvider.resetAlgorithm();
+    AlgorithmProvider.setSelectedeAlgorithm(value)
+    AlgorithmProvider.resetAlgorithm();
   }
   return (
     <>
@@ -40,9 +39,10 @@ const TestaAlgoritm = () => {
           <span className="mr-10 font-semibold text-3xl">Välj</span>
           <select
             onChange={(e) => changeSelectedAlgorithm(e)}
+            disabled={AlgorithmProvider.isAlgorithmRunning}
             name=""
             id=""
-            className="bg-white border border-black rounded-lg h-full px-6"
+            className="bg-white border border-black rounded-lg h-full px-6 disabled:opacity-20"
           >
             <option value={selectedAlgorithmTypes.none}>- Välj en algoritm -</option>
             <option value={selectedAlgorithmTypes.bubble}>bubble Sort</option>
@@ -53,9 +53,6 @@ const TestaAlgoritm = () => {
 
 
       <section className="mx-20 mb-40 px-12 py-18 border-dashed border-[#8f8f8f] border-2">
-        {/* <AlgorithmProvider selectedAlgorithm={selectedAlgorithm}>
-          <AlgoritmTester />
-        </AlgorithmProvider> */}
         <AlgoritmTester />
 
       </section>

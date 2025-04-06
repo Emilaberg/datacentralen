@@ -52,6 +52,8 @@ export interface AlgorithmContextType {
     iterationSpeed: number | null,
     timeElapsed: number,
     previewInput: string,
+    isAlgorithmRunning: boolean,
+    setIsAlgorithmRunning: React.Dispatch<React.SetStateAction<boolean>>
     setSelectedeAlgorithm: React.Dispatch<React.SetStateAction<selectedAlgorithmTypes>>,
     setPreviewInput: React.Dispatch<React.SetStateAction<string>>,
     setTimeElapsed: React.Dispatch<React.SetStateAction<number>>,
@@ -63,7 +65,8 @@ export interface AlgorithmContextType {
     bubbleSort(arr:number[]): Promise<void>,
     selectionSort(arr:number[]): Promise<void>,
 
-    resetAlgorithm(): void;
+    resetAlgorithm(resetSpeed?: boolean): void;
+    start(): void;
 }
 
 export interface AlgorithmProviderProps {
