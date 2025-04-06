@@ -5,6 +5,7 @@ import {
   iterationSpeedTypes,
   selectedAlgorithmTypes,
 } from "../Types/types";
+import shuffle from "../tools/Fisher-yates-shuffle/shuffle";
 
 const AlgorithmContext = createContext<AlgorithmContextType | undefined>(
   undefined
@@ -69,28 +70,36 @@ const AlgorithmProvider = ({ children }: AlgorithmProviderProps) => {
     setIsAlgorithmRunning(false);
   }
 
+  function shuffleArray(): void {
+    if(amountOfIterations > 0) setAmountOfIterations(0);
+    
+    const shuffledArray = shuffle(array);
+
+    updateArray([...shuffledArray]);
+  }
   async function bubbleSort(arr: number[]) {
-    let iterations: number = 0;
-    const len = arr.length;
+      let iterations: number = 0;
+      const len = arr.length;
+      const startTime = Date.now();
+      for (let i = 0; i < len; i++) {
+        await new Promise((resolve) => setTimeout(resolve, iterationSpeed));
+  
+        for (let j = 0; j < len; j++) {
 
-    const startTime = Date.now();
-    for (let i = 0; i < len; i++) {
-      await new Promise((resolve) => setTimeout(resolve, iterationSpeed));
-
-      for (let j = 0; j < len; j++) {
-        if (arr[j] > arr[j + 1]) {
-          [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]];
+          if (arr[j] > arr[j + 1]) {
+            [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]];
+          }
         }
+        setAmountOfIterations((amountOfIterations) => amountOfIterations + 1); // addera iterationer för ui
+        iterations++;
+  
+        updateArray([...arr]); //uppdatera arrayen för varje iteration
       }
-      setAmountOfIterations((amountOfIterations) => amountOfIterations + 1); // addera iterationer för ui
-      iterations++;
+      const endTime = Date.now();
+      const timeDiff = endTime - startTime - iterations * iterationSpeed;
+      setTimeElapsed(timeDiff);
+      setTimeComplexity("O(n²)");
 
-      updateArray([...arr]); //uppdatera arrayen för varje iteration
-    }
-    const endTime = Date.now();
-    const timeDiff = endTime - startTime - iterations * iterationSpeed;
-    setTimeElapsed(timeDiff);
-    setTimeComplexity("O(n²)");
   }
 
   async function selectionSort(arr: number[]) {
@@ -146,6 +155,7 @@ const AlgorithmProvider = ({ children }: AlgorithmProviderProps) => {
       selectionSort,
       resetAlgorithm,
       start,
+      shuffleArray,
     }),
     [
       array,
@@ -169,6 +179,7 @@ const AlgorithmProvider = ({ children }: AlgorithmProviderProps) => {
       selectionSort,
       resetAlgorithm,
       start,
+      shuffleArray,
     ]
   );
 

@@ -13,6 +13,7 @@ const TestaAlgoritm = () => {
     const value = target.value as selectedAlgorithmTypes
     AlgorithmProvider.setSelectedeAlgorithm(value)
     AlgorithmProvider.resetAlgorithm();
+    AlgorithmProvider.shuffleArray();
   }
   return (
     <>

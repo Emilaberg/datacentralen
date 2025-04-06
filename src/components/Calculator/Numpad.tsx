@@ -68,12 +68,6 @@ const Numpad = () => {
     AlgorithmProvider.resetAlgorithm(false);
   }
 
-  function shuffleArray(): void {
-    const shuffledArray = shuffle(AlgorithmProvider.array);
-
-    AlgorithmProvider.updateArray([...shuffledArray]);
-  }
-
   return (
     <>
       <article>
@@ -97,7 +91,7 @@ const Numpad = () => {
           <button
             type="button"
             disabled={AlgorithmProvider.isAlgorithmRunning}
-            onClick={shuffleArray}
+            onClick={() => AlgorithmProvider.shuffleArray()}
             className="hover:underline cursor-pointer disabled:opacity-20 disabled:cursor-not-allowed"
           >
             slumpa
@@ -213,7 +207,7 @@ const Numpad = () => {
         </button>
         <button
           type="button"
-          disabled={AlgorithmProvider.array.length < MINIMUM_COUNT || AlgorithmProvider.isAlgorithmRunning ? true : false}
+          disabled={AlgorithmProvider.array.length < MINIMUM_COUNT || AlgorithmProvider.isAlgorithmRunning || AlgorithmProvider.amountOfIterations > 0 ? true : false}
           onClick={runSelectedAlgorithm}
           className="cursor-pointer hover:bg-[#50a045] w-18 h-16 rounded-lg text-2xl text-white font-semibold bg-[#62A958] disabled:bg-[#50a045]/20 disabled:cursor-not-allowed"
         >
