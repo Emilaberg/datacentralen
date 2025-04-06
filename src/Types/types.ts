@@ -1,11 +1,13 @@
 import { ReactNode } from "react";
 
+export const MINIMUM_COUNT = 4;
+
+
 export type LoginType = {
     email: string;
     password: string;
     remember_me?: boolean | undefined;
 }
-
 
 
 export interface ProviderProps {

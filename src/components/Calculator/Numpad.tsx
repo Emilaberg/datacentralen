@@ -1,8 +1,7 @@
 import React from "react";
 import { useAlgorithm } from "../../Services/AlgorithmProvider";
 import shuffle from "../../tools/Fisher-yates-shuffle/shuffle";
-import { selectedAlgorithmTypes } from "../../Types/types";
-const MINIMUM_COUNT = 2;
+import { MINIMUM_COUNT, selectedAlgorithmTypes } from "../../Types/types";
 
 const Numpad = () => {
   const AlgorithmProvider = useAlgorithm();
