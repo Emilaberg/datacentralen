@@ -53,7 +53,3 @@ Projektet är tänkt som ett examensarbete men samtidigt en möjlighet att skapa
 # eller
 
 `Bash yarn dev`
-
-```
-
-```
