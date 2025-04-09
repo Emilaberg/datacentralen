@@ -27,7 +27,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode}) => {
     const naigate = useNavigate()
 
     const login = (data:LoginType ) => {
-        
+        console.log("hello from login");
         const t = randomAlphaNumeric(50)
         setTimeout(() => {
             const obj = { ...data,token: t }

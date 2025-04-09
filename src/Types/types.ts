@@ -1,3 +1,9 @@
+import { ReactNode } from "react";
+
+export const MINIMUM_COUNT = 4;
+
+export const MAXIMUM_GENERATED_ARRAY_LENGTH = 20;
+export const MINIMUM_ARRAY_VALUE_RANGE = 10;
 export type LoginType = {
   email: string;
   password: string;
@@ -26,12 +32,50 @@ export interface ArticleDTOProps {
   title: string;
   description: string;
 }
+export enum iterationSpeedTypes {
+  FASTER = 100,
+  STANDARD = 250,
+  SLOWER = 500,
+  SlOWEST = 1000,
+}
 
-export interface ArticleCardDTOProps {
-  id: number;
-  title: string;
-  description: string;
-  type: string;
-  colorCodeOne: string;
-  coloCodeTwo: string;
+export enum selectedAlgorithmTypes {
+  bubble = "bubble",
+  selection = "selection",
+  none = "none",
+}
+
+export interface AlgorithmContextType {
+  array: number[];
+  defaultArray: number[];
+  selectedAlgorithm: selectedAlgorithmTypes;
+  timeComplexity: string | undefined;
+  amountOfIterations: number;
+  iterationSpeed: number | null;
+  timeElapsed: number;
+  previewInput: string;
+  isAlgorithmRunning: boolean;
+  showModal: boolean;
+  setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsAlgorithmRunning: React.Dispatch<React.SetStateAction<boolean>>;
+  setSelectedeAlgorithm: React.Dispatch<
+    React.SetStateAction<selectedAlgorithmTypes>
+  >;
+  setPreviewInput: React.Dispatch<React.SetStateAction<string>>;
+  setTimeElapsed: React.Dispatch<React.SetStateAction<number>>;
+  setTimeComplexity: React.Dispatch<React.SetStateAction<string | undefined>>;
+  setAmountOfIterations: React.Dispatch<React.SetStateAction<number>>;
+  setIterationSpeed: React.Dispatch<React.SetStateAction<iterationSpeedTypes>>;
+  updateArray: React.Dispatch<React.SetStateAction<number[]>>;
+
+  bubbleSort(arr: number[]): Promise<void>;
+  selectionSort(arr: number[]): Promise<void>;
+
+  resetAlgorithm(resetSpeed?: boolean): void;
+  start(): void;
+  shuffleArray(): void;
+}
+
+export interface AlgorithmProviderProps {
+  children: ReactNode;
 }
