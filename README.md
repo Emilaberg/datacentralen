@@ -28,24 +28,32 @@ Projektet är tänkt som ett examensarbete men samtidigt en möjlighet att skapa
 
     ***To be announced***
 
-
 ## Installation - Frontend
 
-```Bash
 # Klona projektet
-git clone https://github.com/Emilaberg/datacentralen.git
+
+`Bash git clone https://github.com/Emilaberg/datacentralen.git `
 
 # Gå in i mappen
-cd laroportalen
+
+`Bash cd laroportalen`
 
 # Installera beroenden (välj ett av följande)
-npm install
+
+`Bash npm install `
+
 # eller
-yarn
+
+`Bash yarn`
 
 # Starta utvecklingsservern
-npm run dev
+
+`Bash npm run dev `
+
 # eller
-yarn dev
+
+`Bash yarn dev`
+
+```
 
 ```
