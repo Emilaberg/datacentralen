@@ -1,12 +1,15 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Index from "./routes/Index";
-import Navbar from "../components/Navbar/Navbar";
-import Footer from "../components/Footer/Footer";
 import TestaAlgoritm from "./routes/TestaAlgoritm";
 import Laroportal from "./routes/Laroportal";
+import AboutUs from "./routes/About us/AboutUs";
+import Layout from "./Layout/Layout";
+import Loginpage from "./routes/Login page/Loginpage";
 import AuthProvider from "../Auth/AuthProvider";
 import Editpage from "./routes/Editpage";
+import Logout from "./routes/logout";
+
 
 function Router() {
   return (
@@ -19,10 +22,13 @@ function Router() {
             <Route path="/laroportal/:id" element={<div>specific id</div>}/> 
             <Route path="/testa-algoritm" element={<TestaAlgoritm />} />
             <Route path="/edit" element={<Editpage />} />
-
+            <Route path='/about-us' element={<AboutUs/>}/>
             <Route path='*' element={<div>error 404</div>}/>
-        </Routes>
-        <Footer/>
+          </Route>            
+          <Route path="/login" element={<Loginpage/>}/>
+          <Route path="/logout" element={<Logout/>}/>
+          <Route path="*" element={<div>Error 404 page not found</div>} />       
+        </Routes>    
       </AuthProvider>
     </BrowserRouter>
   );

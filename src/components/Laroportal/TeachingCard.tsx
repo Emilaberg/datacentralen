@@ -14,7 +14,7 @@ type CardComponentProps = {
   gradientColor2: string;
 };
 
-const teachingCard: React.FC<CardComponentProps> = ({
+const TeachingCard: React.FC<CardComponentProps> = ({
   algorithmType,
   algorithmName,
   algorithmDescription,
@@ -24,6 +24,7 @@ const teachingCard: React.FC<CardComponentProps> = ({
 }) => {
   const navigate = useNavigate();
   const RouteToText = (link: string | undefined) => {
+    console.log(link)
     if (link === undefined) {
       return;
     }
@@ -65,4 +66,4 @@ const teachingCard: React.FC<CardComponentProps> = ({
   );
 };
 
-export default teachingCard;
+export default TeachingCard;
