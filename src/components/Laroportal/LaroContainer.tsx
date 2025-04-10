@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import TeachingCard from "./TeachingCard";
 import { ArticleCardDTOProps } from "../../Types/types";
 import "./animations.css";
+import { useAlgorithm } from "../../Services/AlgorithmProvider";
 
 interface LaroContainerProps {
   laroType: string;
@@ -84,8 +85,8 @@ const LaroContainer: React.FC<LaroContainerProps> = ({
                       algorithmType={card.type}
                       algorithmName={card.title}
                       algorithmDescription={card.description}
-                      gradientColor1={card.colorCodeTwo}
-                      gradientColor2={card.colorCodeOne}
+                      gradientColor1={card.colorCodeOne}
+                      gradientColor2={card.colorCodeTwo}
                     />
                   </div>
                 ))}
