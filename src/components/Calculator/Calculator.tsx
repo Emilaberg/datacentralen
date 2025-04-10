@@ -23,7 +23,7 @@ const Calculator = () => {
     <section className="flex flex-col items-center my-2 gap-5">
       <section className="w-full xl:w-[500px] px-10">
         <div className="bg-gray-200 flex flex-wrap justify-between">
-          <button onClick={() => AlgorithmProvider.setShowModal(true)} className="border-2 px-2 rounded-lg cursor-alias">
+          <button onClick={() => AlgorithmProvider.setShowModal(true)} className="border-2 px-2 rounded-lg cursor-pointer hover:bg-gray-100 active:bg-gray-300">
             Array builder
           </button>
         <div className="flex justify-end gap-2 ">

@@ -21,9 +21,6 @@ const ArrayBuilderModal = () => {
 
   const AlgorithmProvider = useAlgorithm();
 
-  //   useEffect(() => {
-  //     set
-  //   },[]);
 
   const randomIntArrayInRange = (
     min: number,
