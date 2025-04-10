@@ -15,8 +15,8 @@ function Router() {
   return (
     <BrowserRouter>
       <AuthProvider>
-        <Navbar/>
         <Routes >
+          <Route element={<Layout/>}>
             <Route index element={<Index/>}/>
             <Route path='laroportal' element={<Laroportal/>}/>
             <Route path="/laroportal/:id" element={<div>specific id</div>}/> 
