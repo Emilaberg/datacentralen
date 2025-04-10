@@ -84,8 +84,8 @@ const LaroContainer: React.FC<LaroContainerProps> = ({
                       algorithmType={card.type}
                       algorithmName={card.title}
                       algorithmDescription={card.description}
-                      gradientColor1="#007BFF"
-                      gradientColor2="#FFFFFF"
+                      gradientColor1={card.colorCodeTwo}
+                      gradientColor2={card.colorCodeOne}
                     />
                   </div>
                 ))}

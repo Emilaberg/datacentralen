@@ -41,7 +41,7 @@ const TeachingCard: React.FC<CardComponentProps> = ({
       <div className="w-48 h-6 bg-white rounded-xl flex items-center justify-center">
         <p
           className="text-sm font-extrabold"
-          style={{ color: `${gradientColor1}` }}
+          style={{ color: gradientColor1, WebkitTextStroke: "0.3px black" }}
         >
           {algorithmType}
         </p>
@@ -50,7 +50,7 @@ const TeachingCard: React.FC<CardComponentProps> = ({
         <h1 className="text-6xl font-mono">{algorithmName}</h1>
       </div>
       <div className="mt-5 w-full">
-        <p className="font-sans font-medium text-[#837868] text-lg tracking-tight">
+        <p className="font-sans font-medium text-white text-lg tracking-tight">
           {algorithmDescription}
         </p>
       </div>
