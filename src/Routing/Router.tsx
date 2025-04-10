@@ -8,7 +8,7 @@ import Layout from "./Layout/Layout";
 import Loginpage from "./routes/Login page/Loginpage";
 import AuthProvider from "../Auth/AuthProvider";
 import Editpage from "./routes/Editpage";
-import Logout from "./routes/logout";
+import Logout from "./routes/Logout";
 
 
 function Router() {

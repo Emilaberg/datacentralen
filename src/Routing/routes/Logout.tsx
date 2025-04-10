@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { Navigate } from "react-router-dom";
 import { useAuth } from "../../Auth/AuthProvider";
 
-const logout = () => {
+const Logout = () => {
   const auth = useAuth();
 
   const handleLogout = async () => {
@@ -19,4 +19,4 @@ const logout = () => {
   return (<div className="h-screen flex items-center justify-center"><h1>loggar ut...</h1></div>);
 };
 
-export default logout;
+export default Logout;
