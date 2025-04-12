@@ -1,20 +1,22 @@
 import React, { useEffect, useState } from "react";
 import AlgoritmTester from "../../components/AlgoritmTester/AlgoritmTester";
-import AlgorithmProvider, { useAlgorithm } from "../../Services/AlgorithmProvider";
+import AlgorithmProvider, {
+  useAlgorithm,
+} from "../../Services/AlgorithmProvider";
 import { selectedAlgorithmTypes } from "../../Types/types";
+import TableHistory from "../../components/AlgoritmTester/TableHistory";
 // import bubblesort from "../../Algorithms/Bubblesort/bubblesort";
-
 
 const TestaAlgoritm = () => {
   const AlgorithmProvider = useAlgorithm();
 
   const changeSelectedAlgorithm = (e: React.ChangeEvent) => {
     const target = e.target as HTMLSelectElement;
-    const value = target.value as selectedAlgorithmTypes
-    AlgorithmProvider.setSelectedeAlgorithm(value)
+    const value = target.value as selectedAlgorithmTypes;
+    AlgorithmProvider.setSelectedeAlgorithm(value);
     AlgorithmProvider.resetAlgorithm();
     AlgorithmProvider.shuffleArray();
-  }
+  };
   return (
     <>
       <section className="mt-48 flex flex-col items-center">
@@ -45,19 +47,27 @@ const TestaAlgoritm = () => {
             id=""
             className="bg-white border border-black rounded-lg h-full px-6 disabled:opacity-20 disabled:cursor-not-allowed"
           >
-            <option value={selectedAlgorithmTypes.none}>- Välj en algoritm -</option>
+            <option value={selectedAlgorithmTypes.none}>
+              - Välj en algoritm -
+            </option>
             <option value={selectedAlgorithmTypes.bubble}>bubble Sort</option>
-            <option value={selectedAlgorithmTypes.selection}>Selection Sort</option>
+            <option value={selectedAlgorithmTypes.selection}>
+              Selection Sort
+            </option>
           </select>
         </article>
       </section>
 
-
       <section className="mx-20 mb-40 px-12 py-18 border-dashed border-[#8f8f8f] border-2">
         <AlgoritmTester />
-
       </section>
-      
+      <section className="flex flex-col mx-20 mb-40 py-18">
+        <h1 className="text-3xl font-semibold my-8">Tidigare körningar</h1>
+        <section className="px-12 border-dashed border-[#8f8f8f] border-2">
+          <TableHistory />
+        </section>
+        <button className="bg-[#62A958] disabled:opacity-25 text-white px-6 py-2 rounded-xl my-5 ml-auto">Kör igen</button>
+      </section>
     </>
   );
 };
