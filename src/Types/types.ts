@@ -46,6 +46,14 @@ export enum selectedAlgorithmTypes {
   none = "none",
 }
 
+export interface LocalStorageContextType {
+  test: string;
+  setTest: React.Dispatch<React.SetStateAction<string>>;
+  saveItem(item:string): void;
+  getItem(key:string): string | object; 
+}
+
+
 export interface AlgorithmContextType {
   array: number[];
   defaultArray: number[];

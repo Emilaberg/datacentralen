@@ -1,6 +1,14 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useLocalStorageProvider } from '../../Services/SaveToLocalStorageProvider'
 
 const TableHistory = () => {
+
+    const useLocalStorage = useLocalStorageProvider();
+
+    useEffect(()=> {
+        useLocalStorage.saveItem("test");
+    },[])
+
   return (
     <section className='w-full flex flex-col items-center'>
         <article className='w-full'>
