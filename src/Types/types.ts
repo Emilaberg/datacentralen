@@ -49,10 +49,20 @@ export enum selectedAlgorithmTypes {
 export interface LocalStorageContextType {
   test: string;
   setTest: React.Dispatch<React.SetStateAction<string>>;
-  saveItem(item:string): void;
-  getItem(key:string): string | object; 
+  saveItem(key:string, item: AlgoToLocalStorageType | Array<object>): void;
+  getItem(key:string): unknown; 
+  saveToLocal(): void;
 }
 
+export type AlgostorageType = Array<AlgoToLocalStorageType>;
+
+export interface AlgoToLocalStorageType {
+  name: selectedAlgorithmTypes;
+  iterations: number;
+  timeElapsed: number;
+  iterationSpeed: iterationSpeedTypes | null;
+  timeComplexity: string | undefined;
+}
 
 export interface AlgorithmContextType {
   array: number[];
@@ -60,7 +70,7 @@ export interface AlgorithmContextType {
   selectedAlgorithm: selectedAlgorithmTypes;
   timeComplexity: string | undefined;
   amountOfIterations: number;
-  iterationSpeed: number | null;
+  iterationSpeed: iterationSpeedTypes | null;
   timeElapsed: number;
   previewInput: string;
   isAlgorithmRunning: boolean;
@@ -81,7 +91,7 @@ export interface AlgorithmContextType {
   selectionSort(arr: number[]): Promise<void>;
 
   resetAlgorithm(resetSpeed?: boolean): void;
-  start(): void;
+  start(): Promise<void>;
   shuffleArray(): void;
 }
 

@@ -2,10 +2,12 @@ import React from "react";
 import { useAlgorithm } from "../../Services/AlgorithmProvider";
 import shuffle from "../../tools/Fisher-yates-shuffle/shuffle";
 import { MINIMUM_COUNT, selectedAlgorithmTypes } from "../../Types/types";
+import { useLocalStorageProvider } from "../../Services/SaveToLocalStorageProvider";
 
 const Numpad = () => {
   const AlgorithmProvider = useAlgorithm();
 
+  const uselocalstorage = useLocalStorageProvider();
   function trigger(arg0: string | number): void {}
 
   const setPreviewInput = (arg: string) => {
@@ -52,10 +54,10 @@ const Numpad = () => {
     AlgorithmProvider.setPreviewInput("");
   }
 
-  const runSelectedAlgorithm = () => {
-    AlgorithmProvider.resetAlgorithm(false);
+  const runSelectedAlgorithm = async () => {
+    await AlgorithmProvider.start();
 
-    AlgorithmProvider.start();
+    uselocalstorage.saveToLocal();
   }
 
   const reset = () => {

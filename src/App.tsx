@@ -4,7 +4,6 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import AlgorithmProvider from "./Services/AlgorithmProvider";
 import SaveToLocalStorageProvider from "./Services/SaveToLocalStorageProvider";
 
-
 const queryClient = new QueryClient();
 
 // providers

@@ -23,7 +23,7 @@ const AlgoritmTester = () => {
           <article className="flex flex-col bg-[#e1e1e1]/50 px-8 py-2 mt-14 w-5/6 rounded-xl">
             <h2 className="text-2xl">metrics:</h2>
             <hr className="my-2 border-gray-800" />
-
+            <button onClick={() => console.log(AlgorithmProvider.amountOfIterations, AlgorithmProvider.iterationSpeed,AlgorithmProvider.timeComplexity,AlgorithmProvider.timeElapsed)}>s</button>
             <h3 className="flex text-lg font-light">
               antal <br /> förflyttnigar:{" "}
               <span className="ml-auto mt-auto">

@@ -14,12 +14,14 @@ const TableHistory = () => {
         <article className='w-full'>
             <table className='w-full text-center'>
                 <thead className=''>
-                    <th className='py-3'>d</th>
-                    <th>Algoritm Namn</th>
-                    <th>Förflyttningar(steg)</th>
-                    <th>Tid(ms)</th>
-                    <th>Hastighet</th>
-                    <th>Tidskomplexitet</th>
+                    <tr>
+                        <th className='py-3'>d</th>
+                        <th>Algoritm Namn</th>
+                        <th>Förflyttningar(steg)</th>
+                        <th>Tid(ms)</th>
+                        <th>Hastighet</th>
+                        <th>Tidskomplexitet</th>
+                    </tr>
                 </thead>
                 <tbody>
                     <tr className='even:bg-[#FFD670]/10'>
