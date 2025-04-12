@@ -13,16 +13,10 @@ const SaveToLocalStorageProvider = ({
 }) => {
   const [test, setTest] = useState("");
 
+  const [savedRuns, setSavedRuns] = useState<Array<AlgoToLocalStorageType> | null>(null);
+
   const AlgorithmProvider = useAlgorithm();
 
-  //sets run if no runs object in storage
-  useEffect(() => {
-    const runs = getItem("runs")
-
-    if(runs) return;
-
-    saveItem("runs",[{}]);
-  },[]);
   
   function saveItem(key:string, item: AlgoToLocalStorageType | Array<object>) {
     if(key=== "runs") {
@@ -39,18 +33,13 @@ const SaveToLocalStorageProvider = ({
     localStorage.setItem(key,JSON.stringify(item));
   }
 
+  //TODO 
+  // gör till en knapp som man spara från calculatorn, för just nu så ser inte state variablen att det är uppdaterade
+  // gissar något med useMemo som inte uppdaterar providern, har ingen aning annars.
 
   function saveToLocal() {
     console.log(AlgorithmProvider);
-    // const entityToSave: AlgoToLocalStorageType = {
-    //     name: AlgorithmProvider.selectedAlgorithm,
-    //     iterations: AlgorithmProvider.amountOfIterations,
-    //     timeElapsed: AlgorithmProvider.timeElapsed,
-    //     iterationSpeed: AlgorithmProvider.iterationSpeed,
-    //     timeComplexity: AlgorithmProvider.timeComplexity
-    //   };
-  
-    //   saveItem("runs",entityToSave);
+    
   }
 
  
@@ -64,7 +53,7 @@ const SaveToLocalStorageProvider = ({
     return parsedItem;
   }
 
-  const contextValues = useMemo(() => ({ test, setTest,saveItem, getItem,saveToLocal }), [test, setTest,saveItem,getItem,saveToLocal]);
+  const contextValues = useMemo(() => ({ test, setTest,saveItem, getItem,saveToLocal, savedRuns,setSavedRuns }), [test, setTest,saveItem,getItem,saveToLocal,savedRuns,setSavedRuns]);
 
   return (
     <localStorageContext.Provider value={contextValues}>
