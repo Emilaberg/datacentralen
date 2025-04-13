@@ -1,11 +1,17 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useRef } from "react";
 import DOMPurify from "dompurify";
 import { marked } from "marked";
+import ApiService from "../../Services/ApiService";
+import DisplayAllArticles from "../../components/DisplayAllArticles/DisplayAllArticles";
+
 const Editpage = () => {
   const [previewText, setPreviewText] = useState(
     JSON.parse(localStorage.getItem("savedString")) ||
       "din uppladdade fil syns här..."
   );
+
+  const [chosenID, setChosenID] = useState<number>(1);
+  const articlesRef = useRef<() => void | null>(null); // Reference to trigger re-fetch in DisplayAllArticles
 
   const handleFileUpload = async (event: object) => {
     const uploadedFile = event.target.files.item(0);
@@ -20,16 +26,31 @@ const Editpage = () => {
       textContent = await marked(textContent);
     }
 
-    console.log(typeof textContent);
-    console.log(marked(textContent));
-
     setPreviewText(textContent);
-
-    console.log(textContent);
   };
 
-  const handlePublish = (event: object) => {
+  const handlePublish = async (event: object) => {
     localStorage.setItem("savedString", JSON.stringify(previewText));
+
+    try {
+      const apiService = ApiService(); // Call ApiService to get the methods
+
+      // Call the ArticleChangeContent method
+      const response = await apiService.ArticleChangeContent(chosenID, previewText);
+
+      if (response && response.ok) {
+        console.log("Publish successful");
+
+        // Trigger re-fetch of articles in DisplayAllArticles
+        if (articlesRef.current) {
+          articlesRef.current();
+        }
+      } else {
+        console.error("Failed to publish article:", response?.status, response?.statusText);
+      }
+    } catch (error) {
+      console.error("Error publishing article:", error);
+    }
   };
 
   const handleDelete = () => {
@@ -63,6 +84,14 @@ const Editpage = () => {
 
       <hr className="border-2 w-1/2 border-[#777777] my-10" />
 
+      <div className="w-1/2">
+        <DisplayAllArticles
+          count={chosenID}
+          setCount={setChosenID}
+          setRefetchCallback={(callback) => (articlesRef.current = callback)} // Pass re-fetch callback
+        />
+      </div>
+
       <div className="my-2">
         <h1>ladda upp en fil</h1>
         <input
@@ -76,11 +105,7 @@ const Editpage = () => {
         />
 
         <button
-          className={`${
-            previewText.length > 100
-              ? "bg-green-500 cursor-pointer block"
-              : "hidden"
-          } text-white font-semibold mx-auto px-4 py-2 rounded-xl`}
+          className="bg-green-500 cursor-pointer block text-white font-semibold mx-auto px-4 py-2 rounded-xl"
           type="button"
           onClick={(e) => handlePublish(e)}
         >
