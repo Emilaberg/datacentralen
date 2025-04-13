@@ -44,16 +44,20 @@
 
 .slide-out-right {
   animation: slideOutRight 0.5s ease-in-out;
+  will-change: transform, opacity;
 }
 
 .slide-in-left {
   animation: slideInLeft 0.5s ease-in-out;
+  will-change: transform, opacity;
 }
 
 .slide-out-left {
   animation: slideOutLeft 0.5s ease-in-out;
+  will-change: transform, opacity;
 }
 
 .slide-in-right {
   animation: slideInRight 0.5s ease-in-out;
+  will-change: transform, opacity;
 }

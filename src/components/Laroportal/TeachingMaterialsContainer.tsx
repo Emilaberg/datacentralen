@@ -75,10 +75,20 @@ const TeachingMaterialsContainer = ({
                   algorithmType={card.type}
                   algorithmName={card.title}
                   algorithmDescription={card.description}
-                  gradientColor1={card.colorCodeOne}
-                  gradientColor2={card.colorCodeTwo}
+                  gradientColor1={card.colorCodeOne || "#FFFFFF"}
+                  gradientColor2={card.colorCodeTwo || "#FFFFFF"}
+                  alternatingBorderRadius={
+                    index % 2 === 0
+                      ? {
+                          borderTopRightRadius: "0px",
+                          borderTopLeftRadius: "15px",
+                        }
+                      : {
+                          borderTopLeftRadius: "0px",
+                          borderTopRightRadius: "15px",
+                        }
+                  }
                 />
-                <div>{card.coloCodeTwo}</div>
               </motion.div>
             ))}
           </AnimatePresence>

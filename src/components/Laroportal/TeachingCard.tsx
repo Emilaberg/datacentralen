@@ -12,6 +12,7 @@ type CardComponentProps = {
   link?: string;
   gradientColor1: string;
   gradientColor2: string;
+  alternatingBorderRadius?: React.CSSProperties;
 };
 
 const TeachingCard: React.FC<CardComponentProps> = ({
@@ -21,6 +22,7 @@ const TeachingCard: React.FC<CardComponentProps> = ({
   link,
   gradientColor1,
   gradientColor2,
+  alternatingBorderRadius,
 }) => {
   const navigate = useNavigate();
   const RouteToText = (link: string | undefined) => {
@@ -33,17 +35,14 @@ const TeachingCard: React.FC<CardComponentProps> = ({
 
   return (
     <div
-      className="w-[530px] h-72 rounded-3xl rounded-tl-none p-5"
+      className={"w-[530px] h-72 rounded-3xl rounded-tr-none p-5"}
       style={{
         background: `linear-gradient(343deg, ${gradientColor1} 20%, ${gradientColor2} 92%)`,
+        ...alternatingBorderRadius,
       }}
     >
       <div className="w-fit px-3 py-1 bg-white rounded-xl flex items-center justify-center">
-        <p
-          className="text-sm font-medium text-black/50"
-        >
-          {algorithmType}
-        </p>
+        <p className="text-sm font-medium text-black/50">{algorithmType}</p>
       </div>
       <div className="mt-3.5">
         <h1 className="text-6xl text-black/80 font-mono">{algorithmName}</h1>
