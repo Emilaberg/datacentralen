@@ -35,12 +35,12 @@ const Footer = () => {
     <footer className="flex justify-center items-center  min-h-52 bg-backgroundWhite w-full px-20 mb-10">
       <section className="w-4/5 h-4/5 flex border-t-1 border-black  justify-center ">
         <article className="flex mt-8 justify-around w-full">
-          <article className="flex items-center justify-center">
+          <div className="flex items-center justify-center">
             <p className="text-sm font-extrabold text-footerTextColor opacity-50">
               Läroportalen - 2025. All rights reserved.
             </p>
-          </article>
-          <article className="ml-20">
+          </div>
+          <nav className="ml-20">
             <ul className="flex items-center gap-8 text-footerTextColor ">
               <a href="/testa-algoritm">
                 <li className="hover:underline hover:cursor-pointer ">
@@ -70,8 +70,8 @@ const Footer = () => {
                 <CaretDown
                   size={18}
                   style={{
-                    transform: gitHubToggle ? "" : "rotate(-180deg)",
-                    transition: "all 0.2s ease-in",
+                    transform: gitHubToggle ? "rotate(-180deg)" : "",
+                    transition: "all 0.1s ease-in",
                   }}
                 />
                 {gitHubToggle && (
@@ -99,7 +99,7 @@ const Footer = () => {
                 )}
               </div>
             </ul>
-          </article>
+          </nav>
         </article>
       </section>
     </footer>
