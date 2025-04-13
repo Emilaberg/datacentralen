@@ -1,14 +1,16 @@
+
 import { useContext, useState, useRef } from "react";
 import DOMPurify from "dompurify";
 import { marked } from "marked";
 import ApiService from "../../Services/ApiService";
 import DisplayAllArticles from "../../components/DisplayAllArticles/DisplayAllArticles";
 
+
 const Editpage = () => {
-  const [previewText, setPreviewText] = useState(
-    JSON.parse(localStorage.getItem("savedString")) ||
-      "din uppladdade fil syns här..."
+  const [previewText, setPreviewText] = useState<string>(
+    localStorage.getItem("savedString") || "din uppladdade fil syns här..."
   );
+
 
   const [chosenID, setChosenID] = useState<number>(1);
   const articlesRef = useRef<() => void | null>(null); // Reference to trigger re-fetch in DisplayAllArticles
@@ -16,15 +18,18 @@ const Editpage = () => {
   const handleFileUpload = async (event: object) => {
     const uploadedFile = event.target.files.item(0);
 
-    console.log(uploadedFile);
-    const splitString = uploadedFile.name.split(".");
-    const documentType = splitString[splitString.length - 1];
 
-    let textContent = await uploadedFile.text();
+    const fileName = uploadedFile.name;
+    const fileExt = fileName.split(".").pop()?.toLowerCase();
 
-    if (documentType === "md") {
-      textContent = await marked(textContent);
+    let rawContent = await uploadedFile.text();
+
+    if (fileExt === "html") {
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(rawContent, "text/html");
+      rawContent = doc.body.innerHTML;
     }
+
 
     setPreviewText(textContent);
   };
@@ -51,17 +56,18 @@ const Editpage = () => {
     } catch (error) {
       console.error("Error publishing article:", error);
     }
+
   };
 
   const handleDelete = () => {
-    const fileUploadBtn = document.querySelector("#uploadFile");
-
-    fileUploadBtn.value = null;
+    const fileInput = document.getElementById("uploadFile") as HTMLInputElement;
+    if (fileInput) fileInput.value = "";
     localStorage.removeItem("savedString");
     setPreviewText("");
   };
+
   return (
-    <section className="min-h-screen flex flex-col items-center">
+    <section className="min-h-screen flex flex-col items-center bg-gray-50">
       <article className="w-1/2 my-10">
         <span className="text-[#777777] text-lg font-light">
           datastrukturer
@@ -74,6 +80,7 @@ const Editpage = () => {
           <img
             src="sds"
             alt="profil "
+            className="w-10 h-10 rounded-full bg-gray-300"
           />
           <div>
             <h1 className="font-semibold text-lg">Admin</h1>
@@ -83,6 +90,7 @@ const Editpage = () => {
       </article>
 
       <hr className="border-2 w-1/2 border-[#777777] my-10" />
+
 
       <div className="w-1/2">
         <DisplayAllArticles
@@ -94,15 +102,15 @@ const Editpage = () => {
 
       <div className="my-2">
         <h1>ladda upp en fil</h1>
+
         <input
-          className="skibiditoilet bg-gray-200 px-2 border-solid border border-black my-2"
-          // onInput={(e) => console.log(e.target.files)}
-          onInput={(e) => handleFileUpload(e)}
+          className="bg-gray-200 px-2 py-1 border border-black my-2"
+          onChange={handleFileUpload}
           type="file"
-          name=""
           id="uploadFile"
           accept=".md, .html"
         />
+
 
         <button
           className="bg-green-500 cursor-pointer block text-white font-semibold mx-auto px-4 py-2 rounded-xl"
@@ -117,12 +125,17 @@ const Editpage = () => {
         >
           Delete from saved
         </button>
+
       </div>
 
-      <article className="w-1/2 mx-auto border-dashed border-1 border-black">
-        {/* <SlateEditor /> */}
+      <article className="w-1/2 mx-auto border-dashed border border-black p-6 my-10 bg-white">
         <div
-          dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(previewText) }}
+          className="prose max-w-none"
+          dangerouslySetInnerHTML={{
+            __html: DOMPurify.sanitize(previewText, {
+              ALLOWED_ATTR: ["href", "target", "rel", "style"],
+            }),
+          }}
         ></div>
       </article>
     </section>

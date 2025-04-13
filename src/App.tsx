@@ -3,7 +3,6 @@ import Router from "./Routing/Router";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import AlgorithmProvider from "./Services/AlgorithmProvider";
 
-
 const queryClient = new QueryClient();
 
 // providers

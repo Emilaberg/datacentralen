@@ -1,73 +1,109 @@
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
-import footerImage from "../../assets/icons/image.svg"
-import fbIcon from "../../assets/icons/fb.svg"
-import instaIcon from "../../assets/icons/insta.svg"
-import xIcon from "../../assets/icons/X.svg"
-import linkedinIcon from "../../assets/icons/linkedin.svg"
-import { useAuth } from '../../Auth/AuthProvider'
-
-const validNames = ["admin"];
-const validpWord = ["admin123"];
-
+import githubIcon from "../../assets/icons/Github.svg";
+import { Link } from "react-router-dom";
+import { CaretDown } from "@phosphor-icons/react";
+import { useState, useRef, useEffect } from "react";
 
 const Footer = () => {
+  const [gitHubToggle, setGitHubToggle] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement | null>(null);
+  const toggleButtonRef = useRef<HTMLDivElement | null>(null);
 
-    
-    // const auth = useAuth();
-    // const [fName, setName] = useState("");
-    // const [pWord, setpWord] = useState("");
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as Node;
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(target) &&
+        toggleButtonRef.current &&
+        !toggleButtonRef.current.contains(target)
+      ) {
+        setGitHubToggle(false);
+      }
+    };
 
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
-    // const handleSubmit = (e: any) => {
-    //     e.preventDefault();
-    //     if(validNames.includes(fName) && validpWord.includes(pWord)) auth.login({email:fName, password: pWord})
-    //     console.log(fName + " " + pWord);
-    // }
+  const handleDropDown = () => {
+    setGitHubToggle((prev) => !prev);
+  };
+
   return (
-    <footer className='flex justify-center items-center mt-auto h-56 bg-footerBlue w-full py-9 px-20'>
-        <section className='flex w-1/2 justify-between h-full'>
-            <img src={footerImage} alt="bild" />
-            <ul className='mr-10 flex flex-col justify-evenly'>
-                <li><Link to="#">Om oss</Link></li>
-                <li><Link to="#">Nyhetsbrev</Link></li>
-                <li><Link to="#">Hjälpcenter</Link></li>
-                <li><Link to="#">Kontakt</Link></li>
+    <footer className="flex justify-center items-center  min-h-52 bg-backgroundWhite w-full px-20 mb-10">
+      <section className="w-4/5 h-4/5 flex border-t-1 border-black  justify-center ">
+        <article className="flex mt-8 justify-around w-full">
+          <div className="flex items-center justify-center">
+            <p className="text-sm font-extrabold text-footerTextColor opacity-50">
+              Läroportalen - 2025. All rights reserved.
+            </p>
+          </div>
+          <nav className="ml-20">
+            <ul className="flex items-center gap-8 text-footerTextColor ">
+              <a href="/testa-algoritm">
+                <li className="hover:underline hover:cursor-pointer ">
+                  Testa algoritm
+                </li>
+              </a>
+              -
+              <a href="/laroportal">
+                <li className="hover:underline hover:cursor-pointer">
+                  Läroportal
+                </li>
+              </a>
+              -
+              <a href="/about-us">
+                <li className="hover:underline hover:cursor-pointer">
+                  Om projektet
+                </li>
+              </a>
+              -
+              <div
+                ref={toggleButtonRef}
+                onClick={handleDropDown}
+                className="select-none bg-black text-white flex items-center gap-2 py-2 px-4 rounded-[10px] relative hover:cursor-pointer"
+              >
+                <span>Github</span>
+                <img src={githubIcon} alt="github icon" />
+                <CaretDown
+                  size={18}
+                  style={{
+                    transform: gitHubToggle ? "rotate(-180deg)" : "",
+                    transition: "all 0.1s ease-in",
+                  }}
+                />
+                {gitHubToggle && (
+                  <div
+                    ref={dropdownRef}
+                    className="bg-black w-full top-full left-0 py-2 px-4 text-white font-bold flex flex-col items-center gap-2 mt-1 absolute rounded-[8px]"
+                  >
+                    <Link
+                      className="hover:underline decoration-2"
+                      to="https://github.com/Emilaberg/datacentralen"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Frontend
+                    </Link>
+                    <Link
+                      className="hover:underline"
+                      to="https://github.com/MaxTarn/DataCentralen-Api"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Backend
+                    </Link>
+                  </div>
+                )}
+              </div>
             </ul>
-            
-        </section>
-        
-        <section className='flex w-1/2 h-full justify-center '>
-            <article>
-                <h1>Följ oss på:</h1>
-                <ul className='flex gap-5 mt-2'>
-                    <li><Link to="#"><img src={fbIcon} alt="facebook" /></Link></li>
-                    <li><Link to="#"><img src={instaIcon} alt="insta" /></Link></li>
-                    <li><Link to="#"><img src={xIcon} alt="X" /></Link></li>
-                    <li><Link to="#"><img src={linkedinIcon} alt="linkedin" /></Link></li>
-                </ul>
-            </article>
-
-        </section>
-
-        {/* <section>
-            {auth.token && (<div> du är inloggad <br /> token: {auth.token} <button onClick={auth.logout}>logout</button></div>)}
-            {auth.token === "" && (
-                <div>
-                    <form onSubmit={(e) => handleSubmit(e)} className='flex flex-col'>
-                        <label htmlFor="" >admin name</label>
-                        <input id="name" type="text" className='bg-white' onChange={(e) => setName(e.target.value)}/>
-                        <label htmlFor="" >admin pswd</label>
-                        <input id="password" type="password" className='bg-white' onChange={(e) => setpWord(e.target.value)}/>
-                        <button type="submit" className='cursor-pointer'>login</button>    
-                    </form>
-                </div>
-            )}
-        </section> */}
-        
-        
+          </nav>
+        </article>
+      </section>
     </footer>
-  )
-}
+  );
+};
 
-export default Footer
+export default Footer;

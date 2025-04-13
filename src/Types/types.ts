@@ -33,6 +33,15 @@ export interface ArticleDTOProps {
   title: string;
   description: string;
 }
+
+export interface ArticleCardDTOProps {
+  id: number;
+  title: string;
+  description: string;
+  type: string;
+  colorCodeOne?: string;
+  colorCodeTwo?: string;
+}
 export enum iterationSpeedTypes {
   FASTER = 100,
   STANDARD = 250,
