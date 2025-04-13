@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import TeachingCard from "./TeachingCard";
 import { ArticleCardDTOProps } from "../../Types/types";
 import "./animations.css";
-import { useAlgorithm } from "../../Services/AlgorithmProvider";
 
 interface LaroContainerProps {
   laroType: string;
