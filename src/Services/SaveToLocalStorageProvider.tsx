@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useEffect, useMemo, useState } from "react";
 import { AlgostorageType, AlgoToLocalStorageType, LocalStorageContextType } from "../Types/types";
 import { useAlgorithm } from "./AlgorithmProvider";
+import { QueryClient, useQuery } from "@tanstack/react-query";
 
 const localStorageContext = createContext<LocalStorageContextType | undefined>(
   undefined
@@ -11,13 +12,12 @@ const SaveToLocalStorageProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
-  const [test, setTest] = useState("");
-
-  const [savedRuns, setSavedRuns] = useState<Array<AlgoToLocalStorageType> | null>(null);
-
-  const AlgorithmProvider = useAlgorithm();
 
   
+  const [test, setTest] = useState("");
+
+  const [savedRuns, setSavedRuns] = useState<Array<AlgoToLocalStorageType> | []>(() => getItem("runs"));
+
   function saveItem(key:string, item: AlgoToLocalStorageType | Array<object>) {
     if(key=== "runs") {
         const runs = getItem(key) as AlgostorageType;
@@ -37,23 +37,18 @@ const SaveToLocalStorageProvider = ({
   // gör till en knapp som man spara från calculatorn, för just nu så ser inte state variablen att det är uppdaterade
   // gissar något med useMemo som inte uppdaterar providern, har ingen aning annars.
 
-  function saveToLocal() {
-    console.log(AlgorithmProvider);
-    
-  }
-
  
-  function getItem(key: string): unknown {
+  function getItem(key: string): Array<AlgoToLocalStorageType> | [] {
     const item = localStorage.getItem(key);
 
-    if(!item) return null
+    if(!item) return []
 
     const parsedItem = JSON.parse(item);
 
     return parsedItem;
   }
 
-  const contextValues = useMemo(() => ({ test, setTest,saveItem, getItem,saveToLocal, savedRuns,setSavedRuns }), [test, setTest,saveItem,getItem,saveToLocal,savedRuns,setSavedRuns]);
+  const contextValues = useMemo(() => ({ test, setTest,saveItem, getItem, savedRuns,setSavedRuns }), [test, setTest,saveItem,getItem,savedRuns,setSavedRuns]);
 
   return (
     <localStorageContext.Provider value={contextValues}>

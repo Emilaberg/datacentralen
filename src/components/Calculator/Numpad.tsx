@@ -56,8 +56,6 @@ const Numpad = () => {
 
   const runSelectedAlgorithm = async () => {
     await AlgorithmProvider.start();
-
-    uselocalstorage.saveToLocal();
   }
 
   const reset = () => {

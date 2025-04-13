@@ -6,9 +6,12 @@ import AlgorithmProvider, {
 import { selectedAlgorithmTypes } from "../../Types/types";
 import TableHistory from "../../components/AlgoritmTester/TableHistory";
 // import bubblesort from "../../Algorithms/Bubblesort/bubblesort";
-
+import refreshIcon from "../../assets/icons/arrows-clockwise.svg"
+import { useLocalStorageProvider } from "../../Services/SaveToLocalStorageProvider";
 const TestaAlgoritm = () => {
   const AlgorithmProvider = useAlgorithm();
+
+  const useLocalstorage = useLocalStorageProvider();
 
   const changeSelectedAlgorithm = (e: React.ChangeEvent) => {
     const target = e.target as HTMLSelectElement;
@@ -63,8 +66,10 @@ const TestaAlgoritm = () => {
       </section>
       <section className="flex flex-col mx-20 mb-40 py-18">
         <h1 className="text-3xl font-semibold my-8">Tidigare körningar</h1>
+        <button onClick={() => useLocalstorage.setSavedRuns(useLocalstorage.getItem("runs"))} className="flex items-center gap-2 ml-auto my-3 hover:underline cursor-pointer"><img className="w-6 hover:animate-spin" src={refreshIcon} alt="" /> uppdatera </button>
+
         <section className="px-12 border-dashed border-[#8f8f8f] border-2">
-          <TableHistory />
+          <TableHistory array={useLocalstorage.savedRuns}/>
         </section>
         <button className="bg-[#62A958] disabled:opacity-25 text-white px-6 py-2 rounded-xl my-5 ml-auto">Kör igen</button>
       </section>

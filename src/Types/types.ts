@@ -49,16 +49,17 @@ export enum selectedAlgorithmTypes {
 export interface LocalStorageContextType {
   test: string;
   setTest: React.Dispatch<React.SetStateAction<string>>;
-  savedRuns: Array<AlgoToLocalStorageType> | null;
-  setSavedRuns: React.Dispatch<React.SetStateAction<Array<AlgoToLocalStorageType> | null>>;
+  savedRuns: Array<AlgoToLocalStorageType> | [];
+  setSavedRuns: React.Dispatch<React.SetStateAction<Array<AlgoToLocalStorageType> | []>>;
   saveItem(key:string, item: AlgoToLocalStorageType | Array<object>): void;
-  getItem(key:string): unknown; 
-  saveToLocal(): void;
+  getItem(key:string): Array<AlgoToLocalStorageType> | []; 
 }
 
 export type AlgostorageType = Array<AlgoToLocalStorageType>;
 
 export interface AlgoToLocalStorageType {
+  array: number[];
+  length: number;
   name: selectedAlgorithmTypes;
   iterations: number;
   timeElapsed: number;

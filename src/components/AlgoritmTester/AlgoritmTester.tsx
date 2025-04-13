@@ -11,6 +11,8 @@ const AlgoritmTester = () => {
   const saveResult = () => {
 
     const entityToSave: AlgoToLocalStorageType = {
+        array: AlgorithmProvider.array,
+        length: AlgorithmProvider.array.length,
         name: AlgorithmProvider.selectedAlgorithm,
         iterations: AlgorithmProvider.amountOfIterations,
         timeElapsed: AlgorithmProvider.timeElapsed,
@@ -18,12 +20,13 @@ const AlgoritmTester = () => {
         timeComplexity: AlgorithmProvider.timeComplexity
       };
   
-      const saved = useLocalstorage.savedRuns;
+      const saved = useLocalstorage.savedRuns as Array<AlgoToLocalStorageType>;
       saved?.push(entityToSave);
-      useLocalstorage.setSavedRuns(...[saved]);
+      useLocalstorage.setSavedRuns(saved);
 
       useLocalstorage.saveItem("runs",entityToSave);
   }
+
   return AlgorithmProvider.selectedAlgorithm !== selectedAlgorithmTypes.none ? (
     <>
       <article className="">
@@ -58,7 +61,7 @@ const AlgoritmTester = () => {
                 {AlgorithmProvider.timeElapsed} ms
               </span>
             </h3>
-              <button className="border-2 rounded-lg hover:bg-gray-200 cursor-pointer" onClick={saveResult}>save result</button>
+              <button disabled={AlgorithmProvider.array.length < 2} className="disabled:opacity-20 disabled:cursor-not-allowed border-2 rounded-lg hover:bg-gray-200 cursor-pointer" onClick={saveResult}>save result</button>
           </article>
 
           <BarChart array={AlgorithmProvider.array}/>    

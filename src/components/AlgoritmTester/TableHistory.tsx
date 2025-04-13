@@ -1,8 +1,7 @@
 import React, { useEffect } from "react";
-import { useLocalStorageProvider } from "../../Services/SaveToLocalStorageProvider";
+import { AlgoToLocalStorageType } from "../../Types/types";
 
-const TableHistory = () => {
-  const useLocalStorage = useLocalStorageProvider();
+const TableHistory = ({array}: {array: Array<AlgoToLocalStorageType>}) => {
 
 
   return (
@@ -13,6 +12,7 @@ const TableHistory = () => {
             <tr>
               <th className="py-3">d</th>
               <th>Algoritm Namn</th>
+              <th>antal (st)</th>
               <th>Förflyttningar(steg)</th>
               <th>Tid(ms)</th>
               <th>Hastighet</th>
@@ -20,8 +20,8 @@ const TableHistory = () => {
             </tr>
           </thead>
           <tbody>
-            {useLocalStorage.savedRuns?.map(e => (
-                <tr className="even:bg-[#FFD670]/10">
+            {array?.map((e,i) => (
+                <tr key={i} className="even:bg-[#FFD670]/10">
                 <td className="py-2">
                   <input
                     onClick={(e) => console.log(e.target)}
@@ -31,57 +31,14 @@ const TableHistory = () => {
                   />
                 </td>
                 <td>{e.name}</td>
+                <td>{e.length}</td>
                 <td>{e.iterations}</td>
                 <td>{e.timeElapsed}</td>
                 <td>{e.iterationSpeed}</td>
                 <td>{e.timeComplexity}</td>
               </tr>
             ))}
-            <tr className="even:bg-[#FFD670]/10">
-              <td className="py-2">
-                <input
-                  onClick={(e) => console.log(e.target)}
-                  type="checkbox"
-                  name=""
-                  id="1"
-                />
-              </td>
-              <td>Merge sort</td>
-              <td>10</td>
-              <td>256</td>
-              <td>1x</td>
-              <td>O(1)</td>
-            </tr>
-            <tr className="even:bg-[#FFD670]/10">
-              <td className="py-2">
-                <input
-                  onClick={(e) => console.log(e.target)}
-                  type="checkbox"
-                  name=""
-                  id="1"
-                />
-              </td>
-              <td>Merge sort</td>
-              <td>10</td>
-              <td>256</td>
-              <td>1x</td>
-              <td>O(1)</td>
-            </tr>
-            <tr className="even:bg-[#FFD670]/10">
-              <td className="py-2">
-                <input
-                  onClick={(e) => console.log(e.target)}
-                  type="checkbox"
-                  name=""
-                  id="1"
-                />
-              </td>
-              <td>Merge sort</td>
-              <td>10</td>
-              <td>256</td>
-              <td>1x</td>
-              <td>O(1)</td>
-            </tr>
+            
           </tbody>
         </table>
       </article>
