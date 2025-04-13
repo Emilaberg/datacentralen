@@ -2,6 +2,9 @@ import React from "react";
 import { useAlgorithm } from "../../Services/AlgorithmProvider";
 
 const BarChart = ({array = []}:{array: number[]}) => {
+  //dynamic scaling 
+  const maxValue = Math.max(...array);
+
   return (
     <article>
       <div className="flex gap-2 h-96 mt-7 items-end">
@@ -10,7 +13,7 @@ const BarChart = ({array = []}:{array: number[]}) => {
             key={index}
             className={`relative w-4 bg-black`}
             style={{
-              height: `${(item / 10) * 100 > 100 ? 100 : (item / 10) * 100}%`,
+              height: `${(item / maxValue) * 100}%`,
             }}
           >
             <span className="absolute top-full mt-2">{item}</span>

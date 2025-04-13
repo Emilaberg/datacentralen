@@ -76,7 +76,7 @@ const TeachingMaterialsContainer = ({
                   algorithmName={card.title}
                   algorithmDescription={card.description}
                   gradientColor1={card.colorCodeOne}
-                  gradientColor2="#FFFFFF"
+                  gradientColor2={card.colorCodeTwo}
                 />
                 <div>{card.coloCodeTwo}</div>
               </motion.div>
