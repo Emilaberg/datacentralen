@@ -4,6 +4,7 @@ export const MINIMUM_COUNT = 4;
 
 export const MAXIMUM_GENERATED_ARRAY_LENGTH = 20;
 export const MINIMUM_ARRAY_VALUE_RANGE = 10;
+export const MAXIMUM_ARRAY_VALUE_RANGE = 1000;
 export type LoginType = {
   email: string;
   password: string;
