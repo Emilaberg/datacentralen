@@ -1,46 +1,50 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import DOMPurify from "dompurify";
 import { marked } from "marked";
+
 const Editpage = () => {
-  const [previewText, setPreviewText] = useState(
-    JSON.parse(localStorage.getItem("savedString")) ||
-      "din uppladdade fil syns här..."
+  const [previewText, setPreviewText] = useState<string>(
+    localStorage.getItem("savedString") || "din uppladdade fil syns här..."
   );
 
-  const handleFileUpload = async (event: object) => {
-    const uploadedFile = event.target.files.item(0);
+  // Läser in HTML eller Markdown-fil
+  const handleFileUpload = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const uploadedFile = event.target.files?.[0];
+    if (!uploadedFile) return;
 
-    console.log(uploadedFile);
-    const splitString = uploadedFile.name.split(".");
-    const documentType = splitString[splitString.length - 1];
+    const fileName = uploadedFile.name;
+    const fileExt = fileName.split(".").pop()?.toLowerCase();
 
-    let textContent = await uploadedFile.text();
+    let rawContent = await uploadedFile.text();
 
-    if (documentType === "md") {
-      textContent = await marked(textContent);
+    if (fileExt === "html") {
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(rawContent, "text/html");
+      rawContent = doc.body.innerHTML;
     }
 
-    console.log(typeof textContent);
-    console.log(marked(textContent));
+    if (fileExt === "md") {
+      rawContent = await marked.parse(rawContent);
+    }
 
-    setPreviewText(textContent);
-
-    console.log(textContent);
+    setPreviewText(rawContent);
   };
 
-  const handlePublish = (event: object) => {
-    localStorage.setItem("savedString", JSON.stringify(previewText));
+  const handlePublish = () => {
+    localStorage.setItem("savedString", previewText);
   };
 
   const handleDelete = () => {
-    const fileUploadBtn = document.querySelector("#uploadFile");
-
-    fileUploadBtn.value = null;
+    const fileInput = document.getElementById("uploadFile") as HTMLInputElement;
+    if (fileInput) fileInput.value = "";
     localStorage.removeItem("savedString");
     setPreviewText("");
   };
+
   return (
-    <section className="min-h-screen flex flex-col items-center">
+    <section className="min-h-screen flex flex-col items-center bg-gray-50">
       <article className="w-1/2 my-10">
         <span className="text-[#777777] text-lg font-light">
           datastrukturer
@@ -53,6 +57,7 @@ const Editpage = () => {
           <img
             src="sds"
             alt="profil "
+            className="w-10 h-10 rounded-full bg-gray-300"
           />
           <div>
             <h1 className="font-semibold text-lg">Admin</h1>
@@ -63,41 +68,46 @@ const Editpage = () => {
 
       <hr className="border-2 w-1/2 border-[#777777] my-10" />
 
-      <div className="my-2">
-        <h1>ladda upp en fil</h1>
+      <div className="my-2 text-center">
+        <h1 className="font-semibold text-xl mb-2">Ladda upp en fil</h1>
         <input
-          className="skibiditoilet bg-gray-200 px-2 border-solid border border-black my-2"
-          // onInput={(e) => console.log(e.target.files)}
-          onInput={(e) => handleFileUpload(e)}
+          className="bg-gray-200 px-2 py-1 border border-black my-2"
+          onChange={handleFileUpload}
           type="file"
-          name=""
           id="uploadFile"
           accept=".md, .html"
         />
 
-        <button
-          className={`${
-            previewText.length > 100
-              ? "bg-green-500 cursor-pointer block"
-              : "hidden"
-          } text-white font-semibold mx-auto px-4 py-2 rounded-xl`}
-          type="button"
-          onClick={(e) => handlePublish(e)}
-        >
-          Save and publish
-        </button>
-        <button
-          className={`bg-red-400 cursor-pointer block text-white font-semibold mx-auto px-4 py-2 rounded-xl`}
-          onClick={() => handleDelete()}
-        >
-          Delete from saved
-        </button>
+        <div className="flex gap-4 justify-center mt-4">
+          <button
+            className={`${
+              previewText.length > 100
+                ? "bg-green-500"
+                : "bg-gray-400 pointer-events-none"
+            } text-white font-semibold px-4 py-2 rounded-xl`}
+            type="button"
+            onClick={handlePublish}
+          >
+            Save and publish
+          </button>
+
+          <button
+            className="bg-red-500 text-white font-semibold px-4 py-2 rounded-xl"
+            onClick={handleDelete}
+          >
+            Delete from saved
+          </button>
+        </div>
       </div>
 
-      <article className="w-1/2 mx-auto border-dashed border-1 border-black">
-        {/* <SlateEditor /> */}
+      <article className="w-1/2 mx-auto border-dashed border border-black p-6 my-10 bg-white">
         <div
-          dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(previewText) }}
+          className="prose max-w-none"
+          dangerouslySetInnerHTML={{
+            __html: DOMPurify.sanitize(previewText, {
+              ALLOWED_ATTR: ["href", "target", "rel", "style"],
+            }),
+          }}
         ></div>
       </article>
     </section>

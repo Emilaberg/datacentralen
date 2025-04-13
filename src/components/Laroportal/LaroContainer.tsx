@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import TeachingCard from "./TeachingCard";
 import { ArticleCardDTOProps } from "../../Types/types";
 import "./animations.css";
-import { useAlgorithm } from "../../Services/AlgorithmProvider";
 
 interface LaroContainerProps {
   laroType: string;
@@ -35,12 +34,12 @@ const LaroContainer: React.FC<LaroContainerProps> = ({
       const fadeOutTimeout = setTimeout(() => {
         setCurrentPage(nextPage);
         setIsFadingOut(false);
-      }, 400);
+      }, 500);
 
       const animationTimeout = setTimeout(() => {
         setIsAnimating(false);
         setNextPage(null);
-      }, 800);
+      }, 500);
 
       return () => {
         clearTimeout(fadeOutTimeout);
@@ -60,7 +59,7 @@ const LaroContainer: React.FC<LaroContainerProps> = ({
   console.log("Current Cards:", currentCards);
 
   return (
-    <div className="overflow-x-hidden">
+    <div className="overflow-hidden">
       <h1 className="text-5xl mb-10">{laroType}</h1>
       <div className="h-[750px] w-[1200px] border border-dashed border-black flex flex-col justify-between">
         {isLoading ? (
@@ -71,7 +70,7 @@ const LaroContainer: React.FC<LaroContainerProps> = ({
           <>
             <div className="flex justify-center items-center mt-10 ">
               <div
-                className={`grid grid-cols-2 gap-10 transition-transform duration-500 ease-in-out ${
+                className={`grid grid-cols-2 h-[300px] gap-16 transition-transform duration-500 ease-in-out ${
                   isFadingOut
                     ? animationDirection
                     : animationDirection === "slide-out-left"
@@ -85,14 +84,14 @@ const LaroContainer: React.FC<LaroContainerProps> = ({
                       algorithmType={card.type}
                       algorithmName={card.title}
                       algorithmDescription={card.description}
-                      gradientColor1={card.colorCodeOne}
-                      gradientColor2={card.colorCodeTwo}
+                      gradientColor1={card.colorCodeOne || "#FFFFFF"}
+                      gradientColor2={card.colorCodeTwo || "#FFFFFF"}
                     />
                   </div>
                 ))}
               </div>
             </div>
-            <div className="flex items-end justify-center mt-10 gap-2">
+            <div className="flex items-center justify-center mt-10 gap-2">
               <div className="flex items-center justify-center gap-2 mb-5">
                 {Array.from({
                   length: Math.ceil(teachingCards.length / cardsPerPage),

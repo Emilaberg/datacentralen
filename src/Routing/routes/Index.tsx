@@ -30,10 +30,6 @@ const Index = () => {
           isLoading={isLoadingArticlesCard}
         />
       </section>
-      {isLoading && <div>loading articles...</div>}
-      {data?.map((article: ArticleProps) => (
-        <div key={article.id}>{article.title}</div>
-      ))}
     </section>
   );
 };
