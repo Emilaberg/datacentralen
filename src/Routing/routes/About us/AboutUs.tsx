@@ -1,6 +1,17 @@
-import React from "react";
+import React, {useState} from "react";
+import ApiService from "../../../Services/ApiService";
+import { useQuery } from "@tanstack/react-query";
 
-const AboutUs = () => {
+// const AboutUs = () => {
+//   const { Articles, ArticleCardDTO } = ApiService();
+//   const { sortingArticles, sortingArticlesCardDTO } = useState(data.filter((article) => article.category === "sorting"));
+
+//   const { data, isLoading } = useQuery({
+//     queryFn: Articles,
+//     queryKey: ["articles"],
+//   });
+
+  console.log("data", data);
   return (
     <section className=" bg-blanchOrange h-full w-full mr-15 ml-15 flex flex-col justify-center items-center mt-20">
       <article className=" w-5/6 h-[650px] flex bg-[#CF6227]/5 p-10 radious-xl rounded-4xl">
