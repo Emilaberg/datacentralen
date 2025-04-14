@@ -7,7 +7,8 @@ export const MINIMUM_ARRAY_VALUE_RANGE = 10;
 export type LoginType = {
   email: string;
   password: string;
-  remember_me?: boolean | undefined;
+  remember_me?: boolean;
+  token: string; // ✅ add this line
 };
 
 export interface ProviderProps {
