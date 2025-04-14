@@ -2,7 +2,6 @@ import { createContext, useContext, useState } from "react";
 import { LoginType, ProviderProps } from "../Types/types";
 import { useNavigate } from "react-router-dom";
 
-// Create context with default empty functions
 const AuthContext = createContext<ProviderProps>({
   user: null,
   token: "",
@@ -20,7 +19,6 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<string | null>(storedInfo?.email || null);
   const [token, setToken] = useState<string>(storedInfo?.token || "");
 
-  // ✅ Accept real token from backend
   const login = (data: LoginType & { token: string }) => {
     console.log("🔐 Logging in with real token:", data.token);
 
@@ -29,7 +27,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     setToken(data.token);
     localStorage.setItem("user", JSON.stringify(obj));
 
-    navigate("/"); // redirect to homepage or dashboard
+    navigate("/");
   };
 
   const logout = () => {

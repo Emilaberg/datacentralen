@@ -8,7 +8,7 @@ export type LoginType = {
   email: string;
   password: string;
   remember_me?: boolean;
-  token: string; // ✅ add this line
+  token: string;
 };
 
 export interface ProviderProps {
@@ -32,6 +32,7 @@ export interface ArticleDTOProps {
   id: number;
   title: string;
   description: string;
+  type: "Sorteringsalgoritm" | "Datastruktur";
 }
 export enum iterationSpeedTypes {
   FASTER = 100,

@@ -14,7 +14,7 @@ const Loginpage = () => {
   const [error, setError] = useState("");
 
   const handleSubmit = async () => {
-    setError(""); // Reset error
+    setError("");
 
     try {
       const response = await fetch("https://localhost:7033/api/Auth/login", {
@@ -31,8 +31,8 @@ const Loginpage = () => {
       }
 
       const token = await response.text();
-      // localStorage.setItem("token", token);
-      auth.login({ email: username, password, token }); // Update auth state if you're using context
+      localStorage.setItem("token", token);
+      auth.login({ email: username, password, token });
 
       console.log("✅ Token stored in localStorage:", token);
       navigate("/"); // Redirect to homepage or dashboard
