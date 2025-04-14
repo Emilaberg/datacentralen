@@ -22,14 +22,7 @@ function Router() {
             <Route path="/laroportal/:id" element={<div>specific id</div>} />
             <Route path="/testa-algoritm" element={<TestaAlgoritm />} />
             <Route path="/about-us" element={<AboutUs />} />
-            <Route
-              path="reading"
-              element={
-                <ProtectedRoute>
-                  <ReadingPage />
-                </ProtectedRoute>
-              }
-            />
+            <Route path="reading" element={<ReadingPage />} />
 
             <Route path="*" element={<div>error 404</div>} />
           </Route>

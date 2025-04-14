@@ -5,32 +5,53 @@ import ApiService from "../../Services/ApiService";
 import { ArticleDTOProps } from "../../Types/types";
 
 const LaroportalDropdown = () => {
-  const { ArticlesDTO } = ApiService();
+  const { GroupedArticlesDropdown } = ApiService();
 
   const { data, isLoading } = useQuery({
-    queryKey: ["articlesDTO"],
-    queryFn: ArticlesDTO,
+    queryKey: ["groupedArticles"],
+    queryFn: GroupedArticlesDropdown,
   });
 
-  return (
-    <div className="absolute w-full left-0 top-0 hidden group-hover:block z-20">
-      <ul className="w-[200%] mt-10 hidden group-hover:flex flex-col gap-2 bg-white px-6 capitalize rounded-2xl border-2 border-[#96C9E3] py-4 shadow-md">
-        {isLoading && <li>Laddar artiklar...</li>}
+  const sortingAlgorithms: ArticleDTOProps[] = data?.sortingAlgorithms || [];
+  const dataStructures: ArticleDTOProps[] = data?.dataStructures || [];
 
-        {data?.map((article: ArticleDTOProps) => (
-          <li key={article.id}>
-            <Link
-              to={`/reading?id=${article.id}`}
-              className="text-black font-medium text-lg hover:underline"
-            >
-              {article.title}
-            </Link>
-            <p className="text-black/50 text-sm font-roboto text-ellipsis whitespace-nowrap overflow-hidden">
-              {article.description}
-            </p>
-          </li>
-        ))}
-      </ul>
+  return (
+    <div className="absolute left-0 top-full hidden group-hover:flex bg-white px-6 py-4 border-2 border-[#96C9E3] rounded-2xl w-[600px] z-50 justify-between shadow-lg">
+      {isLoading && <div>Laddar artiklar...</div>}
+
+      <div className="w-1/2 pr-4">
+        <h3 className="text-lg font-semibold mb-2">Sorteringsalgoritmer</h3>
+        <ul className="flex flex-col gap-2">
+          {sortingAlgorithms.map((article) => (
+            <li key={article.id}>
+              <Link
+                to={`/reading?id=${article.id}`}
+                className="text-black font-medium hover:underline cursor-pointer"
+              >
+                {article.title}
+              </Link>
+              <p className="text-black/50 text-sm">{article.description}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div className="w-1/2 pl-4">
+        <h3 className="text-lg font-semibold mb-2">Datastrukturer</h3>
+        <ul className="flex flex-col gap-2">
+          {dataStructures.map((article) => (
+            <li key={article.id}>
+              <Link
+                to={`/reading?id=${article.id}`}
+                className="text-black font-medium hover:underline cursor-pointer"
+              >
+                {article.title}
+              </Link>
+              <p className="text-black/50 text-sm">{article.description}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 };

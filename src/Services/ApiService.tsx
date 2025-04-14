@@ -43,11 +43,23 @@ const ApiService = () => {
     );
     return data;
   };
+  const GroupedArticlesDropdown = async () => {
+    const data = await ApiCaller(
+      "https://localhost:7033/api/Article/GroupedDropdown"
+    );
+    return data;
+  };
 
-  // ✅ Final return inside ApiService function
+  const GetArticleById = async (id: number) => {
+    const data = await ApiCaller(`https://localhost:7033/api/Article/${id}`);
+    return data;
+  };
+
   return {
     Articles,
     ArticlesDTO,
+    GroupedArticlesDropdown,
+    GetArticleById,
   };
 };
 

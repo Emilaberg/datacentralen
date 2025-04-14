@@ -1,32 +1,35 @@
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
+import { useSearchParams } from "react-router-dom";
 import ApiService from "../../Services/ApiService";
 import { ArticleProps } from "../../Types/types";
 
 const ReadingPage = () => {
-  const { Articles } = ApiService();
+  const { GetArticleById } = ApiService();
+  const [searchParams] = useSearchParams();
+  const id = searchParams.get("id");
 
-  const { data, isLoading, isError } = useQuery({
-    queryFn: Articles,
-    queryKey: ["articles"],
+  const articleId = id ? parseInt(id) : null;
+
+  const { data, isLoading, isError } = useQuery<ArticleProps>({
+    queryKey: ["article", articleId],
+    queryFn: () => GetArticleById(articleId!),
+    enabled: !!articleId,
   });
 
-  if (isLoading) return <div>Laddar artiklar...</div>;
-  if (isError) return <div>Något gick fel vid hämtning av artiklar.</div>;
+  if (!articleId) return <div>Ingen artikel ID angiven.</div>;
+  if (isLoading) return <div>Laddar artikel...</div>;
+  if (isError || !data)
+    return <div>Något gick fel vid hämtning av artikeln.</div>;
 
   return (
     <section className="p-10">
-      <h1 className="text-3xl font-bold mb-6">Alla Artiklar</h1>
-      {data?.map((article: ArticleProps) => (
-        <article key={article.id} className="mb-8 border-b pb-4">
-          <h2 className="text-2xl font-semibold">{article.title}</h2>
-          <p className="text-sm text-gray-600">Författare: {article.author}</p>
-          <div
-            className="mt-2"
-            dangerouslySetInnerHTML={{ __html: article.content }}
-          />
-        </article>
-      ))}
+      <h1 className="text-3xl font-bold mb-6">{data.title}</h1>
+      <p className="text-sm text-gray-600 mb-2">Författare: {data.author}</p>
+      <div
+        className="mt-4"
+        dangerouslySetInnerHTML={{ __html: data.content }}
+      />
     </section>
   );
 };
