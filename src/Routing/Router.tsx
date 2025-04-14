@@ -15,6 +15,7 @@ function Router() {
   return (
     <BrowserRouter>
       <AuthProvider>
+      <AuthProvider>
         <Routes>
           <Route path="/" element={<Layout />}>
             <Route index element={<Index />} />
@@ -37,6 +38,7 @@ function Router() {
           <Route path="/login" element={<Loginpage />} />
           <Route path="/logout" element={<Logout />} />
           <Route path="*" element={<div>Error 404 page not found</div>} />
+        </Routes>
         </Routes>
       </AuthProvider>
     </BrowserRouter>
