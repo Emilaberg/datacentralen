@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import ApiService from "../../../Services/ApiService";
 import { useQuery } from "@tanstack/react-query";
-import { ArticleProps } from "../../Types/types";
+import { ArticleCardDTOProps } from "../../../Types/types";
 
 const AboutUs = () => {
   const { Articles } = ApiService();
@@ -11,10 +11,11 @@ const AboutUs = () => {
   useEffect(() => {
     if (data) {
       const filteredSortingArticles = data.filter(
-        (articles: ArticleProps) => articles.type === "Sorteringsalgoritm"
+        (articles: ArticleCardDTOProps) =>
+          articles.type === "Sorteringsalgoritm"
       );
       const filteredDataStructureArticles = data.filter(
-        (articles: ArticleProps) => articles.type === "Datastruktur"
+        (articles: ArticleCardDTOProps) => articles.type === "Datastruktur"
       );
       setSortingArticles(filteredSortingArticles);
       setDataStructureArticles(filteredDataStructureArticles);
@@ -75,12 +76,14 @@ const AboutUs = () => {
       <article className="mr-15 ml-15 mt-10 w-5/6 h-[650px] flex bg-[#D7875D]/15 p-10 radious-xl rounded-4xl">
         <div className="flex justify-evenly items-center h-full w-full">
           <div className="flex p-10 flex-col justify-center items-center gap-2 rounded-full bg-[#D7875D]/10 h-[350px] w-[350px]">
+            {isLoading && <p>Loading...</p>}
             <h1 className="text-[50px] font-bold">{sortingArticles.length}</h1>
             <p className="text-[17px] italic text-center">
               Interaktiva sorteringsalgoritmer
             </p>
           </div>
           <div className="p-10 flex flex-col justify-center items-center gap-2 rounded-full bg-[#D7875D]/10 h-[350px] w-[350px]">
+            {isLoading && <p>Loading...</p>}
             <h1 className="text-[50px] font-bold">
               {dataStructureArticles.length}
             </h1>
