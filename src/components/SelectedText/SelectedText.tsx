@@ -2,9 +2,9 @@ import { useParams } from "react-router-dom";
 import Avatar from "../Avatar";
 import { useQuery } from "@tanstack/react-query";
 import ApiService from "../../Services/ApiService";
-import DOMPurify from "dompurify";
 import ReactMarkdown from "react-markdown";
 import avatarIcon from "../../assets/icons/Avatar.jpg";
+import remarkBreaks from "remark-breaks";
 
 export default function SelectedText() {
   const { id } = useParams<{ id: string }>();
@@ -35,7 +35,79 @@ export default function SelectedText() {
           </div>
           <hr className="w-2/4" />
           <article className="w-2/4 flex flex-col justify-center mt-15">
-            <ReactMarkdown>{selectedArticle.content}</ReactMarkdown>
+            <ReactMarkdown
+              remarkPlugins={[remarkBreaks]}
+              components={{
+                a: ({ href, children, ...props }) => (
+                  <a
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{
+                      color: "blue",
+                      textDecoration: "underline",
+                    }}
+                    {...props}
+                  >
+                    {children}
+                  </a>
+                ),
+                h1: ({ node, ...props }) => (
+                  <h1
+                    style={{
+                      fontSize: "3rem",
+                      fontWeight: "bold",
+                      marginBottom: "2rem",
+                    }}
+                    {...props}
+                  />
+                ),
+                h2: ({ node, ...props }) => (
+                  <h2
+                    style={{
+                      fontSize: "3rem",
+                      marginTop: "2rem",
+                      marginBottom: "1rem",
+                    }}
+                    {...props}
+                  />
+                ),
+                h3: ({ node, ...props }) => (
+                  <h3
+                    style={{
+                      fontSize: "1.5rem",
+                      marginTop: "2rem",
+                      marginBottom: "1rem",
+                    }}
+                    {...props}
+                  />
+                ),
+                p: ({ node, ...props }) => (
+                  <p style={{ marginBottom: "1rem" }} {...props} />
+                ),
+                ul: ({ node, ...props }) => (
+                  <ul
+                    style={{
+                      marginBottom: "1.5rem",
+                      paddingLeft: "1.5rem",
+                      listStyleType: "disc",
+                      gap: "0.5rem",
+                    }}
+                    {...props}
+                  />
+                ),
+                li: ({ node, ...props }) => (
+                  <li
+                    style={{
+                      marginBottom: "0.5rem",
+                    }}
+                    {...props}
+                  />
+                ),
+              }}
+            >
+              {selectedArticle.content}
+            </ReactMarkdown>
           </article>
         </>
       )}
