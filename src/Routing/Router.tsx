@@ -9,6 +9,7 @@ import Loginpage from "./routes/Login page/Loginpage";
 import AuthProvider from "../Auth/AuthProvider";
 import Editpage from "./routes/Editpage";
 import Logout from "./routes/Logout";
+import SelectedText from "../components/SelectedText/SelectedText";
 
 function Router() {
   return (
@@ -18,7 +19,7 @@ function Router() {
           <Route element={<Layout />}>
             <Route index element={<Index />} />
             <Route path="laroportal" element={<Laroportal />} />
-            <Route path="/laroportal/:id" element={<div>specific id</div>} />
+            <Route path="/laroportal/:id" element={<SelectedText />} />
             <Route path="/testa-algoritm" element={<TestaAlgoritm />} />
             <Route path="/edit" element={<Editpage />} />
             <Route path="/about-us" element={<AboutUs />} />

@@ -81,6 +81,7 @@ const LaroContainer: React.FC<LaroContainerProps> = ({
                 {currentCards.map((card, index) => (
                   <div key={index} className="flex justify-center items-center">
                     <TeachingCard
+                      id={card.id}
                       algorithmType={card.type}
                       algorithmName={card.title}
                       algorithmDescription={card.description}

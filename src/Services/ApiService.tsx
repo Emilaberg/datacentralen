@@ -50,12 +50,19 @@ const ApiService = () => {
     return data;
   };
 
+  const SingleArticle = async (id: number) => {
+    const data = await ApiCaller(`https://localhost:7033/api/Article/${id}`);
+
+    return data;
+  };
+
   //bygg på med Fetch anrop
 
   return {
     Articles,
     ArticlesDTO,
     ArticleCardDTO,
+    SingleArticle,
   };
 };
 
