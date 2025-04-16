@@ -39,7 +39,7 @@ export default function SelectedText() {
             />
           </div>
           <hr className="w-2/4" />
-          <article className="w-2/4 flex flex-col justify-center mt-15">
+          <article className="w-2/4 flex flex-col justify-center mt-2">
             <ReactMarkdown
               remarkPlugins={[remarkBreaks]}
               components={{
