@@ -1,4 +1,5 @@
 import { useParams } from "react-router-dom";
+import { useEffect } from "react";
 import Avatar from "../Avatar";
 import { useQuery } from "@tanstack/react-query";
 import ApiService from "../../Services/ApiService";
@@ -14,6 +15,10 @@ export default function SelectedText() {
     queryFn: () => Article.SingleArticle(Number(id)),
     queryKey: ["singleArticle", id],
   });
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <section className="flex flex-col w-full h-full p-5 gap-5 items-center justify-center">
@@ -83,7 +88,10 @@ export default function SelectedText() {
                   />
                 ),
                 p: ({ node, ...props }) => (
-                  <p style={{ marginBottom: "1rem" }} {...props} />
+                  <p
+                    style={{ marginBottom: "1rem", lineHeight: "2" }}
+                    {...props}
+                  />
                 ),
                 ul: ({ node, ...props }) => (
                   <ul
@@ -100,6 +108,7 @@ export default function SelectedText() {
                   <li
                     style={{
                       marginBottom: "0.5rem",
+                      lineHeight: "1.8",
                     }}
                     {...props}
                   />
