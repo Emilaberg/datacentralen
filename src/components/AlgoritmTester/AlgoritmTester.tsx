@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import Calculator from "../Calculator/Calculator";
 import { useAlgorithm } from "../../Services/AlgorithmProvider";
 import { AlgoToLocalStorageType, selectedAlgorithmTypes } from "../../Types/types";
@@ -8,8 +8,10 @@ import { useLocalStorageProvider } from "../../Services/SaveToLocalStorageProvid
 const AlgoritmTester = () => {
   const AlgorithmProvider = useAlgorithm();
   const useLocalstorage = useLocalStorageProvider();
-  const saveResult = () => {
+  const [resultSaved, setResultSaved] = useState<boolean>(false);
 
+  const saveResult = () => {
+    setResultSaved(true);
     const entityToSave: AlgoToLocalStorageType = {
         array: AlgorithmProvider.array,
         length: AlgorithmProvider.array.length,
@@ -61,7 +63,7 @@ const AlgoritmTester = () => {
                 {AlgorithmProvider.timeElapsed} ms
               </span>
             </h3>
-              <button disabled={AlgorithmProvider.array.length < 2} className="disabled:opacity-20 disabled:cursor-not-allowed border-2 rounded-lg hover:bg-gray-200 cursor-pointer" onClick={saveResult}>save result</button>
+              <button disabled={AlgorithmProvider.array.length < 2 || resultSaved} className="disabled:opacity-20 disabled:cursor-not-allowed border-2 rounded-lg hover:bg-gray-200 cursor-pointer" onClick={saveResult}>save result</button>
           </article>
 
           <BarChart array={AlgorithmProvider.array}/>    

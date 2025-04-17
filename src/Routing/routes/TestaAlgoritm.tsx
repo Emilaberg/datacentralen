@@ -5,7 +5,7 @@ import AlgorithmProvider, {
 } from "../../Services/AlgorithmProvider";
 import { AlgoToLocalStorageType, selectedAlgorithmTypes } from "../../Types/types";
 import TableHistory from "../../components/AlgoritmTester/TableHistory";
-// import bubblesort from "../../Algorithms/Bubblesort/bubblesort";
+
 import refreshIcon from "../../assets/icons/arrows-clockwise.svg"
 import { useLocalStorageProvider } from "../../Services/SaveToLocalStorageProvider";
 const TestaAlgoritm = () => {
