@@ -3,12 +3,14 @@ import AlgoritmTester from "../../components/AlgoritmTester/AlgoritmTester";
 import AlgorithmProvider, {
   useAlgorithm,
 } from "../../Services/AlgorithmProvider";
-import { selectedAlgorithmTypes } from "../../Types/types";
+import { AlgoToLocalStorageType, selectedAlgorithmTypes } from "../../Types/types";
 import TableHistory from "../../components/AlgoritmTester/TableHistory";
 // import bubblesort from "../../Algorithms/Bubblesort/bubblesort";
 import refreshIcon from "../../assets/icons/arrows-clockwise.svg"
 import { useLocalStorageProvider } from "../../Services/SaveToLocalStorageProvider";
 const TestaAlgoritm = () => {
+  const [history,setHistory] = useState<AlgoToLocalStorageType | null>(null);
+
   const AlgorithmProvider = useAlgorithm();
 
   const useLocalstorage = useLocalStorageProvider();
@@ -20,6 +22,30 @@ const TestaAlgoritm = () => {
     AlgorithmProvider.resetAlgorithm();
     AlgorithmProvider.shuffleArray();
   };
+
+
+  const handleSelect = (e: React.MouseEvent, i:number) => {
+    
+
+    const item:unknown = useLocalstorage.getItem("runs",i);
+
+    const selected = item as AlgoToLocalStorageType;
+
+    setHistory(selected);
+
+  }
+
+  const load = () => {
+    if(history === null) return;
+
+    AlgorithmProvider.setSelectedeAlgorithm(history.name);
+    AlgorithmProvider.updateArray(history.array);
+  }
+  function clearItem(): void {
+    setHistory(null);
+    useLocalstorage.clearItem("runs")
+  }
+
   return (
     <>
       <section className="mt-48 flex flex-col items-center">
@@ -66,12 +92,15 @@ const TestaAlgoritm = () => {
       </section>
       <section className="flex flex-col mx-20 mb-40 py-18">
         <h1 className="text-3xl font-semibold my-8">Tidigare körningar</h1>
-        <button onClick={() => useLocalstorage.setSavedRuns(useLocalstorage.getItem("runs"))} className="flex items-center gap-2 ml-auto my-3 hover:underline cursor-pointer"><img className="w-6 hover:animate-spin" src={refreshIcon} alt="" /> uppdatera </button>
+        <div className="ml-auto flex gap-2">
+        <button disabled={useLocalstorage.savedRuns.length === 0} onClick={clearItem} className="disabled:opacity-20 disabled:cursor-not-allowed flex items-center gap-2 my-3 hover:underline cursor-pointer active:text-gray-600">X rensa lista </button>
+        <button onClick={() => useLocalstorage.setSavedRuns(useLocalstorage.getItem("runs"))} className="flex items-center gap-2 my-3 hover:underline cursor-pointer active:text-gray-600"><img className="w-6 hover:animate-spin" src={refreshIcon} alt="" /> uppdatera </button>
 
+        </div>
         <section className="px-12 border-dashed border-[#8f8f8f] border-2">
-          <TableHistory array={useLocalstorage.savedRuns}/>
+          <TableHistory handleSelect={handleSelect} array={useLocalstorage.savedRuns}/>
         </section>
-        <button className="bg-[#62A958] disabled:opacity-25 text-white px-6 py-2 rounded-xl my-5 ml-auto">Kör igen</button>
+        <button disabled={!!!history} onClick={load} className="disabled:cursor-not-allowed cursor-pointer bg-[#62A958] active:bg-[#5b9e52] disabled:opacity-20 text-white px-6 py-2 rounded-xl my-5 ml-auto">Ladda körning</button>
       </section>
     </>
   );

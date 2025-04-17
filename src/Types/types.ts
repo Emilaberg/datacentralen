@@ -52,7 +52,8 @@ export interface LocalStorageContextType {
   savedRuns: Array<AlgoToLocalStorageType> | [];
   setSavedRuns: React.Dispatch<React.SetStateAction<Array<AlgoToLocalStorageType> | []>>;
   saveItem(key:string, item: AlgoToLocalStorageType | Array<object>): void;
-  getItem(key:string): Array<AlgoToLocalStorageType> | []; 
+  getItem(key:string, index?:number): Array<AlgoToLocalStorageType> | []; 
+  clearItem(key:string, value?:any): void;
 }
 
 export type AlgostorageType = Array<AlgoToLocalStorageType>;

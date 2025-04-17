@@ -32,23 +32,32 @@ const SaveToLocalStorageProvider = ({
     }
     localStorage.setItem(key,JSON.stringify(item));
   }
-
-  //TODO 
-  // gör till en knapp som man spara från calculatorn, för just nu så ser inte state variablen att det är uppdaterade
-  // gissar något med useMemo som inte uppdaterar providern, har ingen aning annars.
-
  
-  function getItem(key: string): Array<AlgoToLocalStorageType> | [] {
+  function getItem(key: string, index?: number): Array<AlgoToLocalStorageType> | [] {
     const item = localStorage.getItem(key);
 
     if(!item) return []
 
     const parsedItem = JSON.parse(item);
 
+    if(index !== undefined) {
+      const item = parsedItem[index];
+
+      console.log(item)
+      return item;
+    }
+    
     return parsedItem;
   }
 
-  const contextValues = useMemo(() => ({ test, setTest,saveItem, getItem, savedRuns,setSavedRuns }), [test, setTest,saveItem,getItem,savedRuns,setSavedRuns]);
+  function clearItem(key:string, value?:any): void {
+    localStorage.removeItem(key);
+    if(key === "runs") {
+      setSavedRuns([]);
+    }
+  }
+
+  const contextValues = useMemo(() => ({ test, setTest,saveItem, getItem,clearItem, savedRuns,setSavedRuns }), [test, setTest,saveItem,getItem,clearItem,savedRuns,setSavedRuns]);
 
   return (
     <localStorageContext.Provider value={contextValues}>

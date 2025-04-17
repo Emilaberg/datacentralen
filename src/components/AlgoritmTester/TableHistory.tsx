@@ -1,9 +1,9 @@
-import React, { useEffect } from "react";
+import React, { TdHTMLAttributes, useEffect } from "react";
 import { AlgoToLocalStorageType } from "../../Types/types";
+import { useLocalStorageProvider } from "../../Services/SaveToLocalStorageProvider";
+import { useAlgorithm } from "../../Services/AlgorithmProvider";
 
-const TableHistory = ({array}: {array: Array<AlgoToLocalStorageType>}) => {
-
-
+const TableHistory = ({handleSelect,array}: {handleSelect: (e: React.MouseEvent, i: number) => void; array: Array<AlgoToLocalStorageType>}) => {
   return (
     <section className="w-full flex flex-col items-center">
       <article className="w-full">
@@ -19,14 +19,14 @@ const TableHistory = ({array}: {array: Array<AlgoToLocalStorageType>}) => {
               <th>Tidskomplexitet</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody id="historyTable">
             {array?.map((e,i) => (
-                <tr key={i} className="even:bg-[#FFD670]/10">
+                <tr id={"tabledata-" + i.toString()} key={i} className="even:bg-[#FFD670]/10">
                 <td className="py-2">
                   <input
-                    onClick={(e) => console.log(e.target)}
-                    type="checkbox"
-                    name=""
+                    onClick={(e) => handleSelect(e,i)}
+                    type="radio"
+                    name="algo"
                     id="1"
                   />
                 </td>
@@ -36,6 +36,7 @@ const TableHistory = ({array}: {array: Array<AlgoToLocalStorageType>}) => {
                 <td>{e.timeElapsed}</td>
                 <td>{e.iterationSpeed}</td>
                 <td>{e.timeComplexity}</td>
+                <td hidden>{e.array}</td>
               </tr>
             ))}
             
