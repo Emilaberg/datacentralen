@@ -12,6 +12,7 @@ const SaveToLocalStorageProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
+  const [resultSaved, setResultSaved] = useState<boolean>(false);
 
   
   const [test, setTest] = useState("");
@@ -57,7 +58,7 @@ const SaveToLocalStorageProvider = ({
     }
   }
 
-  const contextValues = useMemo(() => ({ test, setTest,saveItem, getItem,clearItem, savedRuns,setSavedRuns }), [test, setTest,saveItem,getItem,clearItem,savedRuns,setSavedRuns]);
+  const contextValues = useMemo(() => ({ test, setTest,saveItem, getItem,clearItem, savedRuns,setSavedRuns,resultSaved,setResultSaved }), [test, setTest,saveItem,getItem,clearItem,savedRuns,setSavedRuns,resultSaved,setResultSaved]);
 
   return (
     <localStorageContext.Provider value={contextValues}>

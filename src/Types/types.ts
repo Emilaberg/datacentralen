@@ -51,6 +51,8 @@ export interface LocalStorageContextType {
   setTest: React.Dispatch<React.SetStateAction<string>>;
   savedRuns: Array<AlgoToLocalStorageType> | [];
   setSavedRuns: React.Dispatch<React.SetStateAction<Array<AlgoToLocalStorageType> | []>>;
+  resultSaved: boolean;
+  setResultSaved: React.Dispatch<React.SetStateAction<boolean>>
   saveItem(key:string, item: AlgoToLocalStorageType | Array<object>): void;
   getItem(key:string, index?:number): Array<AlgoToLocalStorageType> | []; 
   clearItem(key:string, value?:any): void;

@@ -55,10 +55,13 @@ const Numpad = () => {
   }
 
   const runSelectedAlgorithm = async () => {
+    uselocalstorage.setResultSaved(false);
     await AlgorithmProvider.start();
+    
   }
 
   const reset = () => {
+    uselocalstorage.setResultSaved(false);
     AlgorithmProvider.updateArray([...AlgorithmProvider.defaultArray])
     AlgorithmProvider.resetAlgorithm(false);
   }
@@ -66,6 +69,11 @@ const Numpad = () => {
   const clear = () => {
     AlgorithmProvider.updateArray([]);
     AlgorithmProvider.resetAlgorithm(false);
+  }
+
+  const shuffle = () => {
+    AlgorithmProvider.shuffleArray()
+    uselocalstorage.setResultSaved(false);
   }
 
   return (
@@ -91,7 +99,7 @@ const Numpad = () => {
           <button
             type="button"
             disabled={AlgorithmProvider.isAlgorithmRunning}
-            onClick={() => AlgorithmProvider.shuffleArray()}
+            onClick={shuffle}
             className="hover:underline cursor-pointer disabled:opacity-20 disabled:cursor-not-allowed"
           >
             slumpa
