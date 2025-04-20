@@ -29,8 +29,8 @@ const AboutUs = () => {
     }
   }, [data]);
 
-  const routeToLaroportal = () => {
-    navigate("/laroportal");
+  const routeToLaroportal = (endpoint: string) => {
+    navigate(`/${endpoint}`);
   };
 
   return (
@@ -82,7 +82,7 @@ const AboutUs = () => {
         <div className="flex justify-evenly items-center h-full w-full">
           <div
             className="flex hover:cursor-pointer p-10 flex-col justify-center items-center gap-2 rounded-full bg-[#D7875D]/5 h-[350px] w-[350px] hover:bg-[#D7875D]/20 transition-all duration-500"
-            onClick={routeToLaroportal}
+            onClick={() => routeToLaroportal("testa-algoritm")}
           >
             {isLoading && <p>Loading...</p>}
             <h1 className="text-[50px] font-bold">{sortingArticles.length}</h1>
@@ -92,7 +92,7 @@ const AboutUs = () => {
           </div>
           <div
             className="flex hover:cursor-pointer p-10 flex-col justify-center items-center gap-2 rounded-full bg-[#D7875D]/5 h-[350px] w-[350px] hover:bg-[#D7875D]/20 transition-all duration-500"
-            onClick={routeToLaroportal}
+            onClick={() => routeToLaroportal("laroportal")}
           >
             {isLoading && <p>Loading...</p>}
             <h1 className="text-[50px] font-bold">
