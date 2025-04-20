@@ -3,7 +3,6 @@ import { LoginType, ProviderProps } from "../Types/types";
 import { useNavigate } from "react-router-dom";
 
 const AuthContext = createContext<ProviderProps>({
-  user: null,
   token: "",
   login: () => {},
   logout: () => {},
@@ -12,32 +11,24 @@ const AuthContext = createContext<ProviderProps>({
 const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const navigate = useNavigate();
 
-  const storedInfo = localStorage.getItem("user")
-    ? JSON.parse(localStorage.getItem("user") || "{}")
-    : null;
-
-  const [user, setUser] = useState<string | null>(storedInfo?.email || null);
-  const [token, setToken] = useState<string>(storedInfo?.token || "");
+  const [token, setToken] = useState<string>(() => {
+    const stored = localStorage.getItem("user");
+    return stored ? JSON.parse(stored).token : "";
+  });
 
   const login = (data: LoginType & { token: string }) => {
-    console.log("🔐 Logging in with real token:", data.token);
-
-    const obj = { email: data.email, token: data.token };
-    setUser(data.email);
     setToken(data.token);
-    localStorage.setItem("user", JSON.stringify(obj));
-
+    localStorage.setItem("user", JSON.stringify({ token: data.token }));
     navigate("/");
   };
-
   const logout = () => {
-    setUser(null);
     setToken("");
     localStorage.removeItem("user");
+    navigate("/login");
   };
 
   return (
-    <AuthContext.Provider value={{ user, token, login, logout }}>
+    <AuthContext.Provider value={{ token, login, logout }}>
       {children}
     </AuthContext.Provider>
   );

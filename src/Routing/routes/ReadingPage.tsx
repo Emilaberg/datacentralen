@@ -1,13 +1,12 @@
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
-import { useSearchParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import ApiService from "../../Services/ApiService";
 import { ArticleProps } from "../../Types/types";
 
 const ReadingPage = () => {
+  const { id } = useParams();
   const { GetArticleById } = ApiService();
-  const [searchParams] = useSearchParams();
-  const id = searchParams.get("id");
 
   const articleId = id ? parseInt(id) : null;
 

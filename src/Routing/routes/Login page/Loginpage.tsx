@@ -4,10 +4,12 @@ import { useAuth } from "../../../Auth/AuthProvider";
 import webIcon from "../../../assets/icons/webIconSVG.svg";
 import userIcon from "../../../assets/icons/userIcon.svg";
 import passwordIcon from "../../../assets/icons/passwordIcon.svg";
+import ApiService from "../../../Services/ApiService";
 
 const Loginpage = () => {
   const auth = useAuth();
   const navigate = useNavigate();
+  const { Login } = ApiService();
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -17,28 +19,13 @@ const Loginpage = () => {
     setError("");
 
     try {
-      const response = await fetch("https://localhost:7033/api/Auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ userName: username, password }),
-      });
-
-      if (!response.ok) {
-        setError("Fel användarnamn eller lösenord");
-        return;
-      }
-
-      const token = await response.text();
+      const token = await Login(username, password);
       localStorage.setItem("token", token);
       auth.login({ email: username, password, token });
-
-      console.log("✅ Token stored in localStorage:", token);
-      navigate("/"); // Redirect to homepage or dashboard
+      navigate("/");
     } catch (error) {
       console.error("Login error:", error);
-      setError("Något gick fel. Försök igen senare.");
+      setError("Fel användarnamn eller lösenord");
     }
   };
 

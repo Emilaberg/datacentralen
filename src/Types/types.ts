@@ -12,7 +12,6 @@ export type LoginType = {
 };
 
 export interface ProviderProps {
-  user: string | null;
   token: string;
   login(data: LoginType): void;
   logout(): void;

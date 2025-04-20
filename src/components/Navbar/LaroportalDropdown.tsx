@@ -25,7 +25,7 @@ const LaroportalDropdown = () => {
           {sortingAlgorithms.map((article) => (
             <li key={article.id}>
               <Link
-                to={`/reading?id=${article.id}`}
+                to={`/laroportal/articles/${article.id}`}
                 className="text-black font-medium hover:underline cursor-pointer"
               >
                 {article.title}
@@ -42,7 +42,7 @@ const LaroportalDropdown = () => {
           {dataStructures.map((article) => (
             <li key={article.id}>
               <Link
-                to={`/reading?id=${article.id}`}
+                to={`/laroportal/articles/${article.id}`}
                 className="text-black font-medium hover:underline cursor-pointer"
               >
                 {article.title}
