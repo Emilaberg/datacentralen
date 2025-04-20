@@ -89,13 +89,25 @@ const ApiService = () => {
 
     return response;
   };
+
+  const ArticleContentDelete = async(id:number) =>{
+    const response = await fetch(`https://localhost:7033/api/Article/remove-content/${id}`, {
+      method: 'PUT'
+    });
+    if (!response.ok) {
+      console.error("Failed to remove content from article:", response.status, response.statusText);
+      return null;
+    }
+    return response;
+  }
   //bygg på med Fetch anrop
 
   return {
     Articles,
     ArticlesDTO,
     ArticleCardDTO,
-    ArticleChangeContent
+    ArticleChangeContent,
+    ArticleContentDelete
   };
 };
 

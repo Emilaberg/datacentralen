@@ -40,6 +40,11 @@ const DisplayAllArticles: React.FC<DisplayAllArticlesProps> = ({ count, setCount
   }, []);
 
   const handleSetCount = (id: number) => {
+    
+    if(id === count){
+      setCount(-1)
+      return
+    }
     setCount(id);
   };
 
@@ -49,35 +54,50 @@ const DisplayAllArticles: React.FC<DisplayAllArticlesProps> = ({ count, setCount
 
   return (
     <div className="p-4">
-      <h3 className="text-lg font-bold mb-4">Selected Article ID: {count}</h3>
+      {count > 0 && (
+        <h3 className="text-lg font-bold mb-4">Selected Article ID: {count}</h3>
+      )}
       <div className="space-y-1">
-        {articles.map((article) => (
-          <div
-            key={article.id}
-            className={`flex flex-col p-4 border rounded-md cursor-pointer transition-colors ${
-              article.id === count ? "bg-green-500 text-white" : "hover:bg-green-100"
-            }`}
-          >
-            <div className="flex items-center justify-between" onClick={() => handleSetCount(article.id)}>
-              <span className="font-medium">{article.title}</span>
-              <span className="text-gray-600">Author: {article.author}</span>
-              <span className="text-gray-500">Posted: {new Date(article.posted).toLocaleDateString()}</span>
-              <button
-                className="ml-4 text-gray-500 hover:text-gray-700"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  toggleContent(article.id);
-                }}
-              >
-                {expandedArticleId === article.id ? "▲" : "▼"}
-              </button>
-            </div>
-            {expandedArticleId === article.id && (
-              <div className="mt-2 text-gray-700">{article.content}</div>
-            )}
-          </div>
-        ))}
+  {articles.map((article, index) => (
+    <div
+      key={article.id}
+      onClick={() => handleSetCount(article.id)}
+      className={`flex flex-col p-4 border rounded-md cursor-pointer transition-colors ${
+        article.id === count
+          ? "bg-green-500 text-white"
+          : index % 2 === 0
+          ? "bg-gray-100"
+          : "bg-gray-200 hover:bg-green-100"
+      }`}
+    >
+      <div
+        className="flex items-center justify-between"
+        
+      >
+        <span className="font-medium">{article.title}</span>
+        <span className="text-gray-600">Author: {article.author}</span>
+        <span className="text-gray-500">
+          Posted: {new Date(article.posted).toLocaleDateString()}
+        </span>
+        <button
+          className="ml-4 text-gray-500 hover:text-gray-700"
+          onClick={(e) => {
+            e.stopPropagation();
+            toggleContent(article.id);
+          }}
+        >
+          {expandedArticleId === article.id ? "▲" : "▼"}
+        </button>
       </div>
+      {expandedArticleId === article.id && (
+        <div className="mt-2 text-gray-700">{article.content}</div>
+      )}
+    </div>
+  ))}
+</div>
+{count > 0 && (
+        <h3 className="text-lg font-bold mb-4">Selected Article ID: {count}</h3>
+      )}
     </div>
   );
 };

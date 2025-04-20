@@ -4,6 +4,7 @@ import DOMPurify from "dompurify";
 import { marked } from "marked";
 import ApiService from "../../Services/ApiService";
 import DisplayAllArticles from "../../components/DisplayAllArticles/DisplayAllArticles";
+import Modal from "../../components/Modal/Modal";
 
 
 const Editpage = () => {
@@ -11,8 +12,11 @@ const Editpage = () => {
     localStorage.getItem("savedString") || "din uppladdade fil syns här..."
   );
 
+  const [isPublishModalOpen, setIsPublishModalOpen] = useState(false);
+  const [isClearStorageModalOpen, setIsClearStorageModalOpen] = useState(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
-  const [chosenID, setChosenID] = useState<number>(1);
+  const [chosenID, setChosenID] = useState<number>(-1);
   const articlesRef = useRef<() => void | null>(null); // Reference to trigger re-fetch in DisplayAllArticles
 
   const handleFileUpload = async (event: object) => {
@@ -31,7 +35,7 @@ const Editpage = () => {
     }
 
 
-    setPreviewText(textContent);
+    setPreviewText(rawContent);
   };
 
   const handlePublish = async (event: object) => {
@@ -52,11 +56,14 @@ const Editpage = () => {
         }
       } else {
         console.error("Failed to publish article:", response?.status, response?.statusText);
+        return;
       }
     } catch (error) {
       console.error("Error publishing article:", error);
+      return;
     }
 
+    setIsPublishModalOpen(true);
   };
 
   const handleDelete = () => {
@@ -64,10 +71,45 @@ const Editpage = () => {
     if (fileInput) fileInput.value = "";
     localStorage.removeItem("savedString");
     setPreviewText("");
+    setIsClearStorageModalOpen(true);
   };
+  const handleDeleteFromDatabase = async () => {
+    try {
+      console.log("1");
+
+      const apiService = ApiService(); // Call ApiService to get the methods
+      console.log("2");
+      // Call the ArticleChangeContent method
+      console.log("chooo" + chosenID);
+
+      const response = await apiService.ArticleContentDelete(chosenID);
+      if (response && response.ok) {
+        console.log("Delete successful");
+        console.log("4");
+        // Trigger re-fetch of articles in DisplayAllArticles
+        if (articlesRef.current) {
+          articlesRef.current();
+        }
+      } else {
+        console.log("5");
+        console.error("Failed to delete article:", response?.status, response?.statusText);
+        return;
+      }
+    } catch (error) {
+      console.log("6");
+      console.error("Error deleting article:", error);
+      return;
+    }
+    setIsDeleteModalOpen(true);
+  }
 
   return (
+
     <section className="min-h-screen flex flex-col items-center bg-gray-50">
+      <Modal modalVisible={isPublishModalOpen} setModalVisible={setIsPublishModalOpen} modalText="Success!"></Modal>
+      <Modal modalVisible={isClearStorageModalOpen} setModalVisible={setIsClearStorageModalOpen} modalText="Cleared local storage"></Modal>
+      <Modal modalVisible={isDeleteModalOpen} setModalVisible={setIsDeleteModalOpen} modalText="Deleted content in database"></Modal>
+
       <article className="w-1/2 my-10">
         <span className="text-[#777777] text-lg font-light">
           datastrukturer
@@ -100,7 +142,7 @@ const Editpage = () => {
         />
       </div>
 
-      <div className="my-2">
+      <div className="my-2 space-y-2">
         <h1>ladda upp en fil</h1>
 
         <input
@@ -113,17 +155,27 @@ const Editpage = () => {
 
 
         <button
-          className="bg-green-500 cursor-pointer block text-white font-semibold mx-auto px-4 py-2 rounded-xl"
+          className="bg-green-500 cursor-pointer block text-white font-semibold mx-auto px-4 py-2 rounded-xl disabled:opacity-55"
+          disabled={chosenID === -1}
           type="button"
           onClick={(e) => handlePublish(e)}
         >
           Save and publish
         </button>
+
         <button
-          className={`bg-red-400 cursor-pointer block text-white font-semibold mx-auto px-4 py-2 rounded-xl`}
+          className="bg-red-400 cursor-pointer block text-white font-semibold mx-auto px-4 py-2 rounded-xl"
           onClick={() => handleDelete()}
         >
-          Delete from saved
+          Clear local storage
+        </button>
+
+        <button
+          className="bg-red-400 cursor-pointer block text-white font-semibold mx-auto px-4 py-2 rounded-xl"
+          onClick={() => handleDeleteFromDatabase()}
+          disabled={chosenID === -1}
+        >
+          Delete from database
         </button>
 
       </div>
