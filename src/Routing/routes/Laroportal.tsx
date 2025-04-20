@@ -17,6 +17,10 @@ const Laroportal = () => {
   );
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  useEffect(() => {
     if (articlesCardData) {
       const sortingAlgorithmsData = articlesCardData.filter(
         (item: ArticleCardDTOProps) => item.type === "Sorteringsalgoritm"
@@ -29,10 +33,6 @@ const Laroportal = () => {
       setDataStructures(dataStructuresData);
     }
   }, [articlesCardData]);
-
-  console.log(articlesCardData);
-  console.log("Sorting", sortingAlgorithms);
-  console.log("Data", dataStructures);
 
   return (
     <section className="h-full mt-40 flex items-center flex-col gap-20 mb-50">

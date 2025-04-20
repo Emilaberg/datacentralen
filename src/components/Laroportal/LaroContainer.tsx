@@ -56,8 +56,6 @@ const LaroContainer: React.FC<LaroContainerProps> = ({
     setNextPage(page);
   };
 
-  console.log("Current Cards:", currentCards);
-
   return (
     <div className="overflow-hidden">
       <h1 className="text-5xl mb-10">{laroType}</h1>
