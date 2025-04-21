@@ -29,7 +29,7 @@ const DisplayAllArticles: React.FC<DisplayAllArticlesProps> = ({ count, setCount
   const fetchArticles = async () => {
     const data: Article[] = await api.Articles();
     setArticles(data);
-    console.log(data, "data from DisplayAllArticles");
+    console.log("The list of articles have been refreshed");
   };
 
   useEffect(() => {

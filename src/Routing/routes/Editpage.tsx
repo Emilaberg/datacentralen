@@ -3,6 +3,7 @@ import { useContext, useState, useRef } from "react";
 import DOMPurify from "dompurify";
 import { marked } from "marked";
 import ApiService from "../../Services/ApiService";
+import AuthorizedApiService from "../../Services/AuthorizedApiService";
 import DisplayAllArticles from "../../components/DisplayAllArticles/DisplayAllArticles";
 import Modal from "../../components/Modal/Modal";
 
@@ -42,10 +43,9 @@ const Editpage = () => {
     localStorage.setItem("savedString", JSON.stringify(previewText));
 
     try {
-      const apiService = ApiService(); // Call ApiService to get the methods
-
+      const apiService = AuthorizedApiService(); // Call ApiService to get the methods      
       // Call the ArticleChangeContent method
-      const response = await apiService.ArticleChangeContent(chosenID, previewText);
+      const response = await apiService.PUTArticleChangeContent(chosenID, previewText);
 
       if (response && response.ok) {
         console.log("Publish successful");
@@ -75,14 +75,9 @@ const Editpage = () => {
   };
   const handleDeleteFromDatabase = async () => {
     try {
-      console.log("1");
-
-      const apiService = ApiService(); // Call ApiService to get the methods
-      console.log("2");
-      // Call the ArticleChangeContent method
-      console.log("chooo" + chosenID);
-
-      const response = await apiService.ArticleContentDelete(chosenID);
+      const apiService = AuthorizedApiService(); // Call ApiService to get the methods
+        
+      const response = await apiService.DELETEArticleContent(chosenID);
       if (response && response.ok) {
         console.log("Delete successful");
         console.log("4");
