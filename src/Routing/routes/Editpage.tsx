@@ -166,7 +166,7 @@ const Editpage = () => {
         </button>
 
         <button
-          className="bg-red-400 cursor-pointer block text-white font-semibold mx-auto px-4 py-2 rounded-xl"
+          className="bg-red-400 cursor-pointer block text-white font-semibold mx-auto px-4 py-2 rounded-xl disabled:opacity-55"
           onClick={() => handleDeleteFromDatabase()}
           disabled={chosenID === -1}
         >
