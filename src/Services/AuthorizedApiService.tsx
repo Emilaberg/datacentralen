@@ -70,17 +70,20 @@ const AuthorizedApiService = () => {
 
     let url = BaseAPIUrl + requestProps.url;
     url = url.replace(/([^:]\/)\/+/g, "$1")
-    if(enableLog)console.log(url);
-    
     const method = requestProps.method;
-    if(enableLog)console.log(method);
-
     const headers = Object.fromEntries(requestProps.headers);
-    if(enableLog)console.log("headers", headers);
-
     const body = JSON.stringify(requestProps.body);
-    if(enableLog)console.log("body", body);
     
+    if(enableLog){
+      console.log("RequestProps:", {
+        url: requestProps.url,
+        method: requestProps.method,
+        headers: requestProps.headers ? Object.fromEntries(requestProps.headers) : null,
+        body: requestProps.body,
+        enableLog: requestProps.enableLog,
+      });
+      
+    }
     try {
       //send requst to api
       returnValue = await fetch(url, {
