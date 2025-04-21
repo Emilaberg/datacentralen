@@ -21,9 +21,15 @@ type DisplayAllArticlesProps = {
   setRefetchCallback: (callback: () => void) => void; // New prop to set re-fetch callback
 };
 
-const DisplayAllArticles: React.FC<DisplayAllArticlesProps> = ({ count, setCount, setRefetchCallback }) => {
+const DisplayAllArticles: React.FC<DisplayAllArticlesProps> = ({
+  count,
+  setCount,
+  setRefetchCallback,
+}) => {
   const [articles, setArticles] = useState<Article[]>([]);
-  const [expandedArticleId, setExpandedArticleId] = useState<number | null>(null);
+  const [expandedArticleId, setExpandedArticleId] = useState<number | null>(
+    null
+  );
   const api = ApiService();
 
   const fetchArticles = async () => {
@@ -40,10 +46,9 @@ const DisplayAllArticles: React.FC<DisplayAllArticlesProps> = ({ count, setCount
   }, []);
 
   const handleSetCount = (id: number) => {
-    
-    if(id === count){
-      setCount(-1)
-      return
+    if (id === count) {
+      setCount(-1);
+      return;
     }
     setCount(id);
   };
@@ -54,48 +59,49 @@ const DisplayAllArticles: React.FC<DisplayAllArticlesProps> = ({ count, setCount
 
   return (
     <div className="p-4">
-      {count > 0 && (
-        <h3 className="text-lg font-bold mb-4">Selected Article ID: {count}</h3>
-      )}
-      <div className="space-y-1">
-  {articles.map((article, index) => (
-    <div
-      key={article.id}
-      onClick={() => handleSetCount(article.id)}
-      className={`flex flex-col p-4 border rounded-md cursor-pointer transition-colors ${
-        article.id === count
-          ? "bg-green-500 text-white"
-          : index % 2 === 0
-          ? "bg-gray-100"
-          : "bg-gray-200 hover:bg-green-100"
-      }`}
-    >
-      <div
-        className="flex items-center justify-between"
-        
-      >
-        <span className="font-medium">{article.title}</span>
-        <span className="text-gray-600">Author: {article.author}</span>
-        <span className="text-gray-500">
-          Posted: {new Date(article.posted).toLocaleDateString()}
-        </span>
-        <button
-          className="ml-4 text-gray-500 hover:text-gray-700"
-          onClick={(e) => {
-            e.stopPropagation();
-            toggleContent(article.id);
-          }}
-        >
-          {expandedArticleId === article.id ? "▲" : "▼"}
-        </button>
+      <div className="min-h-10">
+        {count > 0 && (
+          <h3 className="text-lg font-bold mb-4">
+            Selected Article ID: {count}
+          </h3>
+        )}
       </div>
-      {expandedArticleId === article.id && (
-        <div className="mt-2 text-gray-700">{article.content}</div>
-      )}
-    </div>
-  ))}
-</div>
-{count > 0 && (
+      <div className="space-y-1">
+        {articles.map((article, index) => (
+          <div
+            key={article.id}
+            onClick={() => handleSetCount(article.id)}
+            className={`flex flex-col p-4 border rounded-md cursor-pointer transition-colors ${
+              article.id === count
+                ? "bg-green-600 text-white"
+                : index % 2 === 0
+                ? "bg-gray-100 hover:bg-green-100"
+                : "bg-gray-200 hover:bg-green-100"
+            }`}
+          >
+            <div className="flex items-center justify-between">
+              <span className="font-medium">{article.title}</span>
+              <span className="text-gray-600">Author: {article.author}</span>
+              <span className="text-gray-500">
+                Posted: {new Date(article.posted).toLocaleDateString()}
+              </span>
+              <button
+                className="ml-4 text-gray-500 hover:text-gray-700"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  toggleContent(article.id);
+                }}
+              >
+                {expandedArticleId === article.id ? "▲" : "▼"}
+              </button>
+            </div>
+            {expandedArticleId === article.id && (
+              <div className="mt-2 text-gray-700">{article.content}</div>
+            )}
+          </div>
+        ))}
+      </div>
+      {count > 0 && (
         <h3 className="text-lg font-bold mb-4">Selected Article ID: {count}</h3>
       )}
     </div>

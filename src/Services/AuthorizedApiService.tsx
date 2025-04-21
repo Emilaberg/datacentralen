@@ -305,6 +305,29 @@ const AuthorizedApiService = () => {
     return response;
   }
 
+  /**
+   * THIS DELETE THE WHOLE ARTICLE.
+   * 
+   * Removes an article by its ID. 
+   * 
+   * @param id - The unique identifier of the article to remove content from.
+   * @returns A Promise that resolves to the Response object if successful, or null if the request fails.
+   */
+  const DELETEArticle = async (id: number) => {
+    const response = await SendAuthorizedRequest(
+      {
+        url : `Article/${id}`,
+        method : HttpMethodType.Delete,
+        body : {}
+      }
+    )
+    if (!response || !response.ok) {
+      console.error("Failed to delete article:", response?.status, response?.statusText);
+      return null;
+    }
+    return response;
+  }
+
 
   /**
    * Fetches all articles from the API.
@@ -410,6 +433,7 @@ const AuthorizedApiService = () => {
     SendAuthorizedRequest,
     PUTArticleChangeContent,
     DELETEArticleContent,
+    DELETEArticle,
     GETAllArticles,
     GETArticleById,
     GETAllArticlesWithTitleAndDescription,
