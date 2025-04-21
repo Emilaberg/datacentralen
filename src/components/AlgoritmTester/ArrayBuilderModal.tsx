@@ -63,7 +63,7 @@ const ArrayBuilderModal = () => {
     >
       <section
         onClick={(e) => e.stopPropagation()}
-        className="relative z-50 min-h-24 px-10 py-10 bg-amber-50 border-2 rounded-lg"
+        className="relative z-50 min-h-24 px-10 py-10 bg-amber-50 border-2 rounded-lg w-1/2"
       >
         <article>
           <div>
@@ -116,7 +116,10 @@ const ArrayBuilderModal = () => {
 
         <button onClick={useArray}>use</button>
 
-        <BarChart array={previewArray} />
+          <BarChart array={previewArray} />
+        <div className="h-full overflow-scroll">
+
+        </div>
       </section>
     </div>
   );
