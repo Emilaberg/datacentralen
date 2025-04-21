@@ -20,7 +20,7 @@ function Router() {
             <Route path="laroportal" element={<Laroportal />} />
             <Route path="/laroportal/:id" element={<div>specific id</div>} />
             <Route path="/testa-algoritm" element={<TestaAlgoritm />} />
-            <Route path="/edit" element={<Editpage />} />
+            <Route path="/dashboard" element={<Editpage />} />
             <Route path="/about-us" element={<AboutUs />} />
             <Route path="*" element={<div>error 404</div>} />
           </Route>
