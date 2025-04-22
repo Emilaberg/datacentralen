@@ -36,7 +36,7 @@ const LaroportalDropdown = () => {
                 >
                   {article.title}
                 </Link>
-                <p className="text-black/50 text-sm">{article.description}</p>
+                <p className="text-black/50 text-sm text-ellipsis text-nowrap overflow-hidden">{article.description}</p>
               </li>
             ))}
           </ul>
@@ -53,7 +53,7 @@ const LaroportalDropdown = () => {
                 >
                   {article.title}
                 </Link>
-                <p className="text-black/50 text-sm">{article.description}</p>
+                <p className="text-black/50 text-sm text-ellipsis text-nowrap overflow-hidden">{article.description}</p>
               </li>
             ))}
           </ul>
