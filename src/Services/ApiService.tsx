@@ -16,10 +16,10 @@ const ApiService = () => {
 
       const data = await response.json();
       //används ej
-      let messageObject: MessageProps = {
-        content: data,
-        message: response.statusText,
-      };
+      // const messageObject: MessageProps = {
+      //   content: data,
+      //   message: response.statusText,
+      // };
 
       //   return messageObject;
       return data;
@@ -49,13 +49,15 @@ const ApiService = () => {
 
     return data;
   };
+  
+
 
   //bygg på med Fetch anrop
 
   return {
     Articles,
     ArticlesDTO,
-    ArticleCardDTO,
+    ArticleCardDTO
   };
 };
 
