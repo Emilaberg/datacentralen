@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useAlgorithm } from "../../Services/AlgorithmProvider";
 import BarChart from "./BarChart";
 import shuffle from "../../tools/Fisher-yates-shuffle/shuffle";
 import {
+  MAXIMUM_ARRAY_VALUE_RANGE,
   MAXIMUM_GENERATED_ARRAY_LENGTH,
   MINIMUM_ARRAY_VALUE_RANGE,
   MINIMUM_COUNT,
 } from "../../Types/types";
 
 const ArrayBuilderModal = () => {
-  const [randomValue, setRandomValue] = useState<number>(10);
   const [arraySize, setArraySize] = useState<number>(
     MAXIMUM_GENERATED_ARRAY_LENGTH
   );
@@ -62,7 +62,7 @@ const ArrayBuilderModal = () => {
     >
       <section
         onClick={(e) => e.stopPropagation()}
-        className="relative z-50 px-5 py-2 bg-amber-50 border-2 rounded-lg"
+        className="relative z-50 min-h-24 px-10 py-10 bg-amber-50 border-2 rounded-lg"
       >
         <article>
           <div>
@@ -98,9 +98,9 @@ const ArrayBuilderModal = () => {
           </div>
           <div>
             <input
-              value={MINIMUM_ARRAY_VALUE_RANGE}
+              value={maxValue}
               min={MINIMUM_ARRAY_VALUE_RANGE}
-              max={1000}
+              max={MAXIMUM_ARRAY_VALUE_RANGE}
               onChange={(e) => setMaxValue(parseInt(e.target.value))}
               type="range"
               name=""
