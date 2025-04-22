@@ -21,9 +21,14 @@ const LaroportalDropdown = () => {
   const algorithms:algorithmProps = data as algorithmProps;
 
   return (
+<<<<<<< HEAD
     <div className="absolute left-0 top-full">
       <div className="mt-2 hidden group-hover:flex bg-white px-6 py-4 border-2 border-[#96C9E3] rounded-2xl w-[600px] z-50 justify-between shadow-lg">
         {isLoading && <div>Laddar artiklar...</div>}
+=======
+    <div className="absolute left-0 top-full mt-2 hidden group-hover:flex bg-white px-6 py-4 border-2 border-[#96C9E3] rounded-2xl w-[600px] z-50 justify-between shadow-lg">
+      {isLoading && <div>Laddar artiklar...</div>}
+>>>>>>> aa57fcada8a9c12559d01783334d8d443d338daf
 
         <div className="w-1/2 pr-4">
           <h3 className="text-lg font-semibold mb-2">Sorteringsalgoritmer</h3>
