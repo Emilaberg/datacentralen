@@ -1,23 +1,18 @@
 import React, { useState, useEffect } from "react";
 import TeachingCard from "./TeachingCard";
+import { ArticleCardDTOProps } from "../../Types/types";
 import "./animations.css";
 
-type TeachingCardType = {
-  algorithmType: string;
-  algorithmName: string;
-  algorithmDescription: string;
-  gradientColor1: string;
-  gradientColor2: string;
-};
-
-type LaroContainerProps = {
+interface LaroContainerProps {
   laroType: string;
-  teachingCards: TeachingCardType[];
-};
+  teachingCards: ArticleCardDTOProps[];
+  isLoading: boolean;
+}
 
 const LaroContainer: React.FC<LaroContainerProps> = ({
   laroType,
   teachingCards,
+  isLoading,
 }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [isAnimating, setIsAnimating] = useState(false);
@@ -39,12 +34,12 @@ const LaroContainer: React.FC<LaroContainerProps> = ({
       const fadeOutTimeout = setTimeout(() => {
         setCurrentPage(nextPage);
         setIsFadingOut(false);
-      }, 400);
+      }, 500);
 
       const animationTimeout = setTimeout(() => {
         setIsAnimating(false);
         setNextPage(null);
-      }, 800);
+      }, 500);
 
       return () => {
         clearTimeout(fadeOutTimeout);
@@ -62,47 +57,55 @@ const LaroContainer: React.FC<LaroContainerProps> = ({
   };
 
   return (
-    <div className="overflow-x-hidden">
+    <div className="overflow-hidden">
       <h1 className="text-5xl mb-10">{laroType}</h1>
       <div className="h-[750px] w-[1200px] border border-dashed border-black flex flex-col justify-between">
-        <div className="flex justify-center items-center mt-10 ">
-          <div
-            className={`grid grid-cols-2 gap-10 transition-transform duration-500 ease-in-out ${
-              isFadingOut
-                ? animationDirection
-                : animationDirection === "slide-out-left"
-                ? "slide-in-right"
-                : "slide-in-left"
-            }`}
-          >
-            {currentCards.map((card, index) => (
-              <div key={index} className="flex justify-center items-center">
-                <TeachingCard
-                  algorithmType={card.algorithmType}
-                  algorithmName={card.algorithmName}
-                  algorithmDescription={card.algorithmDescription}
-                  gradientColor1={card.gradientColor1}
-                  gradientColor2={card.gradientColor2}
-                />
-              </div>
-            ))}
+        {isLoading ? (
+          <div className="flex h-full w-full justify-center items-center text-xl">
+            Loading...
           </div>
-        </div>
-        <div className="flex items-end justify-center mt-10 gap-2">
-          <div className="flex items-center justify-center gap-2 mb-5">
-            {Array.from({
-              length: Math.ceil(teachingCards.length / cardsPerPage),
-            }).map((_, index) => (
+        ) : (
+          <>
+            <div className="flex justify-center items-center mt-10 ">
               <div
-                key={index}
-                onClick={() => pageChangeAnimation(index + 1)}
-                className={`h-3.5 w-3.5 border border-black rounded-full hover:cursor-pointer hover:border-2 transition-all ${
-                  currentPage === index + 1 ? "bg-[#8A8A8A]" : "bg-white"
+                className={`grid grid-cols-2 h-[300px] gap-16 transition-transform duration-500 ease-in-out ${
+                  isFadingOut
+                    ? animationDirection
+                    : animationDirection === "slide-out-left"
+                    ? "slide-in-right"
+                    : "slide-in-left"
                 }`}
-              ></div>
-            ))}
-          </div>
-        </div>
+              >
+                {currentCards.map((card, index) => (
+                  <div key={index} className="flex justify-center items-center">
+                    <TeachingCard
+                      algorithmType={card.type}
+                      algorithmName={card.title}
+                      algorithmDescription={card.description}
+                      gradientColor1={card.colorCodeOne || "#FFFFFF"}
+                      gradientColor2={card.colorCodeTwo || "#FFFFFF"}
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div className="flex items-center justify-center mt-10 gap-2">
+              <div className="flex items-center justify-center gap-2 mb-5">
+                {Array.from({
+                  length: Math.ceil(teachingCards.length / cardsPerPage),
+                }).map((_, index) => (
+                  <div
+                    key={index}
+                    onClick={() => pageChangeAnimation(index + 1)}
+                    className={`h-3.5 w-3.5 border border-black rounded-full hover:cursor-pointer hover:border-2 transition-all ${
+                      currentPage === index + 1 ? "bg-[#8A8A8A]" : "bg-white"
+                    }`}
+                  ></div>
+                ))}
+              </div>
+            </div>
+          </>
+        )}
       </div>
     </div>
   );

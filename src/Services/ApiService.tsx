@@ -16,12 +16,12 @@ const ApiService = () => {
 
       const data = await response.json();
       //används ej
-      let messageObject: MessageProps = {
-        content: data,
-        message: response.statusText,
-      };
+      // const messageObject: MessageProps = {
+      //   content: data,
+      //   message: response.statusText,
+      // };
 
-    //   return messageObject;
+      //   return messageObject;
       return data;
     } catch (error) {
       console.log(error, "error message: check Api");
@@ -35,17 +35,29 @@ const ApiService = () => {
   };
 
   const ArticlesDTO = async () => {
-    const data = await ApiCaller("https://localhost:7033/api/Article/TitleDescription");
+    const data = await ApiCaller(
+      "https://localhost:7033/api/Article/TitleDescription"
+    );
 
     return data;
-  }
+  };
+
+  const ArticleCardDTO = async () => {
+    const data = await ApiCaller(
+      "https://localhost:7033/api/Article/CardDisplay"
+    );
+
+    return data;
+  };
+  
 
 
   //bygg på med Fetch anrop
-  
+
   return {
     Articles,
-    ArticlesDTO
+    ArticlesDTO,
+    ArticleCardDTO
   };
 };
 
