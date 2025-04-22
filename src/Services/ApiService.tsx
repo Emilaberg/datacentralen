@@ -43,9 +43,9 @@ const ApiService = () => {
     );
     return data;
   };
-  const GroupedArticlesDropdown = async () => {
+  const GroupedArticlesDropdown = async (amount: number = 4) => {
     const data = await ApiCaller(
-      "https://localhost:7033/api/Article/GroupedDropdown"
+      `https://localhost:7033/api/Article/GroupedDropdown?amount=${amount}`
     );
     return data;
   };

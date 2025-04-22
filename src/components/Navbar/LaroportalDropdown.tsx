@@ -8,8 +8,8 @@ const LaroportalDropdown = () => {
   const { GroupedArticlesDropdown } = ApiService();
 
   const { data, isLoading } = useQuery({
-    queryKey: ["groupedArticles"],
-    queryFn: GroupedArticlesDropdown,
+    queryKey: ["groupedArticles", 4],
+    queryFn: () => GroupedArticlesDropdown(4),
   });
 
   const sortingAlgorithms: ArticleDTOProps[] = data?.sortingAlgorithms || [];
