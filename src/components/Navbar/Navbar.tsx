@@ -2,9 +2,10 @@ import React from "react";
 import { Link } from "react-router-dom";
 import githubIcon from "../../assets/icons/Github.svg";
 import arrowIcon from "../../assets/icons/arrowicon.svg";
-import { useAuth } from '../../Auth/AuthProvider'
-import webIcon from "../../assets/icons/webIconSVG.svg"
+import { useAuth } from "../../Auth/AuthProvider";
+import webIcon from "../../assets/icons/webIconSVG.svg";
 import Submenu from "./Submenu";
+import LaroportalDropdown from "./LaroportalDropdown";
 
 const Navbar = () => {
   const auth = useAuth();
@@ -17,13 +18,18 @@ const Navbar = () => {
         <Link className="hover:underline" to="/" replace>
           startsida
         </Link>
-        <div  className="group relative flex border-2 border-footerBlue rounded-lg px-3 py-1 ">
-          <Link to="testa-algoritm" className="flex z-10">Testa algoritmen <img className="ml-2" src={arrowIcon} alt="" /></Link>
-          <Submenu/>
+        <div className="group relative flex border-2 border-footerBlue rounded-lg px-3 py-1 ">
+          <Link to="testa-algoritm" className="flex z-10">
+            Testa algoritmen <img className="ml-2" src={arrowIcon} alt="" />
+          </Link>
+          <Submenu />
         </div>
-        <Link className="hover:underline" to="laroportal">
-          Läroportal
-        </Link>
+        <div className="group relative flex border-2 border-footerBlue rounded-lg px-3 py-1">
+          <Link to="laroportal" className="flex z-10">
+            Läroportal <img className="ml-2" src={arrowIcon} alt="dropdown" />
+          </Link>
+          <LaroportalDropdown />
+        </div>
         <Link className="hover:underline" to="about-us">
           Om projektet
         </Link>

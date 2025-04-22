@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 import Calculator from "../Calculator/Calculator";
 import { useAlgorithm } from "../../Services/AlgorithmProvider";
 import { selectedAlgorithmTypes } from "../../Types/types";

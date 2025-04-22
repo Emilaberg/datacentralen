@@ -1,30 +1,28 @@
 import React, { useState } from "react";
+import { useAuth } from "../../../Auth/AuthProvider";
 import webIcon from "../../../assets/icons/webIconSVG.svg";
 import userIcon from "../../../assets/icons/user-solid.svg";
 import passwordIcon from "../../../assets/icons/lock-solid.svg";
-import { useAuth } from "../../../Auth/AuthProvider";
 import { Link } from "react-router-dom";
-const validNames = ["admin"];
-const validpWord = ["admin123"];
 
 const Loginpage = () => {
   const auth = useAuth();
+
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
   const handleSubmit = async () => {
-    console.log(username + " " + password);
-    
+    setError("");
 
-    if(validNames.includes(username) && validpWord.includes(password)) {
-      console.log("first")
-      auth.login({email: username, password: password})
-
-
+    try {
+      auth.authenticate(username,password);
+    } catch (error) {
+      console.error("Login error:", error);
+      setError("Fel användarnamn eller lösenord");
     }
-
-    
   };
+
   return (
     <section className="bg-linear-to-br from-0% from-[#E08B2C] to-100% to-[#FF5BB5] w-full h-screen flex items-center justify-center ">
       <section className="relative bg-white h-1/2 w-[1200px] flex items-center shadow-2xl">
@@ -57,12 +55,16 @@ const Loginpage = () => {
                   Användarnamn
                 </label>
                 <span className="relative flex items-center">
-                  <img className="absolute w-4" src={userIcon} alt="" />
+                  <img
+                    className="absolute w-4"
+                    src={userIcon}
+                    alt="User Icon"
+                  />
                   <input
+                    required
                     onChange={(e) => setUsername(e.target.value)}
                     className="px-6 border-b-2 border-white  text-white w-full h-full py-2 text-lg font-bold"
                     type="text"
-                    name=""
                     id="username"
                   />
                   
@@ -74,12 +76,16 @@ const Loginpage = () => {
                   Lösenord
                 </label>
                 <span className="relative flex items-center">
-                    <img className="absolute w-4" src={passwordIcon} alt="" />
+                  <img
+                    className="absolute w-4"
+                    src={passwordIcon}
+                    alt="Password Icon"
+                  />
                   <input
+                    required
                     onChange={(e) => setPassword(e.target.value)}
-                    className="px-6 border-b-2 border-white text-[#E08B2C] w-full py-2 text-lg font-bold"
+                    className="px-6 border-b-2 border-white text-white w-full py-2 text-lg font-bold"
                     type="password"
-                    name=""
                     id="password"
                   />
                 </span>
@@ -88,13 +94,17 @@ const Loginpage = () => {
                 </div>
               </div>
 
+              {error && (
+                <p className="text-red-500 text-center text-sm mt-2">{error}</p>
+              )}
+
               <button
                 type="button"
                 onClick={() => handleSubmit()}
                 className="border-2 rounded-lg text-white font-bold text-lg px-6 py-1 w-fit mx-auto hover:bg-white/20 cursor-pointer hover:rounded-2xl transition-all ease-in-out"
                 
               >
-                logga in
+                Logga in
               </button>
             </form>
           </article>
