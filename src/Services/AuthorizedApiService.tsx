@@ -1,11 +1,5 @@
 import {jwtDecode} from "jwt-decode";
-
-
-const AuthorizedApiService = () => {
-
-  const BaseAPIUrl = "https://localhost:7033/api/"; 
-
-  /**
+/**
    * Interface representing properties required for making an authorized HTTP request.
    * 
    * @interface RequestProps
@@ -15,15 +9,14 @@ const AuthorizedApiService = () => {
    * @property {HttpMethodType} method - The HTTP method to be used for the request (e.g., GET, POST, PUT, DELETE).
    * @property {object} body - The request payload to be sent in the request body. Will get a JSON.Stringify() before sending.
    */
-  type RequestProps = {
-    url: string,
-    headers?: Map<string, string> | null,
-    method: HttpMethodType,
-    body: object,
-    enableLog? : boolean 
-  }
-
-  /**
+type RequestProps = {
+  url: string,
+  headers?: Map<string, string> | null,
+  method: HttpMethodType,
+  body: object,
+  enableLog? : boolean 
+}
+ /**
    * Enum representing the HTTP method types.
    * 
    * @enum {string}
@@ -32,13 +25,50 @@ const AuthorizedApiService = () => {
    * @property {string} Put - Represents the PUT HTTP method.
    * @property {string} Delete - Represents the DELETE HTTP method.
    */
-  enum HttpMethodType{
-    Get = "GET",
-    Post = "POST",
-    Put = "PUT",
-    Delete = "DELETE",
+ enum HttpMethodType{
+  Get = "GET",
+  Post = "POST",
+  Put = "PUT",
+  Delete = "DELETE",
 
+}
+
+
+class AuthorizedApiService {
+  private static instance: AuthorizedApiService | null = null;
+  private BaseAPIUrl = "https://localhost:7033/api/";
+  private UserName: string | null = null;
+  private PassWord: string | null = null;
+
+  private constructor() {}
+
+  /**
+   * Gets the singleton instance of AuthorizedApiService.
+   * Throws an error if the service has not been initialized.
+   * @returns The singleton instance of AuthorizedApiService.
+   */
+  public static GetAuthdService(): AuthorizedApiService {
+    if (!AuthorizedApiService.instance) {
+      throw new Error("AuthorizedApiService has not been initialized. Call initialize() first.");
+    }
+    return AuthorizedApiService.instance;
   }
+
+
+  /**
+   * Initializes the singleton instance with username and password.
+   * This must be called once before using the service.
+   * @param userName - The username for authentication.
+   * @param password - The password for authentication.
+   */
+  public static init(userName: string, password: string): void {
+    if (!AuthorizedApiService.instance) {
+      AuthorizedApiService.instance = new AuthorizedApiService();
+    }
+    AuthorizedApiService.instance.UserName = userName;
+    AuthorizedApiService.instance.PassWord = password;
+  }
+
 
   /**
    * DO NOT CALL THIS DIRECTLY. USE THE SendAuthorizedRequest() INSTEAD.!! 
@@ -50,30 +80,30 @@ const AuthorizedApiService = () => {
    * @returns Promise that resolves to the Response object if successful, or null if the request fails
    * 
    */
-  const SendRequestToAPi = async (requestProps: RequestProps) => {
-    let returnValue:Response|null = null; // I dont know how to make it so that js/ts knows that return type is Response , this does that
+  public async SendRequestToAPi(requestProps: RequestProps) {
+    let returnValue: Response | null = null; // I dont know how to make it so that js/ts knows that return type is Response , this does that
     const enableLog = requestProps.enableLog ?? true;
     if (!requestProps.url) {
-      if(enableLog)console.error("Request failed: URL is required");
-      return returnValue;
-    }
-    
-    if (!requestProps.method) {
-      if(enableLog)console.error("Request failed: HTTP method is required");
-      return returnValue;
-    }
-    if (!requestProps.headers || requestProps.headers.size === 0) {
-      if(enableLog)console.error("Request failed: Headers are null or empty. Even the Auth token header is not given.");
+      if (enableLog) console.error("Request failed: URL is required");
       return returnValue;
     }
 
-    let url = BaseAPIUrl + requestProps.url;
-    url = url.replace(/([^:]\/)\/+/g, "$1")
+    if (!requestProps.method) {
+      if (enableLog) console.error("Request failed: HTTP method is required");
+      return returnValue;
+    }
+    if (!requestProps.headers || requestProps.headers.size === 0) {
+      if (enableLog) console.error("Request failed: Headers are null or empty. Even the Auth token header is not given.");
+      return returnValue;
+    }
+
+    let url = this.BaseAPIUrl + requestProps.url;
+    url = url.replace(/([^:]\/)\/+/g, "$1") //remove double slashes if they happen when giving API endpoint 
     const method = requestProps.method;
     const headers = Object.fromEntries(requestProps.headers);
     const body = JSON.stringify(requestProps.body);
-    
-    if(enableLog){
+
+    if (enableLog) {
       console.log("RequestProps:", {
         url: requestProps.url,
         method: requestProps.method,
@@ -81,7 +111,7 @@ const AuthorizedApiService = () => {
         body: requestProps.body,
         enableLog: requestProps.enableLog,
       });
-      
+
     }
     try {
       //send requst to api
@@ -90,40 +120,40 @@ const AuthorizedApiService = () => {
         headers: headers,
         body: body
       });
-      
+
       // Check if the response is ok (status in the range 200-299)
       if (!returnValue.ok) {
-        if(enableLog)console.error("Request failed:", returnValue.status, returnValue.statusText); //log what went wrong
+        if (enableLog) console.error("Request failed:", returnValue.status, returnValue.statusText); //log what went wrong
         return returnValue;
       }
-      
+
       // If the response is ok, return the response object
       return returnValue;
     } catch (error) {
-      if(enableLog)console.error("Error sending request:", error); //log what went wrong
+      if (enableLog) console.error("Error sending request:", error); //log what went wrong
       return returnValue;
     }
 
   }
 
-  const AuthMe = async (username:string, password:string) => {
-    let responseFromApi : Response| null;
+  public async AuthMe() {
+    let responseFromApi: Response | null;
     try {
 
       const headers = new Map<string, string>();
       headers.set("Content-Type", "application/json"); //add the content type to the headers
-      
-      responseFromApi = await SendRequestToAPi({
+
+      responseFromApi = await this.SendRequestToAPi({
         url: "Auth/login",
         method: HttpMethodType.Post,
-        headers : headers,
+        headers: headers,
         body: {
-          userName: username,
-          password: password, 
+          userName: this.UserName,
+          password: this.PassWord,
         },
       });
-      
-      
+
+
     } catch (error) {
       console.log(error, "ERROR: Unable to authenticate credentials");
       return null;
@@ -160,7 +190,7 @@ const AuthorizedApiService = () => {
    * // Ensure the token is valid before making an API call
    * CheckTokenValidity();
    */
-  const CheckTokenValidity = () => {
+  public CheckTokenValidity() {
 
     const authToken = localStorage.getItem("AuthToken");
 
@@ -187,18 +217,18 @@ const AuthorizedApiService = () => {
     }
   }
 
-  const SendAuthorizedRequest = async (requestProps: RequestProps) => {
+  public async SendAuthorizedRequest(requestProps: RequestProps) {
 
-    let responseFromApi:Response|null;
-    
-    CheckTokenValidity()
+    let responseFromApi: Response | null;
+
+    this.CheckTokenValidity()
     let authToken = localStorage.getItem("AuthToken");
-    
-    if (!authToken) await AuthMe(); //token does not exist? get a new one
+
+    if (!authToken) await this.AuthMe(); //token does not exist? get a new one
 
     authToken = localStorage.getItem("AuthToken"); // refetch token now that it is new
 
-    if(!authToken) {
+    if (!authToken) {
       console.error("ERROR: Could not find auth token, and could not make a new one. Is the API running?");
       return null;
     }
@@ -208,24 +238,24 @@ const AuthorizedApiService = () => {
     const headers = requestProps.headers ? requestProps.headers : new Map<string, string>();
     headers.set("Authorization", authToken); //add the auth token to the headers
     headers.set("Content-Type", "application/json"); //add the content type to the headers
-    
+
     try {
-      const request:RequestProps = {
-        url:url, 
-        method:method, 
-        body:body, 
+      const request: RequestProps = {
+        url: url,
+        method: method,
+        body: body,
         headers: headers,
-        enableLog : true
+        enableLog: true
       }
 
-      responseFromApi = await SendRequestToAPi(request)
-      if(!responseFromApi) {
-        console.error("ERROR: Could not send request to API. Check console for details.");        
+      responseFromApi = await this.SendRequestToAPi(request)
+      if (!responseFromApi) {
+        console.error("ERROR: Could not send request to API. Check console for details.");
         return null;
       }
       return responseFromApi;
 
-      
+
     } catch (error) {
       console.error("ERROR: Could not send request to API. Check console for details.", error);
     }
@@ -251,9 +281,9 @@ const AuthorizedApiService = () => {
  * const response = await ArticleChangeContent(1, "New article content", false);
  * ```
  */
-  const PUTArticleChangeContent = async (id: number, data: string, enableLog = true) => {
+  public async PUTArticleChangeContent(id: number, data: string, enableLog = true) {
     try {
-      const response = await SendAuthorizedRequest({
+      const response = await this.SendAuthorizedRequest({
         url: `/Article/with-file-as-string`,
         method: HttpMethodType.Put,
         body: {
@@ -261,17 +291,17 @@ const AuthorizedApiService = () => {
           FileAsRawString: data,
         },
       });
-  
+
       if (!response) {
         if (enableLog) console.error("Failed to PUT file as string: No response from API");
         return null;
       }
-  
+
       if (!response.ok) {
         if (enableLog) console.error("Failed to PUT file as string:", response.status, response.statusText);
         return null;
       }
-  
+
       return response;
     } catch (error) {
       if (enableLog) console.error("Error occurred while sending PUT request:", error);
@@ -289,12 +319,12 @@ const AuthorizedApiService = () => {
    * @returns A Promise that resolves to the Response object if successful, or null if the request fails.
    * @remarks This function uses a PUT request despite the DELETE prefix in the function name.
    */
-  const DELETEArticleContent = async (id: number) => {
-    const response = await SendAuthorizedRequest(
+  public async DELETEArticleContent(id: number) {
+    const response = await this.SendAuthorizedRequest(
       {
-        url : `Article/remove-content/${id}`,
-        method : HttpMethodType.Put,
-        body : {}
+        url: `Article/remove-content/${id}`,
+        method: HttpMethodType.Put,
+        body: {}
       }
     )
     if (!response || !response.ok) {
@@ -312,12 +342,12 @@ const AuthorizedApiService = () => {
    * @param id - The unique identifier of the article to remove content from.
    * @returns A Promise that resolves to the Response object if successful, or null if the request fails.
    */
-  const DELETEArticle = async (id: number) => {
-    const response = await SendAuthorizedRequest(
+  public async DELETEArticle(id: number) {
+    const response = await this.SendAuthorizedRequest(
       {
-        url : `Article/${id}`,
-        method : HttpMethodType.Delete,
-        body : {}
+        url: `Article/${id}`,
+        method: HttpMethodType.Delete,
+        body: {}
       }
     )
     if (!response || !response.ok) {
@@ -338,12 +368,12 @@ const AuthorizedApiService = () => {
    * @function
    * @returns {Promise<any>} A promise that resolves to the response from the API.
    */
-  const GETAllArticles = async()=>{
-    const response = await SendAuthorizedRequest(
+  public async GETAllArticles() {
+    const response = await this.SendAuthorizedRequest(
       {
-        url : "Article",
-        body : {},
-        method : HttpMethodType.Get
+        url: "Article",
+        body: {},
+        method: HttpMethodType.Get
       }
     );
     if (!response || !response.ok) {
@@ -360,11 +390,11 @@ const AuthorizedApiService = () => {
    * @param idOfArticle - The unique identifier of the article to retrieve.
    * @returns A promise that resolves to the response of the API call.
    */
-  const GETArticleById = async(idOfArticle : number) =>{
-    const response = await SendAuthorizedRequest(
+  public async GETArticleById(idOfArticle: number) {
+    const response = await this.SendAuthorizedRequest(
       {
-        url : `api/Article/${idOfArticle}` ,
-        method : HttpMethodType.Get,
+        url: `api/Article/${idOfArticle}`,
+        method: HttpMethodType.Get,
         body: {}
       }
     );
@@ -386,12 +416,12 @@ const AuthorizedApiService = () => {
    * @function
    * @returns {Promise<any>} A promise that resolves to the response containing the articles' data.
    */
-  const GETAllArticlesWithTitleAndDescription = async() =>{
-    const response = await SendAuthorizedRequest(
+  public async GETAllArticlesWithTitleAndDescription() {
+    const response = await this.SendAuthorizedRequest(
       {
-        url : `Article/TitleDescription`,
-        body : {},
-        method : HttpMethodType.Get
+        url: `Article/TitleDescription`,
+        body: {},
+        method: HttpMethodType.Get
       }
     )
     if (!response || !response.ok) {
@@ -412,12 +442,12 @@ const AuthorizedApiService = () => {
    * @function
    * @returns {Promise<any>} A promise that resolves to the response containing the articles.
    */
-  const GETAllArticlesAsCardDTO = async () => {
-    const response = await SendAuthorizedRequest(
+  public async GETAllArticlesAsCardDTO() {
+    const response = await this.SendAuthorizedRequest(
       {
-        url : `Article/CardDisplay`,
-        body : {},
-        method : HttpMethodType.Get
+        url: `Article/CardDisplay`,
+        body: {},
+        method: HttpMethodType.Get
       }
     )
     if (!response || !response.ok) {
@@ -426,19 +456,7 @@ const AuthorizedApiService = () => {
     }
     return response
   }
-  
 
-  return {
-    SendAuthorizedRequest,
-    PUTArticleChangeContent,
-    DELETEArticleContent,
-    DELETEArticle,
-    GETAllArticles,
-    GETArticleById,
-    GETAllArticlesWithTitleAndDescription,
-    GETAllArticlesAsCardDTO,
-    AuthMe
-  };
 };
 
 export default AuthorizedApiService;
