@@ -48,6 +48,7 @@ const ApiService = () => {
   };
 
   const GroupedArticlesDropdown = async (amount: number) => {
+    4;
     const data = await ApiCaller(
       `https://localhost:7033/api/Article/GroupedDropdown/${amount}`
     );

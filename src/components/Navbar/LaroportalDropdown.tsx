@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import ApiService from "../../Services/ApiService";
 import { ARTICLE_AMOUNT, ArticleDTOProps } from "../../Types/types";
 
-
 const LaroportalDropdown = () => {
   const { GroupedArticlesDropdown } = ApiService();
 
@@ -14,7 +13,6 @@ const LaroportalDropdown = () => {
 
   const sortingAlgorithms: ArticleDTOProps[] = data?.sortingAlgorithms || [];
   const dataStructures: ArticleDTOProps[] = data?.dataStructures || [];
-
 
   return (
     <div className="absolute left-0 top-full">
@@ -32,7 +30,9 @@ const LaroportalDropdown = () => {
                 >
                   {article.title}
                 </Link>
-                <p className="text-black/50 text-sm text-ellipsis text-nowrap overflow-hidden">{article.description}</p>
+                <p className="text-black/50 text-sm text-ellipsis text-nowrap overflow-hidden">
+                  {article.description}
+                </p>
               </li>
             ))}
           </ul>
@@ -49,7 +49,9 @@ const LaroportalDropdown = () => {
                 >
                   {article.title}
                 </Link>
-                <p className="text-black/50 text-sm text-ellipsis text-nowrap overflow-hidden">{article.description}</p>
+                <p className="text-black/50 text-sm text-ellipsis text-nowrap overflow-hidden">
+                  {article.description}
+                </p>
               </li>
             ))}
           </ul>
