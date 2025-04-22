@@ -59,27 +59,12 @@ const ApiService = () => {
     return data;
   };
 
-  const Login = async (username: string, password: string) => {
-    const response = await fetch("https://localhost:7033/api/Auth/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ userName: username, password }),
-    });
-
-    if (!response.ok) throw new Error("Login failed");
-
-    return await response.text();
-  };
-
   return {
     Articles,
     ArticlesDTO,
     ArticleCardDTO,
     GroupedArticlesDropdown,
     GetArticleById,
-    Login,
   };
 };
 

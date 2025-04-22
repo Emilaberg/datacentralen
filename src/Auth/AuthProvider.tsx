@@ -1,7 +1,7 @@
 import { createContext, useContext, useState } from "react";
 import { ProviderProps } from "../Types/types";
 import { useNavigate } from "react-router-dom";
-import ApiService from "../Services/ApiService";
+import AuthorizedApiService from "../Services/AuthorizedApiService";
 const AuthContext = createContext<ProviderProps>({
   token: "",
   authenticate: () => {},
@@ -10,24 +10,22 @@ const AuthContext = createContext<ProviderProps>({
 
 const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const navigate = useNavigate();
-  const {Login} = ApiService();
-  const [token, setToken] = useState<string>(() => {
-    const stored = localStorage.getItem("token");
-    return stored ? JSON.parse(stored) : "";
-  });
+  const {AuthMe} = AuthorizedApiService();
+
+  const [token, setToken] = useState<string>(localStorage.getItem("AuthToken") ?? "");
 
   const authenticate = async (username: string, password: string) => {
-    const response = await Login(username,password)
+    const response = await AuthMe(username,password);
 
-    localStorage.setItem("token", JSON.stringify(response));
-    setToken(response);
+    if(!response) return;
     navigate("/");
   };
 
 
   const logout = () => {
+
+    localStorage.removeItem("AuthToken");
     setToken("");
-    localStorage.removeItem("token");
   };
 
   return (

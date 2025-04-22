@@ -1,4 +1,3 @@
-
 import {jwtDecode} from "jwt-decode";
 
 
@@ -107,23 +106,23 @@ const AuthorizedApiService = () => {
 
   }
 
-  const AuthMe = async () => {
+  const AuthMe = async (username:string, password:string) => {
     let responseFromApi : Response| null;
     try {
 
       const headers = new Map<string, string>();
       headers.set("Content-Type", "application/json"); //add the content type to the headers
-      //TODO: not hardcode credentials
+      
       responseFromApi = await SendRequestToAPi({
         url: "Auth/login",
         method: HttpMethodType.Post,
         headers : headers,
         body: {
-          userName: "name", // TODO: Replace with dynamic credentials
-          password: "pass", // TODO: Replace with dynamic credentials
+          userName: username,
+          password: password, 
         },
       });
-      //TODO: not hardcode credentials
+      
       
     } catch (error) {
       console.log(error, "ERROR: Unable to authenticate credentials");
@@ -437,7 +436,8 @@ const AuthorizedApiService = () => {
     GETAllArticles,
     GETArticleById,
     GETAllArticlesWithTitleAndDescription,
-    GETAllArticlesAsCardDTO
+    GETAllArticlesAsCardDTO,
+    AuthMe
   };
 };
 
