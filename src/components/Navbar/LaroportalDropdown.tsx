@@ -16,7 +16,7 @@ const LaroportalDropdown = () => {
   const dataStructures: ArticleDTOProps[] = data?.dataStructures || [];
 
   return (
-    <div className="absolute left-0 top-full hidden group-hover:flex bg-white px-6 py-4 border-2 border-[#96C9E3] rounded-2xl w-[600px] z-50 justify-between shadow-lg">
+    <div className="absolute left-0 top-full mt-2 hidden group-hover:flex bg-white px-6 py-4 border-2 border-[#96C9E3] rounded-2xl w-[600px] z-50 justify-between shadow-lg">
       {isLoading && <div>Laddar artiklar...</div>}
 
       <div className="w-1/2 pr-4">
