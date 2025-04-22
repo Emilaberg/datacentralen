@@ -1,10 +1,5 @@
 import React from "react";
 
-type MessageProps = {
-  message: string;
-  content: object;
-};
-
 const ApiService = () => {
   const ApiCaller = async (url: string) => {
     await new Promise((resolve) => setTimeout(resolve, 1000));
@@ -43,6 +38,15 @@ const ApiService = () => {
     );
     return data;
   };
+
+  const ArticleCardDTO = async () => {
+    const data = await ApiCaller(
+      "https://localhost:7033/api/Article/CardDisplay"
+    );
+
+    return data;
+  };
+
   const GroupedArticlesDropdown = async (amount: number) => {
     const data = await ApiCaller(
       `https://localhost:7033/api/Article/GroupedDropdown/${amount}`
@@ -72,6 +76,7 @@ const ApiService = () => {
   return {
     Articles,
     ArticlesDTO,
+    ArticleCardDTO,
     GroupedArticlesDropdown,
     GetArticleById,
     Login,

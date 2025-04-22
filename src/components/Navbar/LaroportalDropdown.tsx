@@ -3,11 +3,6 @@ import { Link } from "react-router-dom";
 import ApiService from "../../Services/ApiService";
 import { ARTICLE_AMOUNT, ArticleDTOProps } from "../../Types/types";
 
-interface algorithmProps {
-  sortingAlgorithms: Array<ArticleDTOProps>
-  dataStructures: Array<ArticleDTOProps>
-}
-
 
 const LaroportalDropdown = () => {
   const { GroupedArticlesDropdown } = ApiService();
@@ -17,7 +12,9 @@ const LaroportalDropdown = () => {
     queryFn: () => GroupedArticlesDropdown(ARTICLE_AMOUNT),
   });
 
-  const algorithms:algorithmProps = data as algorithmProps;
+  const sortingAlgorithms: ArticleDTOProps[] = data?.sortingAlgorithms || [];
+  const dataStructures: ArticleDTOProps[] = data?.dataStructures || [];
+
 
   return (
     <div className="absolute left-0 top-full">
@@ -27,7 +24,7 @@ const LaroportalDropdown = () => {
         <div className="w-1/2 pr-4">
           <h3 className="text-lg font-semibold mb-2">Sorteringsalgoritmer</h3>
           <ul className="flex flex-col gap-2">
-            {algorithms.sortingAlgorithms.map((article) => (
+            {sortingAlgorithms.map((article) => (
               <li key={article.id}>
                 <Link
                   to={`/laroportal/articles/${article.id}`}
@@ -44,7 +41,7 @@ const LaroportalDropdown = () => {
         <div className="w-1/2 pl-4">
           <h3 className="text-lg font-semibold mb-2">Datastrukturer</h3>
           <ul className="flex flex-col gap-2">
-            {algorithms.dataStructures.map((article) => (
+            {dataStructures.map((article) => (
               <li key={article.id}>
                 <Link
                   to={`/laroportal/articles/${article.id}`}

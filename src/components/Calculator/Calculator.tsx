@@ -11,10 +11,6 @@ const Calculator = () => {
     iterationSpeedTypes.STANDARD
   );
 
-  const trigger = (value: string | number) => {
-    console.log(value);
-  };
-
   const changeSpeed = (speed: iterationSpeedTypes) => {
     setActiveSpeed(speed);
     AlgorithmProvider.setIterationSpeed(speed);

@@ -1,5 +1,4 @@
 import React from "react";
-import { useAlgorithm } from "../../Services/AlgorithmProvider";
 
 const BarChart = ({array = []}:{array: number[]}) => {
   //dynamic scaling 

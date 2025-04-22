@@ -1,7 +1,5 @@
-import { useContext, useState, useRef } from "react";
+import { useState, useRef } from "react";
 import DOMPurify from "dompurify";
-import { marked } from "marked";
-import ApiService from "../../Services/ApiService";
 import AuthorizedApiService from "../../Services/AuthorizedApiService";
 import DisplayAllArticles from "../../components/DisplayAllArticles/DisplayAllArticles";
 import Modal from "../../components/Modal/Modal";
@@ -35,7 +33,7 @@ const Editpage = () => {
     setPreviewText(rawContent);
   };
 
-  const handlePublish = async (event: object) => {
+  const handlePublish = async () => {
     localStorage.setItem("savedString", JSON.stringify(previewText));
 
     try {
@@ -155,7 +153,7 @@ const Editpage = () => {
           className="bg-green-600 hover:bg-green-700 cursor-pointer block text-white font-semibold mx-auto px-4 py-2 rounded-xl disabled:opacity-25 disabled:cursor-not-allowed"
           disabled={chosenID === -1}
           type="button"
-          onClick={(e) => handlePublish(e)}
+          onClick={handlePublish}
         >
           uppdatera
         </button>

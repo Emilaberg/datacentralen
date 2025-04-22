@@ -1,5 +1,5 @@
 import { createContext, useContext, useState } from "react";
-import { LoginType, ProviderProps } from "../Types/types";
+import { ProviderProps } from "../Types/types";
 import { useNavigate } from "react-router-dom";
 import ApiService from "../Services/ApiService";
 const AuthContext = createContext<ProviderProps>({

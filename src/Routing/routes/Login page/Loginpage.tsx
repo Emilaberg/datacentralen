@@ -84,7 +84,7 @@ const Loginpage = () => {
                   <input
                     required
                     onChange={(e) => setPassword(e.target.value)}
-                    className="px-6 border-b-2 border-white text-[#E08B2C] w-full py-2 text-lg font-bold"
+                    className="px-6 border-b-2 border-white text-white w-full py-2 text-lg font-bold"
                     type="password"
                     id="password"
                   />
