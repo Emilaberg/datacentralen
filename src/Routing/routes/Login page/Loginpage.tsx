@@ -8,8 +8,6 @@ import ApiService from "../../../Services/ApiService";
 
 const Loginpage = () => {
   const auth = useAuth();
-  const navigate = useNavigate();
-  const { Login } = ApiService();
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -19,10 +17,7 @@ const Loginpage = () => {
     setError("");
 
     try {
-      const token = await Login(username, password);
-      localStorage.setItem("token", token);
-      auth.login({ email: username, password, token });
-      navigate("/");
+      auth.authenticate(username,password);
     } catch (error) {
       console.error("Login error:", error);
       setError("Fel användarnamn eller lösenord");

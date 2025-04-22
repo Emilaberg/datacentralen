@@ -4,8 +4,10 @@ export const MINIMUM_COUNT = 4;
 
 export const MAXIMUM_GENERATED_ARRAY_LENGTH = 20;
 export const MINIMUM_ARRAY_VALUE_RANGE = 10;
+
+export const ARTICLE_AMOUNT = 4;
 export type LoginType = {
-  email: string;
+  username: string;
   password: string;
   remember_me?: boolean;
   token: string;
@@ -13,7 +15,7 @@ export type LoginType = {
 
 export interface ProviderProps {
   token: string;
-  login(data: LoginType): void;
+  authenticate(username:string, password:string): void;
   logout(): void;
 }
 
