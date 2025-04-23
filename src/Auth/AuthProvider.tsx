@@ -16,8 +16,15 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
   const authenticate = async (username: string, password: string) => {
     const response = await AuthMe(username,password);
-
-    if(!response) return;
+    
+    
+    if (!response || response.status < 200 || response.status >= 300) {
+      return;
+    }
+    const tokn = localStorage.getItem("AuthToken")
+    if(tokn !== null){
+      setToken(tokn)
+    }
     navigate("/dashboard");
   };
 

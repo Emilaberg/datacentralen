@@ -8,9 +8,8 @@ import { Link } from "react-router-dom";
 import AuthorizedApiService from "../../../Services/AuthorizedApiService";
 
 const Loginpage = () => {
-  const ApiService = AuthorizedApiService()
-  const navigate = useNavigate();
 
+  const auth = useAuth();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -19,12 +18,7 @@ const Loginpage = () => {
     setError("");
 
     try {
-      const respoonse: any | null = await ApiService.AuthMe(username,password);
-
-      if(!respoonse){
-        throw "why make it like this?"
-      }
-      navigate("/dashboard");
+      await auth.authenticate(username, password)
 
     } catch (error) {
       console.error("Login error:", error);
