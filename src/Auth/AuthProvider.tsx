@@ -18,7 +18,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     const response = await AuthMe(username,password);
 
     if(!response) return;
-    navigate("/");
+    navigate("/dashboard");
   };
 
 
