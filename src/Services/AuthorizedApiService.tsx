@@ -105,6 +105,26 @@ const AuthorizedApiService = () => {
     }
 
   }
+  const TokenIsAuthorized = async () =>{
+    const token = localStorage.getItem("AuthToken")
+    let responseFromApi : Response| null |undefined;
+
+    try{
+      responseFromApi = await SendAuthorizedRequest({
+        body: {},
+        method: HttpMethodType.Post,
+        url: "Auth/is-admin", 
+        headers: new Map<string, string>([["Authorization", token ? `${token}` : ""]]),
+      });
+      if(responseFromApi === undefined)return false
+      if(!responseFromApi || responseFromApi) return false
+      return true;
+    }catch(ex){
+      console.log(ex);
+      return false
+    }
+    
+  }
 
   const AuthMe = async (username:string, password:string) => {
     let responseFromApi : Response| null;
@@ -134,69 +154,64 @@ const AuthorizedApiService = () => {
       return null;
     }
 
-    const token = await responseFromApi.text(); // return from api is a pure string, not json format
+    const token = await responseFromApi.text();// return from api is a pure string, not json format
 
     localStorage.setItem("AuthToken", token); //adds token to localstorage
     return responseFromApi;
   }
 
 
-  /**
-   * Checks the validity of the authentication token stored in localStorage.
-   * 
-   * This function retrieves the token from localStorage, decodes it to extract
-   * the expiration time, and determines whether the token is still valid. If the
-   * token is about to expire (less than 10 minutes remaining) or has already expired,
-   * it removes the token from localStorage. If decoding the token fails, the token
-   * is also removed.
-   * 
-   * @remarks
-   * - The expiration time (`exp`) in the token is expected to be in UNIX timestamp format (seconds).
-   * - The current time is compared against the expiration time to calculate the remaining validity.
-   * 
-   * @throws {Error} If decoding the token fails, the error is returned after removing the token.
-   * 
-   * @example
-   * // Ensure the token is valid before making an API call
-   * CheckTokenValidity();
-   */
-  const CheckTokenValidity = () => {
+  // /**
+  //  * Checks the validity of the authentication token stored in localStorage.
+  //  * 
+  //  * This function retrieves the token from localStorage, decodes it to extract
+  //  * the expiration time, and determines whether the token is still valid. If the
+  //  * token is about to expire (less than 10 minutes remaining) or has already expired,
+  //  * it removes the token from localStorage. If decoding the token fails, the token
+  //  * is also removed.
+  //  * 
+  //  * @remarks
+  //  * - The expiration time (`exp`) in the token is expected to be in UNIX timestamp format (seconds).
+  //  * - The current time is compared against the expiration time to calculate the remaining validity.
+  //  * 
+  //  * @throws {Error} If decoding the token fails, the error is returned after removing the token.
+  //  * 
+  //  * @example
+  //  * // Ensure the token is valid before making an API call
+  //  * CheckTokenValidity();
+  //  */
+  // const CheckTokenValidity = () => {
 
-    const authToken = localStorage.getItem("AuthToken");
+  //   const authToken = localStorage.getItem("AuthToken");
 
-    if (!authToken) {
-      return;
-    }
+  //   if (!authToken) {
+  //     return;
+  //   }
 
-    try {
-      // Decode the token to extract the expiration time
-      const decodedToken: { exp: number } = jwtDecode(authToken); // `exp` is in seconds (UNIX timestamp)
-      const currentTime = Date.now() / 1000; // Current time in seconds
+  //   try {
+  //     // Decode the token to extract the expiration time
+  //     const decodedToken: { exp: number } = jwtDecode(authToken); // `exp` is in seconds (UNIX timestamp)
+  //     const currentTime = Date.now() / 1000; // Current time in seconds
 
-      const timeLeft = decodedToken.exp - currentTime; // Time left in seconds
+  //     const timeLeft = decodedToken.exp - currentTime; // Time left in seconds
 
-      if (timeLeft < 600) {
-        console.warn(`Token is about to expire or has expired. Time left: ${Math.max(0, Math.floor(timeLeft))} seconds. Removing it from localStorage.`);
-        localStorage.removeItem("AuthToken"); // Remove the token
-      } else {
-        console.log(`Token is valid. Time left: ${Math.floor(timeLeft)} seconds.`);
-      }
-    } catch (error) {
-      localStorage.removeItem("AuthToken"); // Remove the token if decoding fails
-      return error
-    }
-  }
+  //     if (timeLeft < 600) {
+  //       console.warn(`Token is about to expire or has expired. Time left: ${Math.max(0, Math.floor(timeLeft))} seconds. Removing it from localStorage.`);
+  //       localStorage.removeItem("AuthToken"); // Remove the token
+  //     } else {
+  //       console.log(`Token is valid. Time left: ${Math.floor(timeLeft)} seconds.`);
+  //     }
+  //   } catch (error) {
+  //     localStorage.removeItem("AuthToken"); // Remove the token if decoding fails
+  //     return error
+  //   }
+  // }
 
   const SendAuthorizedRequest = async (requestProps: RequestProps) => {
 
     let responseFromApi:Response|null;
-    
-    CheckTokenValidity()
-    let authToken = localStorage.getItem("AuthToken");
-    
-    if (!authToken) await AuthMe(); //token does not exist? get a new one
-
-    authToken = localStorage.getItem("AuthToken"); // refetch token now that it is new
+  
+    const authToken = localStorage.getItem("AuthToken"); // refetch token now that it is new
 
     if(!authToken) {
       console.error("ERROR: Could not find auth token, and could not make a new one. Is the API running?");
@@ -437,7 +452,8 @@ const AuthorizedApiService = () => {
     GETArticleById,
     GETAllArticlesWithTitleAndDescription,
     GETAllArticlesAsCardDTO,
-    AuthMe
+    AuthMe,
+    TokenIsAuthorized
   };
 };
 

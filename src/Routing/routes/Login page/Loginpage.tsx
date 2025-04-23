@@ -1,12 +1,15 @@
 import React, { useState } from "react";
 import { useAuth } from "../../../Auth/AuthProvider";
+import { useNavigate } from "react-router-dom";
 import webIcon from "../../../assets/icons/webIconSVG.svg";
 import userIcon from "../../../assets/icons/user-solid.svg";
 import passwordIcon from "../../../assets/icons/lock-solid.svg";
 import { Link } from "react-router-dom";
+import AuthorizedApiService from "../../../Services/AuthorizedApiService";
 
 const Loginpage = () => {
-  const auth = useAuth();
+  const ApiService = AuthorizedApiService()
+  const navigate = useNavigate();
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -16,7 +19,13 @@ const Loginpage = () => {
     setError("");
 
     try {
-      auth.authenticate(username,password);
+      const respoonse: any | null = await ApiService.AuthMe(username,password);
+
+      if(!respoonse){
+        throw "why make it like this?"
+      }
+      navigate("/dashboard");
+
     } catch (error) {
       console.error("Login error:", error);
       setError("Fel användarnamn eller lösenord");
