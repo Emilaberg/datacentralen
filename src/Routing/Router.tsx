@@ -10,6 +10,7 @@ import AuthProvider from "../Auth/AuthProvider";
 import Editpage from "./routes/Editpage";
 import Logout from "./routes/Logout";
 import SelectedText from "../components/SelectedText/SelectedText";
+import ProtectedRoute from "../components/ProtectedRoute";
 
 function Router() {
   return (
@@ -21,7 +22,14 @@ function Router() {
             <Route path="laroportal" element={<Laroportal />} />
             <Route path="/laroportal/:id" element={<SelectedText />} />
             <Route path="/testa-algoritm" element={<TestaAlgoritm />} />
-            <Route path="/edit" element={<Editpage />} />
+            <Route
+              path="/dashboard"
+              element={
+                <ProtectedRoute>
+                  <Editpage />
+                </ProtectedRoute>
+              }
+            />
             <Route path="/about-us" element={<AboutUs />} />
             <Route path="*" element={<div>error 404</div>} />
           </Route>

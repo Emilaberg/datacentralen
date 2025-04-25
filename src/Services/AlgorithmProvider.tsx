@@ -71,6 +71,9 @@ const AlgorithmProvider = ({ children }: AlgorithmProviderProps) => {
     setIsAlgorithmRunning(false);
   }
 
+  /**
+   *  shuffles @param array with fisher-yates-shuffle and updates the current array
+   */
   function shuffleArray(): void {
     if(amountOfIterations > 0) setAmountOfIterations(0);
     
@@ -78,6 +81,11 @@ const AlgorithmProvider = ({ children }: AlgorithmProviderProps) => {
 
     updateArray([...shuffledArray]);
   }
+  /**
+   * sorts the given array by bubble sort, and updates the variable array:s state for every iteration
+   * logs the time before and after the forloop and calculates the difference, and subtracts the result by the iterationspeed times iterations
+   * @param arr array som ska sorteras
+   */
   async function bubbleSort(arr: number[]) {
       let iterations: number = 0;
       const len = arr.length;
@@ -102,7 +110,11 @@ const AlgorithmProvider = ({ children }: AlgorithmProviderProps) => {
       setTimeComplexity("O(n²)");
 
   }
-
+/**
+   * sorts the given array by selection sort, and updates the variable array:s state for every iteration
+   * logs the time before and after the forloop and calculates the difference, and subtracts the result by the iterationspeed times iterations
+   * @param arr array som ska sorteras
+   */
   async function selectionSort(arr: number[]) {
     let iterations: number = 0;
     const n = arr.length;

@@ -1,36 +1,34 @@
 import React from "react";
 
-type MessageProps = {
-  message: string;
-  content: object;
-};
-
 const ApiService = () => {
   const ApiCaller = async (url: string) => {
     await new Promise((resolve) => setTimeout(resolve, 1000));
 
-    let response: Response;
-
     try {
-      response = await fetch(url);
+      const response = await fetch(url);
+
+      if (!response.ok) {
+        console.error("Bad response:", response.statusText);
+        return [];
+      }
 
       const data = await response.json();
-      //används ej
-      let messageObject: MessageProps = {
-        content: data,
-        message: response.statusText,
-      };
 
-      //   return messageObject;
+      // Optional structure
+      // const messageObject: MessageProps = {
+      //   content: data,
+      //   message: response.statusText,
+      // };
+
       return data;
     } catch (error) {
-      console.log(error, "error message: check Api");
+      console.error("API fetch error:", error);
+      return []; // ✅ Prevents React Query from crashing
     }
   };
 
   const Articles = async () => {
     const data = await ApiCaller("https://localhost:7033/api/Article");
-
     return data;
   };
 
@@ -38,7 +36,6 @@ const ApiService = () => {
     const data = await ApiCaller(
       "https://localhost:7033/api/Article/TitleDescription"
     );
-
     return data;
   };
 
@@ -56,13 +53,24 @@ const ApiService = () => {
     return data;
   };
 
-  //bygg på med Fetch anrop
+  const GroupedArticlesDropdown = async (amount: number) => {
+    const data = await ApiCaller(
+      `https://localhost:7033/api/Article/GroupedDropdown/${amount}`
+    );
+    return data;
+  };
+
+  const GetArticleById = async (id: number) => {
+    const data = await ApiCaller(`https://localhost:7033/api/Article/${id}`);
+    return data;
+  };
 
   return {
     Articles,
     ArticlesDTO,
     ArticleCardDTO,
-    SingleArticle,
+    GroupedArticlesDropdown,
+    GetArticleById,
   };
 };
 
