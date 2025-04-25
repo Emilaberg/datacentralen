@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useAlgorithm } from "../../Services/AlgorithmProvider";
 import BarChart from "./BarChart";
 import shuffle from "../../tools/Fisher-yates-shuffle/shuffle";
@@ -10,7 +10,6 @@ import {
 } from "../../Types/types";
 
 const ArrayBuilderModal = () => {
-  const [randomValue, setRandomValue] = useState<number>(10);
   const [arraySize, setArraySize] = useState<number>(
     MAXIMUM_GENERATED_ARRAY_LENGTH
   );

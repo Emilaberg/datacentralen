@@ -1,58 +1,42 @@
 import { createContext, useContext, useState } from "react";
-import { LoginType, ProviderProps } from "../Types/types";
+import { ProviderProps } from "../Types/types";
 import { useNavigate } from "react-router-dom";
+import AuthorizedApiService from "../Services/AuthorizedApiService";
+const AuthContext = createContext<ProviderProps>({
+  token: "",
+  authenticate: () => {},
+  logout: () => {},
+});
+
+const AuthProvider = ({ children }: { children: React.ReactNode }) => {
+  const navigate = useNavigate();
+  const {AuthMe} = AuthorizedApiService();
+
+  const [token, setToken] = useState<string>(localStorage.getItem("AuthToken") ?? "");
+
+  const authenticate = async (username: string, password: string) => {
+    const response = await AuthMe(username,password);
+
+    if(!response) return;
+    navigate("/");
+  };
 
 
-// genererar en token
-export const randomAlphaNumeric = (length: number) => {
-    let s = '';
-    Array.from({ length }).some(() => {
-      s += Math.random().toString(36).slice(2);
-      return s.length >= length;
-    });
-    return s.slice(0, length);
+  const logout = () => {
+
+    localStorage.removeItem("AuthToken");
+    setToken("");
+  };
+
+  return (
+    <AuthContext.Provider value={{ token, authenticate, logout }}>
+      {children}
+    </AuthContext.Provider>
+  );
 };
 
-const AuthContext = createContext<ProviderProps>({
-    user: null,
-    token: '',
-    login: () => {},
-    logout: () => {}
-})
-
-const AuthProvider = ({ children }: { children: React.ReactNode}) => {
-    const storedInfo =  localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user') || '{}') : null
-    const [user, setUser ] = useState<string | null>(storedInfo?.email)
-    const [ token, setToken ] = useState( storedInfo?.token || '')
-    const naigate = useNavigate()
-
-    const login = (data:LoginType ) => {
-        console.log("hello from login");
-        const t = randomAlphaNumeric(50)
-        setTimeout(() => {
-            const obj = { ...data,token: t }
-            setUser(data.email)
-            setToken(t)
-            localStorage.setItem('user',JSON.stringify(obj))
-            naigate('/')
-        }, 1000);
-    }
-
-    const logout = () => {
-        setUser(null)
-        setToken('')
-        localStorage.removeItem('user')
-    }
-
-    return (
-        <AuthContext.Provider value={{ user,token, login, logout}}>
-            { children }
-        </AuthContext.Provider>
-    )
-}
-
-export default AuthProvider
+export default AuthProvider;
 
 export const useAuth = () => {
-    return useContext(AuthContext)
-}
+  return useContext(AuthContext);
+};

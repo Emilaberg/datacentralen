@@ -5,16 +5,18 @@ export const MINIMUM_COUNT = 4;
 export const MAXIMUM_GENERATED_ARRAY_LENGTH = 20;
 export const MINIMUM_ARRAY_VALUE_RANGE = 10;
 export const MAXIMUM_ARRAY_VALUE_RANGE = 1000;
+
+export const ARTICLE_AMOUNT = 4;
 export type LoginType = {
-  email: string;
+  username: string;
   password: string;
-  remember_me?: boolean | undefined;
+  remember_me?: boolean;
+  token: string;
 };
 
 export interface ProviderProps {
-  user: string | null;
   token: string;
-  login(data: LoginType): void;
+  authenticate(username:string, password:string): void;
   logout(): void;
 }
 
@@ -32,6 +34,7 @@ export interface ArticleDTOProps {
   id: number;
   title: string;
   description: string;
+  type: "Sorteringsalgoritm" | "Datastruktur";
 }
 
 export interface ArticleCardDTOProps {
