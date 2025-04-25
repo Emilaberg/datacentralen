@@ -12,7 +12,7 @@ export default function SelectedText() {
   const Article = ApiService();
 
   const { data: selectedArticle, isLoading } = useQuery<ArticleProps>({
-    queryFn: () => Article.SingleArticle(Number(id)),
+    queryFn: () => Article.GetArticleById(Number(id)),
     queryKey: ["singleArticle", id],
   });
 

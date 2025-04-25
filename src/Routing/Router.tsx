@@ -20,7 +20,7 @@ function Router() {
           <Route element={<Layout />}>
             <Route index element={<Index />} />
             <Route path="laroportal" element={<Laroportal />} />
-            <Route path="/laroportal/:id" element={<SelectedText />} />
+            <Route path="/laroportal/article/:id" element={<SelectedText />} />
             <Route path="/testa-algoritm" element={<TestaAlgoritm />} />
             <Route
               path="/dashboard"

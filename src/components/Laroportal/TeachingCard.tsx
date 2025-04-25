@@ -32,7 +32,7 @@ const TeachingCard: React.FC<CardComponentProps> = ({
     if (!id) {
       return;
     }
-    navigate(`/laroportal/${id}`); // Navigate to /laroportal/{id}
+    navigate(`/laroportal/article/${id}`);
   };
 
   return (
