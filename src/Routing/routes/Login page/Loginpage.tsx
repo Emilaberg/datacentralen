@@ -1,11 +1,9 @@
 import React, { useState } from "react";
 import { useAuth } from "../../../Auth/AuthProvider";
-import { useNavigate } from "react-router-dom";
 import webIcon from "../../../assets/icons/webIconSVG.svg";
 import userIcon from "../../../assets/icons/user-solid.svg";
 import passwordIcon from "../../../assets/icons/lock-solid.svg";
 import { Link } from "react-router-dom";
-import AuthorizedApiService from "../../../Services/AuthorizedApiService";
 
 const Loginpage = () => {
 
