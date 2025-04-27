@@ -28,6 +28,9 @@ export interface ArticleProps {
   lastEdited: Date;
   likes: number;
   content: string;
+  type: string;
+  colorCodeOne?: string;
+  colorCodeTwo?: string;
 }
 
 export interface ArticleDTOProps {

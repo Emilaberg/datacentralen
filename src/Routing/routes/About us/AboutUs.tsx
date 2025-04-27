@@ -81,7 +81,7 @@ const AboutUs = () => {
       <article className="mr-15 ml-15 mt-10 w-5/6 h-[650px] flex p-10 radious-xl rounded-4xl">
         <div className="flex justify-evenly items-center h-full w-full">
           <div
-            className="flex hover:cursor-pointer p-10 flex-col justify-center items-center gap-2 rounded-full bg-[#D7875D]/5 h-[350px] w-[350px] hover:bg-[#D7875D]/20 transition-all duration-500"
+            className="flex hover:cursor-pointer p-10 flex-col justify-center items-center gap-2 rounded-full bg-[#D7875D]/5 h-[300px] w-[300px] hover:bg-[#D7875D]/20 transition-all duration-500"
             onClick={() => routeToLaroportal("testa-algoritm")}
           >
             {isLoading && <p>Loading...</p>}
@@ -91,15 +91,13 @@ const AboutUs = () => {
             </p>
           </div>
           <div
-            className="flex hover:cursor-pointer p-10 flex-col justify-center items-center gap-2 rounded-full bg-[#D7875D]/5 h-[350px] w-[350px] hover:bg-[#D7875D]/20 transition-all duration-500"
+            className="flex hover:cursor-pointer p-10 flex-col justify-center items-center gap-2 rounded-full bg-[#D7875D]/5 h-[300px] w-[300px] hover:bg-[#D7875D]/20 transition-all duration-500"
             onClick={() => routeToLaroportal("laroportal")}
           >
             {isLoading && <p>Loading...</p>}
-            <h1 className="text-[50px] font-bold">
-              {dataStructureArticles.length}
-            </h1>
+            <h1 className="text-[50px] font-bold">{data?.length}</h1>
             <p className="text-[17px] italic text-center">
-              Spännande datastrukturer att läsa om
+              Texter om datastrukturer och sorteringsalgoritmer
             </p>
           </div>
         </div>

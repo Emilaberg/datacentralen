@@ -47,6 +47,12 @@ const ApiService = () => {
     return data;
   };
 
+  const SingleArticle = async (id: number) => {
+    const data = await ApiCaller(`https://localhost:7033/api/Article/${id}`);
+
+    return data;
+  };
+
   const GroupedArticlesDropdown = async (amount: number) => {
     const data = await ApiCaller(
       `https://localhost:7033/api/Article/GroupedDropdown/${amount}`
