@@ -104,12 +104,6 @@ const Editpage = () => {
     }
     setIsDeleteModalOpen(true);
   };
-  const test = async () => {
-    const serv = AuthorizedApiService();
-    const ans = await serv.TokenIsAuthorized()
-    console.log("TOKEN VALIDITY",ans );
-    
-  }
 
   return (
     <section className="min-h-screen flex flex-col items-center ">
@@ -178,9 +172,7 @@ const Editpage = () => {
         >
           radera artikel
         </button>
-        <button onClick={() => test()}>
-          ldfbgk
-        </button>
+        
         
       </div>
 
