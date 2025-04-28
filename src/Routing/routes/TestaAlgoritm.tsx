@@ -1,20 +1,21 @@
 import React, { useEffect, useState } from "react";
 import AlgoritmTester from "../../components/AlgoritmTester/AlgoritmTester";
-import AlgorithmProvider, { useAlgorithm } from "../../Services/AlgorithmProvider";
+import { useAlgorithm } from "../../Services/AlgorithmProvider";
 import { selectedAlgorithmTypes } from "../../Types/types";
-// import bubblesort from "../../Algorithms/Bubblesort/bubblesort";
+import HistoryTable from "../../components/HistoryTable/HistoryTable";
 
+// import bubblesort from "../../Algorithms/Bubblesort/bubblesort";
 
 const TestaAlgoritm = () => {
   const AlgorithmProvider = useAlgorithm();
 
   const changeSelectedAlgorithm = (e: React.ChangeEvent) => {
     const target = e.target as HTMLSelectElement;
-    const value = target.value as selectedAlgorithmTypes
-    AlgorithmProvider.setSelectedeAlgorithm(value)
+    const value = target.value as selectedAlgorithmTypes;
+    AlgorithmProvider.setSelectedeAlgorithm(value);
     AlgorithmProvider.resetAlgorithm();
     AlgorithmProvider.shuffleArray();
-  }
+  };
   return (
     <>
       <section className="mt-48 flex flex-col items-center">
@@ -45,19 +46,23 @@ const TestaAlgoritm = () => {
             id=""
             className="bg-white border border-black rounded-lg h-full px-6 disabled:opacity-20 disabled:cursor-not-allowed"
           >
-            <option value={selectedAlgorithmTypes.none}>- Välj en algoritm -</option>
+            <option value={selectedAlgorithmTypes.none}>
+              - Välj en algoritm -
+            </option>
             <option value={selectedAlgorithmTypes.bubble}>bubble Sort</option>
-            <option value={selectedAlgorithmTypes.selection}>Selection Sort</option>
+            <option value={selectedAlgorithmTypes.selection}>
+              Selection Sort
+            </option>
           </select>
         </article>
       </section>
 
-
       <section className="mx-20 mb-40 px-12 py-18 border-dashed border-[#8f8f8f] border-2">
         <AlgoritmTester />
-
       </section>
-      
+      <section className="mx-20 mb-40 px-12 py-18 border-2">
+        <HistoryTable />
+      </section>
     </>
   );
 };
