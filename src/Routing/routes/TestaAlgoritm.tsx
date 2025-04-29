@@ -50,6 +50,7 @@ const TestaAlgoritm = () => {
             <option value={selectedAlgorithmTypes.bubble}>bubble Sort</option>
             <option value={selectedAlgorithmTypes.selection}>Selection Sort</option>
             <option value={selectedAlgorithmTypes.insertion}>Insertion Sort</option>
+            <option value={selectedAlgorithmTypes.heap}>Heap Sort</option>
           </select>
         </article>
       </section>

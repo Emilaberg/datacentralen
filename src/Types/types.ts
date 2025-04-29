@@ -56,6 +56,7 @@ export enum selectedAlgorithmTypes {
   bubble = "bubble",
   selection = "selection",
   insertion = "insertion",
+  heap = "heap",
   none = "none",
 }
 
