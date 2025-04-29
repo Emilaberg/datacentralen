@@ -4,10 +4,9 @@ import { useState } from "react";
 
 const HistoryTable = () => {
   const { savedRuns, clearHistory } = useAlgorithm();
+  const [compareRunId, setCompareRunId] = useState<string | null>(null);
 
-  const [compareRun, setCompareRun] = useState<null | (typeof savedRuns)[0]>(
-    null
-  );
+  const selectedRun = savedRuns.find((run) => run.id === compareRunId);
 
   if (savedRuns.length === 0) {
     return <p>Ingen sparad historik än.</p>;
@@ -22,7 +21,7 @@ const HistoryTable = () => {
         onClick={() => {
           if (confirm("Är du säker på att du vill rensa historiken?")) {
             clearHistory();
-            setCompareRun(null);
+            setCompareRunId(null);
           }
         }}
       >
@@ -61,13 +60,13 @@ const HistoryTable = () => {
               <td className="border border-gray-400 px-4 py-2 flex flex-wrap gap-2">
                 <button
                   className="bg-blue-500 text-white px-2 py-1 rounded"
-                  onClick={() => setCompareRun(run)}
+                  onClick={() => setCompareRunId(run.id)}
                 >
                   Visa Jämförelse
                 </button>
                 <button
                   className="bg-gray-500 text-white px-2 py-1 rounded"
-                  onClick={() => setCompareRun(null)}
+                  onClick={() => setCompareRunId(null)}
                 >
                   Dölj
                 </button>
@@ -77,10 +76,11 @@ const HistoryTable = () => {
         </tbody>
       </table>
 
-      {compareRun && (
+      {selectedRun && (
         <ComparisonChart
-          original={compareRun.originalArray}
-          sorted={compareRun.sortedArray}
+          key={selectedRun.id} // ensures component resets properly
+          original={selectedRun.originalArray}
+          sorted={selectedRun.sortedArray}
         />
       )}
     </div>

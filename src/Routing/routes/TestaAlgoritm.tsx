@@ -53,6 +53,10 @@ const TestaAlgoritm = () => {
             <option value={selectedAlgorithmTypes.selection}>
               Selection Sort
             </option>
+            <option value={selectedAlgorithmTypes.counting}>
+              Counting Sort
+            </option>
+            <option value={selectedAlgorithmTypes.shell}>Shell Sort</option>
           </select>
         </article>
       </section>

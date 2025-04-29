@@ -88,6 +88,66 @@ const AlgorithmProvider = ({ children }: AlgorithmProviderProps) => {
     setPreviewInput("");
     if (resetSpeed) setIterationSpeed(iterationSpeedTypes.STANDARD);
   };
+  async function countingSort(arr: number[]) {
+    let iterations: number = 0;
+    if (arr.length === 0) return { iterations, timeElapsed: 0 };
+
+    const startTime = Date.now();
+
+    const max = Math.max(...arr);
+    const min = Math.min(...arr);
+    const range = max - min + 1;
+
+    const count = Array(range).fill(0);
+
+    for (let i = 0; i < arr.length; i++) {
+      count[arr[i] - min]++;
+    }
+
+    let index = 0;
+    for (let i = 0; i < range; i++) {
+      while (count[i] > 0) {
+        arr[index++] = i + min;
+        await new Promise((resolve) => setTimeout(resolve, iterationSpeed));
+        setAmountOfIterations((amountOfIterations) => amountOfIterations + 1);
+        updateArray([...arr]);
+        count[i]--;
+        iterations++;
+      }
+    }
+
+    const endTime = Date.now();
+    const timeDiff = endTime - startTime - iterations * iterationSpeed;
+    setTimeElapsed(timeDiff);
+    setTimeComplexity("O(n + k)");
+    return { iterations, timeElapsed: timeDiff };
+  }
+  async function shellSort(arr: number[]) {
+    let iterations: number = 0;
+    const n = arr.length;
+    const startTime = Date.now();
+
+    for (let gap = Math.floor(n / 2); gap > 0; gap = Math.floor(gap / 2)) {
+      for (let i = gap; i < n; i++) {
+        const temp = arr[i];
+        let j;
+        for (j = i; j >= gap && arr[j - gap] > temp; j -= gap) {
+          arr[j] = arr[j - gap];
+        }
+        arr[j] = temp;
+        await new Promise((resolve) => setTimeout(resolve, iterationSpeed));
+        iterations++;
+        setAmountOfIterations((amountOfIterations) => amountOfIterations + 1);
+        updateArray([...arr]);
+      }
+    }
+
+    const endTime = Date.now();
+    const timeDiff = endTime - startTime - iterations * iterationSpeed;
+    setTimeElapsed(timeDiff);
+    setTimeComplexity("Varierar mellan O(n log n) och O(n²)");
+    return { iterations, timeElapsed: timeDiff };
+  }
 
   /**
    * starts algorithm and sets locked variables
@@ -106,6 +166,12 @@ const AlgorithmProvider = ({ children }: AlgorithmProviderProps) => {
         break;
       case selectedAlgorithmTypes.selection:
         result = await selectionSort(array);
+        break;
+      case selectedAlgorithmTypes.counting:
+        result = await countingSort(array);
+        break;
+      case selectedAlgorithmTypes.shell:
+        result = await shellSort(array);
         break;
       case selectedAlgorithmTypes.none:
         throw new Error("no algorithm chosen");
