@@ -7,7 +7,9 @@ const Layout = () => {
   return (
     <section className="flex flex-col justify-between min-h-screen">
       <Navbar />
-      <Outlet />
+      <article className="grow">
+        <Outlet />
+      </article>
       <Footer />
       <ArrayBuilderModal />
     </section>
