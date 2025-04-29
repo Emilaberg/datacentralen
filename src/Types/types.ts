@@ -55,6 +55,7 @@ export enum iterationSpeedTypes {
 export enum selectedAlgorithmTypes {
   bubble = "bubble",
   selection = "selection",
+  insertion = "insertion",
   none = "none",
 }
 

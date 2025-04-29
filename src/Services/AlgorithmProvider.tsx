@@ -56,14 +56,22 @@ const AlgorithmProvider = ({ children }: AlgorithmProviderProps) => {
   async function start() {
     setIsAlgorithmRunning(true)
     switch (selectedAlgorithm) {
+
       case selectedAlgorithmTypes.bubble:
         await bubbleSort(array);
         break;
+
       case selectedAlgorithmTypes.selection:
         await selectionSort(array);
         break;
+
+      case selectedAlgorithmTypes.insertion:
+        await insertionSort(array);
+        break;
+
       case selectedAlgorithmTypes.none:
         throw new Error("no algorithm chosen");
+
       default:
         alert("run selected algo could find matching name");
         break;
@@ -145,6 +153,35 @@ const AlgorithmProvider = ({ children }: AlgorithmProviderProps) => {
     setTimeComplexity("O(n²)");
   }
 
+
+  async function insertionSort(array: number[]){
+
+    let iterations: number = 0;
+    const len = array.length;
+    const startTime = Date.now();
+
+    for (let i = 1; i < len; i++) {
+      await new Promise((resolve) => setTimeout(resolve, iterationSpeed));
+      let key = array[i];
+      let j = i - 1;
+
+      while (j >= 0 && array[j] > key) {
+        array[j + 1] = array[j];
+        j--;
+      }
+      array[j + 1] = key;
+
+      iterations++;
+      setAmountOfIterations((amountOfIterations) => amountOfIterations + 1);
+      updateArray([...array]);
+    }
+
+    const endTime = Date.now();
+    const timeDiff = endTime - startTime - iterations * iterationSpeed;
+    setTimeElapsed(timeDiff);
+    setTimeComplexity("O(n²)");
+  }
+
   const ContextValues = useMemo(
     () => ({
       array,
@@ -167,6 +204,7 @@ const AlgorithmProvider = ({ children }: AlgorithmProviderProps) => {
       setIterationSpeed,
       updateArray,
       bubbleSort,
+      insertionSort,
       selectionSort,
       resetAlgorithm,
       start,
@@ -194,6 +232,7 @@ const AlgorithmProvider = ({ children }: AlgorithmProviderProps) => {
       updateArray,
       bubbleSort,
       selectionSort,
+      insertionSort,
       resetAlgorithm,
       start,
       shuffleArray,

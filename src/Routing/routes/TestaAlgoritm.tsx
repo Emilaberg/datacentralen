@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import AlgoritmTester from "../../components/AlgoritmTester/AlgoritmTester";
 import AlgorithmProvider, { useAlgorithm } from "../../Services/AlgorithmProvider";
 import { selectedAlgorithmTypes } from "../../Types/types";
@@ -48,6 +49,7 @@ const TestaAlgoritm = () => {
             <option value={selectedAlgorithmTypes.none}>- Välj en algoritm -</option>
             <option value={selectedAlgorithmTypes.bubble}>bubble Sort</option>
             <option value={selectedAlgorithmTypes.selection}>Selection Sort</option>
+            <option value={selectedAlgorithmTypes.insertion}>Insertion Sort</option>
           </select>
         </article>
       </section>
