@@ -71,6 +71,7 @@ const TeachingMaterialsContainer = ({
                 transition={{ duration: 0.5, delay: index * 0.2 }}
               >
                 <TeachingCard
+                  id={card.id}
                   algorithmType={card.type}
                   algorithmName={card.title}
                   algorithmDescription={card.description}
