@@ -1,29 +1,13 @@
 import { useAlgorithm } from "../../Services/AlgorithmProvider";
+import ComparisonChart from "../AlgoritmTester/ComparisonChart";
+import { useState } from "react";
 
 const HistoryTable = () => {
-  const {
-    savedRuns,
-    updateArray,
-    setAmountOfIterations,
-    setTimeElapsed,
-    setTimeComplexity,
-    clearHistory,
-  } = useAlgorithm();
+  const { savedRuns, clearHistory } = useAlgorithm();
 
-  const loadRun = (runId: string, useSorted: boolean) => {
-    const run = savedRuns.find((r) => r.id === runId);
-    if (!run) return;
-
-    if (useSorted) {
-      updateArray(run.sortedArray);
-    } else {
-      updateArray(run.originalArray);
-    }
-
-    setAmountOfIterations(0);
-    setTimeElapsed(0);
-    setTimeComplexity("");
-  };
+  const [compareRun, setCompareRun] = useState<null | (typeof savedRuns)[0]>(
+    null
+  );
 
   if (savedRuns.length === 0) {
     return <p>Ingen sparad historik än.</p>;
@@ -38,6 +22,7 @@ const HistoryTable = () => {
         onClick={() => {
           if (confirm("Är du säker på att du vill rensa historiken?")) {
             clearHistory();
+            setCompareRun(null);
           }
         }}
       >
@@ -73,24 +58,31 @@ const HistoryTable = () => {
               <td className="border border-gray-400 px-4 py-2">
                 {run.amountOfIterations}
               </td>
-              <td className="border border-gray-400 px-4 py-2 flex gap-2">
+              <td className="border border-gray-400 px-4 py-2 flex flex-wrap gap-2">
                 <button
                   className="bg-blue-500 text-white px-2 py-1 rounded"
-                  onClick={() => loadRun(run.id, false)}
+                  onClick={() => setCompareRun(run)}
                 >
-                  Ladda Ursprung
+                  Visa Jämförelse
                 </button>
                 <button
-                  className="bg-green-500 text-white px-2 py-1 rounded"
-                  onClick={() => loadRun(run.id, true)}
+                  className="bg-gray-500 text-white px-2 py-1 rounded"
+                  onClick={() => setCompareRun(null)}
                 >
-                  Ladda Sorterad
+                  Dölj
                 </button>
               </td>
             </tr>
           ))}
         </tbody>
       </table>
+
+      {compareRun && (
+        <ComparisonChart
+          original={compareRun.originalArray}
+          sorted={compareRun.sortedArray}
+        />
+      )}
     </div>
   );
 };
