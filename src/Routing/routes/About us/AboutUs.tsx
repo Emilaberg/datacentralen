@@ -95,7 +95,7 @@ const AboutUs = () => {
             onClick={() => routeToLaroportal("laroportal")}
           >
             {isLoading && <p>Loading...</p>}
-            <h1 className="text-[50px] font-bold">{data.length}</h1>
+            <h1 className="text-[50px] font-bold">{data?.length}</h1>
             <p className="text-[17px] italic text-center">
               Texter om datastrukturer och sorteringsalgoritmer
             </p>
