@@ -83,9 +83,9 @@ Merge Sort används i system som hanterar stora datamängder, exempelvis:
 
 Merge Sort kräver O(n) extra minne för temporära listor, vilket kan vara en nackdel vid stora dataset. Algoritmen är inte in-place, vilket innebär att den använder mer minne jämfört med exempelvis Quicksort.
 
-###**Vilka är för- och nackdelarna med Merge Sort jämfört med andra sorteringsalgoritmer?**
+### **Vilka är för- och nackdelarna med Merge Sort jämfört med andra sorteringsalgoritmer?**
 
-##**Fördelar med Merge Sort:**
+**Fördelar med Merge Sort:**
 
 * **Konsekvent prestanda**: Merge Sort har en tidskomplexitet på O(n log n) i både bästa, genomsnittliga och värsta fall, vilket gör den mycket pålitlig för stora dataset.
 
@@ -95,7 +95,7 @@ Merge Sort kräver O(n) extra minne för temporära listor, vilket kan vara en n
 
 * **Parallelliserbar**: På grund av sin "Divide and Conquer"-natur kan Merge Sort enkelt parallelliseras, vilket gör den lämplig för applikationer som drar nytta av parallell bearbetning.
 
-## **Nackdelar med Merge Sort:**
+**Nackdelar med Merge Sort:**
 
 * **Minnesanvändning**: Merge Sort kräver extra minne för att lagra temporära listor under sammanslagningsprocessen, vilket ger en minneskomplexitet på O(n).
 
