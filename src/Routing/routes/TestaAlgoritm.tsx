@@ -1,20 +1,45 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import AlgoritmTester from "../../components/AlgoritmTester/AlgoritmTester";
-import AlgorithmProvider, { useAlgorithm } from "../../Services/AlgorithmProvider";
+import AlgorithmProvider, {
+  useAlgorithm,
+} from "../../Services/AlgorithmProvider";
 import { selectedAlgorithmTypes } from "../../Types/types";
+import { useParams } from "react-router-dom";
 // import bubblesort from "../../Algorithms/Bubblesort/bubblesort";
-
 
 const TestaAlgoritm = () => {
   const AlgorithmProvider = useAlgorithm();
+  const { algorithm } = useParams<{ algorithm: string }>();
+
+  const scrollTargetRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (scrollTargetRef.current) {
+      scrollTargetRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, []);
+
+  useEffect(() => {
+    if (
+      algorithm &&
+      Object.values(selectedAlgorithmTypes).includes(
+        algorithm as selectedAlgorithmTypes
+      )
+    ) {
+      AlgorithmProvider.setSelectedeAlgorithm(
+        algorithm as selectedAlgorithmTypes
+      );
+    }
+  }, [algorithm, AlgorithmProvider]);
 
   const changeSelectedAlgorithm = (e: React.ChangeEvent) => {
     const target = e.target as HTMLSelectElement;
-    const value = target.value as selectedAlgorithmTypes
-    AlgorithmProvider.setSelectedeAlgorithm(value)
+    const value = target.value as selectedAlgorithmTypes;
+    AlgorithmProvider.setSelectedeAlgorithm(value);
     AlgorithmProvider.resetAlgorithm();
     AlgorithmProvider.shuffleArray();
-  }
+  };
+
   return (
     <>
       <section className="mt-48 flex flex-col items-center">
@@ -36,28 +61,28 @@ const TestaAlgoritm = () => {
       </section>
 
       <section className="mt-72 mb-20 flex justify-center">
-        <article className="flex items-center">
+        <article ref={scrollTargetRef} className="flex items-center">
           <span className="mr-10 font-semibold text-3xl">Välj</span>
           <select
             onChange={(e) => changeSelectedAlgorithm(e)}
             disabled={AlgorithmProvider.isAlgorithmRunning}
-            name=""
-            id=""
+            value={AlgorithmProvider.selectedAlgorithm}
             className="bg-white border border-black rounded-lg h-full px-6 disabled:opacity-20 disabled:cursor-not-allowed"
           >
-            <option value={selectedAlgorithmTypes.none}>- Välj en algoritm -</option>
+            <option value={selectedAlgorithmTypes.none}>
+              - Välj en algoritm -
+            </option>
             <option value={selectedAlgorithmTypes.bubble}>bubble Sort</option>
-            <option value={selectedAlgorithmTypes.selection}>Selection Sort</option>
+            <option value={selectedAlgorithmTypes.selection}>
+              Selection Sort
+            </option>
           </select>
         </article>
       </section>
 
-
       <section className="mx-20 mb-40 px-12 py-18 border-dashed border-[#8f8f8f] border-2">
         <AlgoritmTester />
-
       </section>
-      
     </>
   );
 };

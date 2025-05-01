@@ -23,6 +23,11 @@ function Router() {
             <Route path="/laroportal/article/:id" element={<SelectedText />} />
             <Route path="/testa-algoritm" element={<TestaAlgoritm />} />
             <Route
+              path="/testa-algoritm/:algorithm"
+              element={<TestaAlgoritm />}
+            />
+
+            <Route
               path="/dashboard"
               element={
                 <ProtectedRoute>
