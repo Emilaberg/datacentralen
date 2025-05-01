@@ -61,6 +61,11 @@ export enum selectedAlgorithmTypes {
   none = "none",
 }
 
+export interface AlgoritmSubMenyProps {
+  algorithms: selectedAlgorithmTypes[];
+  description: string;
+}
+
 export interface AlgorithmContextType {
   array: number[];
   defaultArray: number[];
