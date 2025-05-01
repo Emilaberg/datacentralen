@@ -1,11 +1,13 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { ArrowRight } from "@phosphor-icons/react";
 
 // Todos
 // 1. Gör dynamisk, ta emot typ av algoritms-typ, algoritms-namn, algoritms-beskrivning och länk till mer information
 // 2. Dynamisk styling, ta emot färgkod för bakgrund, 2 färger för gradient.
 
 type CardComponentProps = {
+  id: number;
   algorithmType: string;
   algorithmName: string;
   algorithmDescription: string;
@@ -16,21 +18,21 @@ type CardComponentProps = {
 };
 
 const TeachingCard: React.FC<CardComponentProps> = ({
+  id,
   algorithmType,
   algorithmName,
   algorithmDescription,
-  link,
   gradientColor1,
   gradientColor2,
   alternatingBorderRadius,
 }) => {
   const navigate = useNavigate();
-  const RouteToText = (link: string | undefined) => {
-    console.log(link);
-    if (link === undefined) {
+
+  const RouteToText = () => {
+    if (!id) {
       return;
     }
-    navigate(link);
+    navigate(`/laroportal/article/${id}`);
   };
 
   return (
@@ -54,14 +56,10 @@ const TeachingCard: React.FC<CardComponentProps> = ({
       </div>
       <div
         className="items-center gap-8 mt-10 hover:underline hover:cursor-pointer inline-flex"
-        onClick={() => RouteToText(link)}
+        onClick={() => RouteToText()}
       >
         <h1 className=" text-xl">Läs Mer</h1>
-        <img
-          src="src\assets\icons\arrow-right.svg"
-          alt="arrow-right"
-          className="w-8"
-        />
+        <ArrowRight size={20} color="#000000" weight="bold" />
       </div>
     </div>
   );
