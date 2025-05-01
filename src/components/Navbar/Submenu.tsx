@@ -1,18 +1,24 @@
 import { useQuery } from "@tanstack/react-query";
-import React from "react";
-import { Link } from "react-router-dom";
 import ApiService from "../../Services/ApiService";
-import { ArticleDTOProps } from "../../Types/types";
+import { Link } from "react-router-dom";
 import { selectedAlgorithmTypes } from "../../Types/types";
 
-const Submenu = () => {
-  // const {ArticlesDTO} = ApiService();
-  const algorithms = Object.values(selectedAlgorithmTypes).slice(0, 4);
+const { Articles } = ApiService();
 
-  // const {data, isLoading} = useQuery({
-  //   queryFn: ArticlesDTO,
-  //   queryKey: ["articlesDTO"],
-  // })
+const { data: articlesData, isLoading: isLoadingArticles } = useQuery({
+  queryFn: Articles,
+  queryKey: ["articles"],
+});
+
+const Submenu = () => {
+  const algorithms = Object.values(selectedAlgorithmTypes).slice(0, 4);
+  const algorithmDescriptions = algorithms.map((algorithm) => {
+    const article = articlesData?.find((item: any) => item.title === algorithm);
+    return {
+      title: algorithm,
+      description: article?.description || "No description available",
+    };
+  });
 
   return (
     <div className="absolute w-full left-0 top-0 hidden group-hover:block">

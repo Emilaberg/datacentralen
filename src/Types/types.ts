@@ -16,7 +16,7 @@ export type LoginType = {
 
 export interface ProviderProps {
   token: string;
-  authenticate(username:string, password:string): void;
+  authenticate(username: string, password: string): void;
   logout(): void;
 }
 
@@ -56,8 +56,8 @@ export enum iterationSpeedTypes {
 }
 
 export enum selectedAlgorithmTypes {
-  bubble = "bubble",
-  selection = "selection",
+  bubble = "Bubble Sort",
+  selection = "Selection Sort",
   none = "none",
 }
 
