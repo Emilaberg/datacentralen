@@ -10,11 +10,11 @@ const AuthContext = createContext<ProviderProps>({
 
 const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const navigate = useNavigate();
-  const {AuthMe} = AuthorizedApiService();
-
+  const {AuthMe, TokenIsAuthorized} = AuthorizedApiService();
   const [token, setToken] = useState<string>(localStorage.getItem("AuthToken") ?? "");
 
   const authenticate = async (username: string, password: string) => {
+    if(!(await TokenIsAuthorized)) setToken("")
     const response = await AuthMe(username,password);
     
     
