@@ -11,7 +11,7 @@ export default function LikeTab({
   likes: initialLikes,
   articleId,
 }: LikeTabProps) {
-  const { GetArticleById, UpdateArticle } = ApiService();
+  const { UpdateLikes } = ApiService();
   const [isLiked, setIsLiked] = useState(false);
   const [likes, setLikes] = useState(initialLikes);
 
@@ -37,12 +37,9 @@ export default function LikeTab({
       );
 
       if (isLiked) {
+        await UpdateLikes(articleId, false);
         setLikes((prevLikes) => prevLikes - 1);
         setIsLiked(false);
-        const currentArticle = await GetArticleById(articleId);
-        const updatedArticle = { ...currentArticle, likes: likes - 1 };
-        await UpdateArticle(articleId, updatedArticle);
-
         const updatedLikedArticles = likedArticles.filter(
           (id: number) => id !== articleId
         );
@@ -53,13 +50,9 @@ export default function LikeTab({
 
         setIsLiked(false);
       } else {
+        await UpdateLikes(articleId, true);
         setLikes((prevLikes) => prevLikes + 1);
         setIsLiked(true);
-
-        const currentArticle = await GetArticleById(articleId);
-        const updatedArticle = { ...currentArticle, likes: likes + 1 };
-        await UpdateArticle(articleId, updatedArticle);
-
         likedArticles.push(articleId);
         localStorage.setItem("likedArticles", JSON.stringify(likedArticles));
 
@@ -67,8 +60,6 @@ export default function LikeTab({
       }
     } catch (error) {
       console.error("Failed to toggle article like", error);
-
-      setLikes((prevLikes) => (isLiked ? prevLikes + 1 : prevLikes - 1));
     }
   };
 
