@@ -68,8 +68,9 @@ const AlgorithmProvider = ({ children }: AlgorithmProviderProps) => {
       case selectedAlgorithmTypes.insertion:
         await insertionSort(array);
         break;
-        case selectedAlgorithmTypes.heap:
-          await heapSort(array);
+      case selectedAlgorithmTypes.heap:
+        await heapSort(array);
+        break;
 
       case selectedAlgorithmTypes.none:
         throw new Error("no algorithm chosen");
