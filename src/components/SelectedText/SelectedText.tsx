@@ -6,6 +6,7 @@ import ApiService from "../../Services/ApiService";
 import avatarIcon from "../../assets/icons/Avatar.jpg";
 import MarkdownFormatter from "../../Services/MarkdownFormatter";
 import { ArticleProps } from "../../Types/types";
+import LikeTab from "../LikeTab/LikeTab";
 
 export default function SelectedText() {
   const { id } = useParams<{ id: string }>();
@@ -49,6 +50,10 @@ export default function SelectedText() {
           <p className="text-2xl text-red-500">Kunde ej hitta din artikel</p>
         </div>
       )}
+      <LikeTab
+        likes={selectedArticle?.likes ?? 0}
+        articleId={selectedArticle?.id}
+      />
     </section>
   );
 }

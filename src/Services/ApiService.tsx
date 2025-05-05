@@ -47,12 +47,6 @@ const ApiService = () => {
     return data;
   };
 
-  const SingleArticle = async (id: number) => {
-    const data = await ApiCaller(`https://localhost:7033/api/Article/${id}`);
-
-    return data;
-  };
-
   const GroupedArticlesDropdown = async (amount: number) => {
     4;
     const data = await ApiCaller(
@@ -66,12 +60,56 @@ const ApiService = () => {
     return data;
   };
 
+  const UpdateArticle = async (id: number, updatedArticle: any) => {
+    try {
+      const response = await fetch(`https://localhost:7033/api/Article/${id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(updatedArticle),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Failed to update article: ${response.statusText}`);
+      }
+
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.error("Error updating article:", error);
+      throw error;
+    }
+  };
+
+  const UpdateLikes = async (id: number, increment: boolean) => {
+    try {
+      const response = await fetch(
+        `https://localhost:7033/api/Article/${id}/likes?increment=${increment}`,
+        {
+          method: "PUT",
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(`Failed to update likes: ${response.statusText}`);
+      }
+
+      return true;
+    } catch (error) {
+      console.error("Error updating likes:", error);
+      throw error;
+    }
+  };
+
   return {
     Articles,
     ArticlesDTO,
     ArticleCardDTO,
     GroupedArticlesDropdown,
     GetArticleById,
+    UpdateArticle,
+    UpdateLikes,
   };
 };
 

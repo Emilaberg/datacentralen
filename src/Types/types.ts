@@ -56,11 +56,16 @@ export enum iterationSpeedTypes {
 }
 
 export enum selectedAlgorithmTypes {
-  bubble = "bubble",
-  selection = "selection",
+  bubble = "Bubble Sort",
+  selection = "Selection Sort",
   counting = "counting",
   shell = "shell",
   none = "none",
+}
+
+export interface AlgoritmSubMenyProps {
+  algorithms: selectedAlgorithmTypes[];
+  description: string;
 }
 
 export interface AlgorithmContextType {
