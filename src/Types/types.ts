@@ -58,8 +58,8 @@ export enum iterationSpeedTypes {
 export enum selectedAlgorithmTypes {
   bubble = "Bubble Sort",
   selection = "Selection Sort",
-  counting = "counting",
-  shell = "shell",
+  counting = "Counting Sort",
+  shell = "Shell Sort",
   none = "none",
 }
 
