@@ -6,6 +6,7 @@ import {
   selectedAlgorithmTypes,
 } from "../Types/types";
 import shuffle from "../tools/Fisher-yates-shuffle/shuffle";
+import { SavedRun } from "../Types/types";
 
 const AlgorithmContext = createContext<AlgorithmContextType | undefined>(
   undefined
@@ -32,11 +33,50 @@ const AlgorithmProvider = ({ children }: AlgorithmProviderProps) => {
   const [previewInput, setPreviewInput] = useState<string>("");
 
   const [array, updateArray] = useState<number[] | []>([]);
-  
+
   const [defaultArray] = useState([
     9, 8, 7, 6, 5, 4, 3, 2, 1, 23, 4, 5, 75, 7, 3, 356, 23, 46, 743, 2,
   ]);
 
+  const [savedRuns, setSavedRuns] = useState<SavedRun[]>(() => {
+    const saved = localStorage.getItem("savedRuns");
+    if (saved) {
+      return JSON.parse(saved) as SavedRun[];
+    }
+    return [];
+  });
+
+  //Laddar från localstorage vid uppstart
+  React.useEffect(() => {
+    const saved = localStorage.getItem("savedRuns");
+    if (saved) {
+      setSavedRuns(JSON.parse(saved));
+    }
+  }, []);
+
+  //Sparar till localstorage när savedRuns ändras
+  React.useEffect(() => {
+    localStorage.setItem("savedRuns", JSON.stringify(savedRuns));
+  }, [savedRuns]);
+
+  function saveCurrentRun(
+    originalArray: number[],
+    sortedArray: number[],
+    iterations: number,
+    elapsedTime: number
+  ) {
+    const newRun: SavedRun = {
+      id: crypto.randomUUID(),
+      timestamp: Date.now(),
+      originalArray: [...originalArray],
+      sortedArray: [...sortedArray],
+      selectedAlgorithm,
+      timeElapsed: elapsedTime,
+      amountOfIterations: iterations,
+      timeComplexity,
+    };
+    setSavedRuns((prev) => [...prev, newRun]);
+  }
   /**
    * resets
    * tidkomplexitet,all metrics,hastighet
@@ -48,19 +88,90 @@ const AlgorithmProvider = ({ children }: AlgorithmProviderProps) => {
     setPreviewInput("");
     if (resetSpeed) setIterationSpeed(iterationSpeedTypes.STANDARD);
   };
+  async function countingSort(arr: number[]) {
+    let iterations: number = 0;
+    if (arr.length === 0) return { iterations, timeElapsed: 0 };
+
+    const startTime = Date.now();
+
+    const max = Math.max(...arr);
+    const min = Math.min(...arr);
+    const range = max - min + 1;
+
+    const count = Array(range).fill(0);
+
+    for (let i = 0; i < arr.length; i++) {
+      count[arr[i] - min]++;
+    }
+
+    let index = 0;
+    for (let i = 0; i < range; i++) {
+      while (count[i] > 0) {
+        arr[index++] = i + min;
+        await new Promise((resolve) => setTimeout(resolve, iterationSpeed));
+        setAmountOfIterations((amountOfIterations) => amountOfIterations + 1);
+        updateArray([...arr]);
+        count[i]--;
+        iterations++;
+      }
+    }
+
+    const endTime = Date.now();
+    const timeDiff = endTime - startTime - iterations * iterationSpeed;
+    setTimeElapsed(timeDiff);
+    setTimeComplexity("O(n + k)");
+    return { iterations, timeElapsed: timeDiff };
+  }
+  async function shellSort(arr: number[]) {
+    let iterations: number = 0;
+    const n = arr.length;
+    const startTime = Date.now();
+
+    for (let gap = Math.floor(n / 2); gap > 0; gap = Math.floor(gap / 2)) {
+      for (let i = gap; i < n; i++) {
+        const temp = arr[i];
+        let j;
+        for (j = i; j >= gap && arr[j - gap] > temp; j -= gap) {
+          arr[j] = arr[j - gap];
+        }
+        arr[j] = temp;
+        await new Promise((resolve) => setTimeout(resolve, iterationSpeed));
+        iterations++;
+        setAmountOfIterations((amountOfIterations) => amountOfIterations + 1);
+        updateArray([...arr]);
+      }
+    }
+
+    const endTime = Date.now();
+    const timeDiff = endTime - startTime - iterations * iterationSpeed;
+    setTimeElapsed(timeDiff);
+    setTimeComplexity("Varierar mellan O(n log n) och O(n²)");
+    return { iterations, timeElapsed: timeDiff };
+  }
 
   /**
    * starts algorithm and sets locked variables
    * @param arr
    */
   async function start() {
-    setIsAlgorithmRunning(true)
+    setIsAlgorithmRunning(true);
+    const originalArrayCopy = [...array];
+    let result: { iterations: number; timeElapsed: number } = {
+      iterations: 0,
+      timeElapsed: 0,
+    };
     switch (selectedAlgorithm) {
       case selectedAlgorithmTypes.bubble:
-        await bubbleSort(array);
+        result = await bubbleSort(array);
         break;
       case selectedAlgorithmTypes.selection:
-        await selectionSort(array);
+        result = await selectionSort(array);
+        break;
+      case selectedAlgorithmTypes.counting:
+        result = await countingSort(array);
+        break;
+      case selectedAlgorithmTypes.shell:
+        result = await shellSort(array);
         break;
       case selectedAlgorithmTypes.none:
         throw new Error("no algorithm chosen");
@@ -69,14 +180,21 @@ const AlgorithmProvider = ({ children }: AlgorithmProviderProps) => {
         break;
     }
     setIsAlgorithmRunning(false);
+
+    saveCurrentRun(
+      originalArrayCopy,
+      [...array],
+      result.iterations,
+      result.timeElapsed
+    );
   }
 
   /**
    *  shuffles @param array with fisher-yates-shuffle and updates the current array
    */
   function shuffleArray(): void {
-    if(amountOfIterations > 0) setAmountOfIterations(0);
-    
+    if (amountOfIterations > 0) setAmountOfIterations(0);
+
     const shuffledArray = shuffle(array);
 
     updateArray([...shuffledArray]);
@@ -87,30 +205,29 @@ const AlgorithmProvider = ({ children }: AlgorithmProviderProps) => {
    * @param arr array som ska sorteras
    */
   async function bubbleSort(arr: number[]) {
-      let iterations: number = 0;
-      const len = arr.length;
-      const startTime = Date.now();
-      for (let i = 0; i < len; i++) {
-        await new Promise((resolve) => setTimeout(resolve, iterationSpeed));
-  
-        for (let j = 0; j < len; j++) {
+    let iterations: number = 0;
+    const len = arr.length;
+    const startTime = Date.now();
+    for (let i = 0; i < len; i++) {
+      await new Promise((resolve) => setTimeout(resolve, iterationSpeed));
 
-          if (arr[j] > arr[j + 1]) {
-            [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]];
-          }
+      for (let j = 0; j < len; j++) {
+        if (arr[j] > arr[j + 1]) {
+          [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]];
         }
-        setAmountOfIterations((amountOfIterations) => amountOfIterations + 1); // addera iterationer för ui
-        iterations++;
-  
-        updateArray([...arr]); //uppdatera arrayen för varje iteration
       }
-      const endTime = Date.now();
-      const timeDiff = endTime - startTime - iterations * iterationSpeed;
-      setTimeElapsed(timeDiff);
-      setTimeComplexity("O(n²)");
+      setAmountOfIterations((amountOfIterations) => amountOfIterations + 1); // addera iterationer för ui
+      iterations++;
 
+      updateArray([...arr]); //uppdatera arrayen för varje iteration
+    }
+    const endTime = Date.now();
+    const timeDiff = endTime - startTime - iterations * iterationSpeed;
+    setTimeElapsed(timeDiff);
+    setTimeComplexity("O(n²)");
+    return { iterations, timeElapsed: timeDiff };
   }
-/**
+  /**
    * sorts the given array by selection sort, and updates the variable array:s state for every iteration
    * logs the time before and after the forloop and calculates the difference, and subtracts the result by the iterationspeed times iterations
    * @param arr array som ska sorteras
@@ -143,6 +260,11 @@ const AlgorithmProvider = ({ children }: AlgorithmProviderProps) => {
     const timeDiff = endTime - startTime - iterations * iterationSpeed;
     setTimeElapsed(timeDiff);
     setTimeComplexity("O(n²)");
+    return { iterations, timeElapsed: timeDiff };
+  }
+  function clearHistory() {
+    setSavedRuns([]);
+    localStorage.removeItem("savedRuns");
   }
 
   const ContextValues = useMemo(
@@ -157,6 +279,9 @@ const AlgorithmProvider = ({ children }: AlgorithmProviderProps) => {
       previewInput,
       isAlgorithmRunning,
       showModal,
+      savedRuns,
+      setSavedRuns,
+      saveCurrentRun,
       setShowModal,
       setIsAlgorithmRunning,
       setSelectedeAlgorithm,
@@ -171,6 +296,7 @@ const AlgorithmProvider = ({ children }: AlgorithmProviderProps) => {
       resetAlgorithm,
       start,
       shuffleArray,
+      clearHistory,
     }),
     [
       array,
@@ -183,6 +309,8 @@ const AlgorithmProvider = ({ children }: AlgorithmProviderProps) => {
       previewInput,
       isAlgorithmRunning,
       showModal,
+      savedRuns,
+      setSavedRuns,
       setShowModal,
       setIsAlgorithmRunning,
       setSelectedeAlgorithm,
@@ -197,6 +325,7 @@ const AlgorithmProvider = ({ children }: AlgorithmProviderProps) => {
       resetAlgorithm,
       start,
       shuffleArray,
+      clearHistory,
     ]
   );
 

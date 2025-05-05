@@ -58,6 +58,8 @@ export enum iterationSpeedTypes {
 export enum selectedAlgorithmTypes {
   bubble = "Bubble Sort",
   selection = "Selection Sort",
+  counting = "Counting Sort",
+  shell = "Shell Sort",
   none = "none",
 }
 
@@ -76,6 +78,7 @@ export interface AlgorithmContextType {
   timeElapsed: number;
   previewInput: string;
   isAlgorithmRunning: boolean;
+
   showModal: boolean;
   setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
   setIsAlgorithmRunning: React.Dispatch<React.SetStateAction<boolean>>;
@@ -88,13 +91,36 @@ export interface AlgorithmContextType {
   setAmountOfIterations: React.Dispatch<React.SetStateAction<number>>;
   setIterationSpeed: React.Dispatch<React.SetStateAction<iterationSpeedTypes>>;
   updateArray: React.Dispatch<React.SetStateAction<number[]>>;
+  setSavedRuns: React.Dispatch<React.SetStateAction<SavedRun[]>>;
 
-  bubbleSort(arr: number[]): Promise<void>;
-  selectionSort(arr: number[]): Promise<void>;
+  bubbleSort(
+    arr: number[]
+  ): Promise<{ iterations: number; timeElapsed: number }>;
+  selectionSort(
+    arr: number[]
+  ): Promise<{ iterations: number; timeElapsed: number }>;
 
   resetAlgorithm(resetSpeed?: boolean): void;
   start(): void;
   shuffleArray(): void;
+  savedRuns: SavedRun[];
+  saveCurrentRun: (
+    originalArray: number[],
+    sortedArray: number[],
+    iterations: number,
+    elapsedTime: number
+  ) => void;
+  clearHistory: () => void;
+}
+export interface SavedRun {
+  id: string;
+  timestamp: number;
+  originalArray: number[];
+  sortedArray: number[];
+  selectedAlgorithm: selectedAlgorithmTypes;
+  timeElapsed: number;
+  amountOfIterations: number;
+  timeComplexity: string | undefined;
 }
 
 export interface AlgorithmProviderProps {
