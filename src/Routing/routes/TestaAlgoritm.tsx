@@ -3,11 +3,11 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 import AlgoritmTester from "../../components/AlgoritmTester/AlgoritmTester";
-import AlgorithmProvider, {
-  useAlgorithm,
-} from "../../Services/AlgorithmProvider";
+import { useAlgorithm } from "../../Services/AlgorithmProvider";
 import { selectedAlgorithmTypes } from "../../Types/types";
 import { useParams } from "react-router-dom";
+import HistoryTable from "../../components/HistoryTable/HistoryTable";
+
 // import bubblesort from "../../Algorithms/Bubblesort/bubblesort";
 
 const TestaAlgoritm = () => {
@@ -42,7 +42,6 @@ const TestaAlgoritm = () => {
     AlgorithmProvider.resetAlgorithm();
     AlgorithmProvider.shuffleArray();
   };
-
   return (
     <>
       <section className="mt-48 flex flex-col items-center">
@@ -76,9 +75,15 @@ const TestaAlgoritm = () => {
               - Välj en algoritm -
             </option>
             <option value={selectedAlgorithmTypes.bubble}>bubble Sort</option>
+
             <option value={selectedAlgorithmTypes.selection}>Selection Sort</option>
             <option value={selectedAlgorithmTypes.insertion}>Insertion Sort</option>
             <option value={selectedAlgorithmTypes.heap}>Heap Sort</option>
+        <option value={selectedAlgorithmTypes.counting}>
+              Counting Sort
+            </option>
+        <option value={selectedAlgorithmTypes.shell}>Shell Sort</option>
+
 
           </select>
         </article>
@@ -86,6 +91,9 @@ const TestaAlgoritm = () => {
 
       <section className="mx-20 mb-40 px-12 py-18 border-dashed border-[#8f8f8f] border-2">
         <AlgoritmTester />
+      </section>
+      <section className="mx-20 mb-40 px-12 py-18 border-2">
+        <HistoryTable />
       </section>
     </>
   );
