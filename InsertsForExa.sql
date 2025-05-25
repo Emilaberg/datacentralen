@@ -194,8 +194,8 @@ Eftersom heapsort arbetar direkt på arrayen och inte kräver extra minne, är d
 
 För att förstå hur heap sort fungerar, behöver vi förklara vad datastrukturen heap är. En heap är en sorts datastruktur och en speciell typ av binärt träd som uppfyller heap-egenskapen. Det finns två typer av heaps: max-heap och min-heap.
 
-- Max-heap: Varje nod är större än eller lika med sina barn. Detta innebär att det största elementet alltid finns i roten.  
-- Min-heap: Varje nod är mindre än eller lika med sina barn. Detta innebär att det minsta elementet alltid finns i roten.
+- Max-heap: Varje nod är större än eller lika med sina children. Detta innebär att det största elementet alltid finns i roten.  
+- Min-heap: Varje nod är mindre än eller lika med sina children. Detta innebär att det minsta elementet alltid finns i roten.
 
 En heap sort fungerar på ett relativt enkelt sätt. Den består av tre delar. Första delen innebär att vi bygger om den osorterade arrayen till en max-heap. I andra delen byter vi plats på roten och det sista elementet i arrayen. I sista delen minskar vi heapens storlek med en och anropar en heapify-funktion, vilket bygger om arrayen till en ny max-heap.
 
