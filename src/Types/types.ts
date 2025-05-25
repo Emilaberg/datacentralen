@@ -2,7 +2,7 @@ import { ReactNode } from "react";
 
 export const MINIMUM_COUNT = 4;
 
-export const MAXIMUM_GENERATED_ARRAY_LENGTH = 20;
+export const MAXIMUM_GENERATED_ARRAY_LENGTH = 50;
 export const MINIMUM_ARRAY_VALUE_RANGE = 10;
 export const MAXIMUM_ARRAY_VALUE_RANGE = 1000;
 
@@ -56,13 +56,14 @@ export enum iterationSpeedTypes {
 }
 
 export enum selectedAlgorithmTypes {
-
   bubble = "Bubble Sort",
   selection = "Selection Sort",
   counting = "Counting Sort",
   shell = "Shell Sort",
   heap = "Heap Sort",
   insertion = "Insertion Sort",
+  quick = "Quick Sort",
+  merge = "Merge Sort",
   none = "none",
 }
 

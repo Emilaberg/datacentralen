@@ -1,15 +1,10 @@
-﻿
+﻿-- OBS!!!!!!!!!!!!!!!!
 
-
--- OBS!!!!!!!!!!!!!!!!
 -- OM TEXTERNA SKA BLI I RÄTT FORMAT ÄR DET SUPERVIKTIGT ATT DET ÄR SKRIVET SÅ SOM NEDAN, DET GÅR INTE ATT HA DET SOM EN LÅNG STÄNG I EN QUERY
 
-
-
-insert into Articles (Title, Author, Posted, LastEdited, Likes, Content, Description, Type, ColorCodeOne,ColorCodeTwo)
-values 
---('','',GETUTCDATE(), DATEADD(DAY, 2, GETUTCDATE()), 0, '', '', '', '', '' )
-('Quick Sort','Johannes Nilsson',GETUTCDATE(), DATEADD(DAY, 2, GETUTCDATE()), 0, '### **Introduktion**   
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+insert into ArticleContents (Content, ArticleId)
+values('### **Introduktion**   
 Quicksort är en sorteringsalgoritm av typen "Divide and Conquer", vilket är en metod att lösa problem där man delar upp det stora problemet i mindre delar, löser dem och sedan "mergar" resultaten.
 
 ### **Hur fungerar QuickSort?**   
@@ -55,9 +50,12 @@ Sammanfattningsvis är Quicksort en mycket effektiv och snabb sorteringsalgoritm
 
 [https://en.wikipedia.org/wiki/Quicksort](https://en.wikipedia.org/wiki/Quicksort)
 
-[https://www.geeksforgeeks.org/introduction-to-divide-and-conquer-algorithm/](https://www.geeksforgeeks.org/introduction-to-divide-and-conquer-algorithm/)', 'Dela upp listan vid en pivot och sortera delarna rekursivt', 'Sorteringsalgoritm', '#F9B66B', '#F7E6D3' ),
+[https://www.geeksforgeeks.org/introduction-to-divide-and-conquer-algorithm/](https://www.geeksforgeeks.org/introduction-to-divide-and-conquer-algorithm/)', NULL),
 
-('Merge Sort','Johannes Nilsson',GETUTCDATE(), DATEADD(DAY, 2, GETUTCDATE()), 0, '### **Introduktion**  
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+
+('### **Introduktion**  
 Merge Sort är en stabil och effektiv sorteringsalgoritm med en tidskomplexitet på  
 O(n log ⁡n) i alla fall. Den används ofta för stora dataset och externa sorteringar där stabilitet och konsekvent prestanda är viktiga faktorer. Trots att den kräver extra minne är den ett populärt val i många applikationer.
 
@@ -111,9 +109,13 @@ Sammanfattningsvis är Merge Sort en mycket effektiv och stabil sorteringsalgori
 [https://www.w3schools.com/dsa/dsa\_algo\_mergesort.php](https://www.w3schools.com/dsa/dsa_algo_mergesort.php)  
 [https://www.geeksforgeeks.org/merge-sort/](https://www.geeksforgeeks.org/merge-sort/)  
 [https://en.wikipedia.org/wiki/Merge\_sort](https://en.wikipedia.org/wiki/Merge_sort)  
-', 'Dela och erövra genom att dela listan och sammanfoga de sorterade delarna.', 'Sorteringsalgoritm', '#90EE90', '#D8FAD4' ),
+', NULL),
 
-('Array','Johannes Nilsson',GETUTCDATE(), DATEADD(DAY, 2, GETUTCDATE()), 0, '### **Introduktion**  
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+('### **Introduktion**  
 Arrayer är en grundläggande datastruktur inom programmering som används för att lagra flera värden under ett och samma namn. De gör det möjligt att hantera och organisera data på ett strukturerat sätt, vilket är särskilt användbart vid hantering av stora datamängder.
 
 Arrayer används i nästan alla programmeringsspråk och har en central roll i allt från enkla applikationer till komplexa system, såsom databashantering, grafikrendering och algoritmer för databehandling. Deras struktur gör det enkelt att lagra, sortera och komma åt data effektivt, vilket gör dem till ett av de mest använda verktygen inom programmering.
@@ -149,9 +151,14 @@ Algoritmer som binärsökning, sorteringsalgoritmer, hashing och sliding window 
 
 [https://medium.com/@duplessisjdp96/data-structure-stories-the-array-18f4648c414e](https://medium.com/@duplessisjdp96/data-structure-stories-the-array-18f4648c414e)
 
-[https://www.geeksforgeeks.org/introduction-to-arrays-data-structure-and-algorithm-tutorials/](https://www.geeksforgeeks.org/introduction-to-arrays-data-structure-and-algorithm-tutorials/)', 'En samling av element lagrade i en ordnad sekvens, åtkomliga via index.', 'Datastruktur', '#83EDBB', '#D3F7E6' ),
+[https://www.geeksforgeeks.org/introduction-to-arrays-data-structure-and-algorithm-tutorials/](https://www.geeksforgeeks.org/introduction-to-arrays-data-structure-and-algorithm-tutorials/)', NULL),
 
-('Linked List','Johannes Nilsson',GETUTCDATE(), DATEADD(DAY, 2, GETUTCDATE()), 0, '### **Introduktion**
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+('### **Introduktion**
 En linked-list (länkad lista) är en datastruktur där varje element, eller nod, innehåller två delar: ett värde (data) och en pekare till nästa nod i listan. Till skillnad från en array, där alla element lagras i ett sammanhängande block, är varje nod i en linked-list belägen på en separat minnesadress. Detta gör att linked-lists är mycket flexibla när det gäller att lägga till eller ta bort element dynamiskt, eftersom man inte behöver omallokera hela strukturen vid förändringar. Men detta innebär också att de inte har samma snabba åtkomsttider som arrayer.
 
 ### **Hur fungerar en Linked-List?**
@@ -179,9 +186,15 @@ Linked-lists är också bra för att implementera algoritmer som kräver snabb d
 [https://en.wikipedia.org/wiki/Linked\_list](https://en.wikipedia.org/wiki/Linked_list)
 
 [https://medium.com/@anderson.dylan.522/linked-lists-4fce0c482d57](https://medium.com/@anderson.dylan.522/linked-lists-4fce0c482d57)  
-', 'En linjär datastruktur där varje element pekar på nästa element i sekvensen.', 'Datastruktur', '#FF8C00', '#FFE5B3' ),
+', NULL),
 
-('Heap Sort','Emil Åberg',GETUTCDATE(), DATEADD(DAY, 2, GETUTCDATE()), 0, '### **Introduktion** 
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+('### **Introduktion** 
 
 Heap sort är en effektiv sorteringsalgoritm som är jämförelsebaserad. Den fungerar genom att ta en osorterad array och bygga om den till en så kallad heap. En heap är en datastruktur som organiserar elementen i en array baserat på deras storlek, där varje nod är större än sina barn. En heap representeras ofta som ett träd.
 
@@ -239,9 +252,15 @@ Heap sort är en så kallad in-place algoritm, så den behöver inte någon extr
 
 [**pseudocode \- Why is the time complexity of Heap Sort, O(nlogn)? \- Stack Overflow**](https://stackoverflow.com/questions/54078858/why-is-the-time-complexity-of-heap-sort-onlogn)
 
-', 'Använder en heap för att sortera genom att extrahera största/minsta elementet.', 'Sorteringsalgoritm', '#79ACE4', '#D3E4F7' ),
+', NULL),
 
-('Hash Table','Emil Åberg',GETUTCDATE(), DATEADD(DAY, 2, GETUTCDATE()), 0, '### **Introduktion**
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+('### **Introduktion**
 
 En hash table är en typ av datastruktur inom data science och programmering. Ett hash table består av en nyckel och ett värde. Nyckeln används för att hitta värdet i hashtabellen och kan vara en integer eller en string.
 
@@ -288,7 +307,4 @@ För mer information om de olika algoritmernas prestanda, kolla gärna denna pos
 
 [(130) Learn Hash Tables in 13 minutes \#️⃣ \- YouTube](https://www.youtube.com/watch?v=FsfRsGFHuv4)
 
-[security \- Which hashing algorithm is best for uniqueness and speed? \- Software Engineering Stack Exchange](https://softwareengineering.stackexchange.com/questions/49550/which-hashing-algorithm-is-best-for-uniqueness-and-speed)', 'Lagrar nyckel-värdepar och använder en hash-funktion för snabb åtkomst.', 'Datastruktur', '#F5F886', '#F6F7D3' )
-
-
-select * From Articles
+[security \- Which hashing algorithm is best for uniqueness and speed? \- Software Engineering Stack Exchange](https://softwareengineering.stackexchange.com/questions/49550/which-hashing-algorithm-is-best-for-uniqueness-and-speed)', NULL)
