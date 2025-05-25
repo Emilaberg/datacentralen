@@ -161,9 +161,11 @@ const AlgorithmProvider = ({ children }: AlgorithmProviderProps) => {
       timeElapsed: 0,
     };
     switch (selectedAlgorithm) {
+
       case selectedAlgorithmTypes.bubble:
         result = await bubbleSort(array);
         break;
+
       case selectedAlgorithmTypes.selection:
         result = await selectionSort(array);
         break;
@@ -173,8 +175,17 @@ const AlgorithmProvider = ({ children }: AlgorithmProviderProps) => {
       case selectedAlgorithmTypes.shell:
         result = await shellSort(array);
         break;
+
+      case selectedAlgorithmTypes.insertion:
+        await insertionSort(array);
+        break;
+      case selectedAlgorithmTypes.heap:
+        await heapSort(array);
+        break;
+
       case selectedAlgorithmTypes.none:
         throw new Error("no algorithm chosen");
+
       default:
         alert("run selected algo could find matching name");
         break;
@@ -267,6 +278,82 @@ const AlgorithmProvider = ({ children }: AlgorithmProviderProps) => {
     localStorage.removeItem("savedRuns");
   }
 
+
+  async function insertionSort(array: number[]){
+
+    let iterations: number = 0;
+    const len = array.length;
+    const startTime = Date.now();
+
+    for (let i = 1; i < len; i++) {
+      await new Promise((resolve) => setTimeout(resolve, iterationSpeed));
+      let key = array[i];
+      let j = i - 1;
+
+      while (j >= 0 && array[j] > key) {
+        array[j + 1] = array[j];
+        j--;
+      }
+      array[j + 1] = key;
+
+      iterations++;
+      setAmountOfIterations((amountOfIterations) => amountOfIterations + 1);
+      updateArray([...array]);
+    }
+
+    const endTime = Date.now();
+    const timeDiff = endTime - startTime - iterations * iterationSpeed;
+    setTimeElapsed(timeDiff);
+    setTimeComplexity("O(n²)");
+  }
+
+  async function heapSort(array : number[]){
+    let iterations: number = 0;
+    const len = array.length;
+    const startTime = Date.now();
+
+    const heapify = async (arr: number[], n: number, i: number) => {
+      let largest = i;
+      const left = 2 * i + 1;
+      const right = 2 * i + 2;
+
+      if (left < n && arr[left] > arr[largest]) {
+      largest = left;
+      }
+
+      if (right < n && arr[right] > arr[largest]) {
+      largest = right;
+      }
+
+      if (largest !== i) {
+      [arr[i], arr[largest]] = [arr[largest], arr[i]];
+      await heapify(arr, n, largest);
+      }
+    };
+
+    for (let i = Math.floor(len / 2) - 1; i >= 0; i--) {
+      await new Promise((resolve) => setTimeout(resolve, iterationSpeed));
+      await heapify(array, len, i);
+      iterations++;
+      setAmountOfIterations((amountOfIterations) => amountOfIterations + 1);
+      updateArray([...array]);
+    }
+
+    for (let i = len - 1; i > 0; i--) {
+      await new Promise((resolve) => setTimeout(resolve, iterationSpeed));
+      [array[0], array[i]] = [array[i], array[0]];
+      await heapify(array, i, 0);
+      iterations++;
+      setAmountOfIterations((amountOfIterations) => amountOfIterations + 1);
+      updateArray([...array]);
+    }
+
+    const endTime = Date.now();
+    const timeDiff = endTime - startTime - iterations * iterationSpeed;
+    setTimeElapsed(timeDiff);
+    setTimeComplexity("O(n log n)");
+  }
+
   const ContextValues = useMemo(
     () => ({
       array,
@@ -292,8 +379,10 @@ const AlgorithmProvider = ({ children }: AlgorithmProviderProps) => {
       setIterationSpeed,
       updateArray,
       bubbleSort,
+      insertionSort,
       selectionSort,
       resetAlgorithm,
+      heapSort,
       start,
       shuffleArray,
       clearHistory,
@@ -322,7 +411,9 @@ const AlgorithmProvider = ({ children }: AlgorithmProviderProps) => {
       updateArray,
       bubbleSort,
       selectionSort,
+      insertionSort,
       resetAlgorithm,
+      heapSort,
       start,
       shuffleArray,
       clearHistory,
