@@ -161,7 +161,6 @@ const AlgorithmProvider = ({ children }: AlgorithmProviderProps) => {
       timeElapsed: 0,
     };
     switch (selectedAlgorithm) {
-
       case selectedAlgorithmTypes.bubble:
         result = await bubbleSort(array);
         break;
@@ -181,6 +180,14 @@ const AlgorithmProvider = ({ children }: AlgorithmProviderProps) => {
         break;
       case selectedAlgorithmTypes.heap:
         await heapSort(array);
+        break;
+
+      case selectedAlgorithmTypes.quick:
+        await quickSort(array, 0, array.length - 1);
+        break;
+
+      case selectedAlgorithmTypes.merge:
+        await mergeSort(array, 0, array.length - 1);
         break;
 
       case selectedAlgorithmTypes.none:
@@ -278,9 +285,7 @@ const AlgorithmProvider = ({ children }: AlgorithmProviderProps) => {
     localStorage.removeItem("savedRuns");
   }
 
-
-  async function insertionSort(array: number[]){
-
+  async function insertionSort(array: number[]) {
     let iterations: number = 0;
     const len = array.length;
     const startTime = Date.now();
@@ -307,7 +312,7 @@ const AlgorithmProvider = ({ children }: AlgorithmProviderProps) => {
     setTimeComplexity("O(n²)");
   }
 
-  async function heapSort(array : number[]){
+  async function heapSort(array: number[]) {
     let iterations: number = 0;
     const len = array.length;
     const startTime = Date.now();
@@ -318,16 +323,16 @@ const AlgorithmProvider = ({ children }: AlgorithmProviderProps) => {
       const right = 2 * i + 2;
 
       if (left < n && arr[left] > arr[largest]) {
-      largest = left;
+        largest = left;
       }
 
       if (right < n && arr[right] > arr[largest]) {
-      largest = right;
+        largest = right;
       }
 
       if (largest !== i) {
-      [arr[i], arr[largest]] = [arr[largest], arr[i]];
-      await heapify(arr, n, largest);
+        [arr[i], arr[largest]] = [arr[largest], arr[i]];
+        await heapify(arr, n, largest);
       }
     };
 
@@ -347,6 +352,146 @@ const AlgorithmProvider = ({ children }: AlgorithmProviderProps) => {
       setAmountOfIterations((amountOfIterations) => amountOfIterations + 1);
       updateArray([...array]);
     }
+
+    const endTime = Date.now();
+    const timeDiff = endTime - startTime - iterations * iterationSpeed;
+    setTimeElapsed(timeDiff);
+    setTimeComplexity("O(n log n)");
+  }
+
+  async function quickSort(
+    arr: number[],
+    low: number,
+    high: number
+  ): Promise<void> {
+    let iterations: number = 0;
+    const startTime = Date.now();
+
+    const partition = async (
+      array: number[],
+      low: number,
+      high: number
+    ): Promise<number> => {
+      const pivot = array[high];
+      let i = low - 1;
+
+      for (let j = low; j < high; j++) {
+        if (array[j] < pivot) {
+          i++;
+          [array[i], array[j]] = [array[j], array[i]];
+          await new Promise((resolve) => setTimeout(resolve, iterationSpeed));
+          iterations++;
+          setAmountOfIterations((amountOfIterations) => amountOfIterations + 1);
+          updateArray([...array]);
+        }
+      }
+
+      [array[i + 1], array[high]] = [array[high], array[i + 1]];
+      await new Promise((resolve) => setTimeout(resolve, iterationSpeed));
+      iterations++;
+      setAmountOfIterations((amountOfIterations) => amountOfIterations + 1);
+      updateArray([...array]);
+
+      return i + 1;
+    };
+
+    const quickSortRecursive = async (
+      array: number[],
+      low: number,
+      high: number
+    ): Promise<void> => {
+      if (low < high) {
+        const pi = await partition(array, low, high);
+
+        await quickSortRecursive(array, low, pi - 1);
+        await quickSortRecursive(array, pi + 1, high);
+      }
+    };
+
+    await quickSortRecursive(arr, low, high);
+
+    const endTime = Date.now();
+    const timeDiff = endTime - startTime - iterations * iterationSpeed;
+    setTimeElapsed(timeDiff);
+    setTimeComplexity("O(n log n)");
+  }
+
+  async function mergeSort(
+    arr: number[],
+    left: number,
+    right: number
+  ): Promise<void> {
+    let iterations: number = 0;
+    const startTime = Date.now();
+
+    const merge = async (
+      array: number[],
+      left: number,
+      mid: number,
+      right: number
+    ) => {
+      const n1 = mid - left + 1;
+      const n2 = right - mid;
+
+      const leftArray = array.slice(left, mid + 1);
+      const rightArray = array.slice(mid + 1, right + 1);
+
+      let i = 0,
+        j = 0,
+        k = left;
+
+      while (i < n1 && j < n2) {
+        if (leftArray[i] <= rightArray[j]) {
+          array[k] = leftArray[i];
+          i++;
+        } else {
+          array[k] = rightArray[j];
+          j++;
+        }
+        k++;
+        await new Promise((resolve) => setTimeout(resolve, iterationSpeed));
+        iterations++;
+        setAmountOfIterations((amountOfIterations) => amountOfIterations + 1);
+        updateArray([...array]);
+      }
+
+      while (i < n1) {
+        array[k] = leftArray[i];
+        i++;
+        k++;
+        await new Promise((resolve) => setTimeout(resolve, iterationSpeed));
+        iterations++;
+        setAmountOfIterations((amountOfIterations) => amountOfIterations + 1);
+        updateArray([...array]);
+      }
+
+      while (j < n2) {
+        array[k] = rightArray[j];
+        j++;
+        k++;
+        await new Promise((resolve) => setTimeout(resolve, iterationSpeed));
+        iterations++;
+        setAmountOfIterations((amountOfIterations) => amountOfIterations + 1);
+        updateArray([...array]);
+      }
+    };
+
+    const mergeSortRecursive = async (
+      array: number[],
+      left: number,
+      right: number
+    ): Promise<void> => {
+      if (left < right) {
+        const mid = Math.floor((left + right) / 2);
+
+        await mergeSortRecursive(array, left, mid);
+        await mergeSortRecursive(array, mid + 1, right);
+
+        await merge(array, left, mid, right);
+      }
+    };
+
+    await mergeSortRecursive(arr, left, right);
 
     const endTime = Date.now();
     const timeDiff = endTime - startTime - iterations * iterationSpeed;
@@ -386,6 +531,8 @@ const AlgorithmProvider = ({ children }: AlgorithmProviderProps) => {
       start,
       shuffleArray,
       clearHistory,
+      quickSort,
+      mergeSort,
     }),
     [
       array,
@@ -417,6 +564,8 @@ const AlgorithmProvider = ({ children }: AlgorithmProviderProps) => {
       start,
       shuffleArray,
       clearHistory,
+      quickSort,
+      mergeSort,
     ]
   );
 

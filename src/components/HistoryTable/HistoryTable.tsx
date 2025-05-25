@@ -57,18 +57,18 @@ const HistoryTable = () => {
               <td className="border border-gray-400 px-4 py-2">
                 {run.amountOfIterations}
               </td>
-              <td className="border border-gray-400 px-4 py-2 flex flex-wrap gap-2">
+              <td className="border border-gray-400 px-4 py-2 flex flex-wrap gap-2 justify-center items-center">
                 <button
-                  className="bg-blue-500 text-white px-2 py-1 rounded"
-                  onClick={() => setCompareRunId(run.id)}
+                  className={`px-2 py-1 rounded text-sm ${
+                    compareRunId === run.id
+                      ? "bg-gray-500 text-white"
+                      : "bg-blue-500 text-white"
+                  }`}
+                  onClick={() =>
+                    setCompareRunId(compareRunId === run.id ? null : run.id)
+                  }
                 >
-                  Visa Jämförelse
-                </button>
-                <button
-                  className="bg-gray-500 text-white px-2 py-1 rounded"
-                  onClick={() => setCompareRunId(null)}
-                >
-                  Dölj
+                  {compareRunId === run.id ? "Dölj" : "Visa Jämförelse"}
                 </button>
               </td>
             </tr>

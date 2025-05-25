@@ -1,11 +1,9 @@
-
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useParams } from "react-router-dom";
 
 import AlgoritmTester from "../../components/AlgoritmTester/AlgoritmTester";
 import { useAlgorithm } from "../../Services/AlgorithmProvider";
 import { selectedAlgorithmTypes } from "../../Types/types";
-import { useParams } from "react-router-dom";
 import HistoryTable from "../../components/HistoryTable/HistoryTable";
 
 // import bubblesort from "../../Algorithms/Bubblesort/bubblesort";
@@ -74,17 +72,21 @@ const TestaAlgoritm = () => {
             <option value={selectedAlgorithmTypes.none}>
               - Välj en algoritm -
             </option>
-            <option value={selectedAlgorithmTypes.bubble}>bubble Sort</option>
+            <option value={selectedAlgorithmTypes.bubble}>Bubble Sort</option>
 
-            <option value={selectedAlgorithmTypes.selection}>Selection Sort</option>
-            <option value={selectedAlgorithmTypes.insertion}>Insertion Sort</option>
+            <option value={selectedAlgorithmTypes.selection}>
+              Selection Sort
+            </option>
+            <option value={selectedAlgorithmTypes.insertion}>
+              Insertion Sort
+            </option>
             <option value={selectedAlgorithmTypes.heap}>Heap Sort</option>
-        <option value={selectedAlgorithmTypes.counting}>
+            <option value={selectedAlgorithmTypes.counting}>
               Counting Sort
             </option>
-        <option value={selectedAlgorithmTypes.shell}>Shell Sort</option>
-
-
+            <option value={selectedAlgorithmTypes.shell}>Shell Sort</option>
+            <option value={selectedAlgorithmTypes.quick}>Quick Sort</option>
+            <option value={selectedAlgorithmTypes.merge}>Merge Sort</option>
           </select>
         </article>
       </section>
