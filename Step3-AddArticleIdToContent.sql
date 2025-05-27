@@ -6,5 +6,9 @@ SET ArticleId = CASE Id
     WHEN 4 THEN 4
     WHEN 5 THEN 5
     WHEN 6 THEN 6
+    WHEN 7 THEN 7
+    WHEN 8 THEN 8
+    WHEN 9 THEN 9
+    WHEN 10 THEN 10
 END
-WHERE Id IN (1, 2, 3, 4, 5, 6);
+WHERE Id IN (1, 2, 3, 4, 5, 6, 7, 8, 9, 10);

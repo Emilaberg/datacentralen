@@ -307,4 +307,182 @@ För mer information om de olika algoritmernas prestanda, kolla gärna denna pos
 
 [(130) Learn Hash Tables in 13 minutes \#️⃣ \- YouTube](https://www.youtube.com/watch?v=FsfRsGFHuv4)
 
-[security \- Which hashing algorithm is best for uniqueness and speed? \- Software Engineering Stack Exchange](https://softwareengineering.stackexchange.com/questions/49550/which-hashing-algorithm-is-best-for-uniqueness-and-speed)', NULL)
+[security \- Which hashing algorithm is best for uniqueness and speed? \- Software Engineering Stack Exchange](https://softwareengineering.stackexchange.com/questions/49550/which-hashing-algorithm-is-best-for-uniqueness-and-speed)', NULL),
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+
+('
+
+### **Tidskomplexitet och prestanda**
+
+Shell Sort är en förbättrad version av insättningssortering som använder en **gap-sekvens** för att förbättra prestandan. 
+
+- **Bästa fall:** O(n log n)
+- **Värsta fall:** O(n²) (beroende på gap-sekvens)
+
+För små till medelstora datamängder presterar Shell Sort bättre än enklare sorteringsalgoritmer som **Bubble Sort** och **Insertion Sort**, men för större dataset är algoritmer som **QuickSort** och **MergeSort** mer effektiva.
+
+### **Användningsområden**
+
+Shell Sort används ofta i system där minnesanvändningen är begränsad och där en enkel, stabil och relativt snabb sorteringsmetod krävs.
+
+Typiska användningsområden:
+
+- Inbyggda system
+- Filsortering
+- Mindre databashanteringssystem
+
+Här är prestanda en viktig faktor, men även kodstorlek och enkelhet spelar en stor roll.
+
+### **Minnesanvändning**
+
+Shell Sort är en **in-place-algoritm** och använder därför endast **O(1)** extra minne. Detta gör algoritmen mycket **minnesvänlig**, vilket är fördelaktigt i:
+
+- System med begränsade resurser
+- Inbyggda enheter
+- Mikroprocessorer
+
+### **För- och nackdelar**
+
+**Fördelar**
+
+- Enkel att implementera
+- Låg minnesanvändning
+- God prestanda på små till medelstora dataset
+
+**Nackdelar**
+
+- Prestandan är starkt beroende av **valet av gap-sekvens**
+- Det finns snabbare algoritmer för större dataset (t.ex. QuickSort, MergeSort)
+', NULL),
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+
+('### **Introduktion**
+
+Counting Sort är en icke-jämförelsebaserad sorteringsalgoritm som använder frekvenstabeller för att sortera element.
+
+### **Tidskomplexitet**
+
+- **O(n + k)** där:
+  - *n* är antalet element
+  - *k* är det största värdet i datasetet
+
+Algoritmen är mycket snabb för **små till medelstora dataset** där *k* inte är mycket större än *n*. Däremot blir den ineffektiv när *k* är betydligt större än *n*.
+
+### **Användningsområden**
+
+Counting Sort används ofta för att sortera **heltal inom ett begränsat intervall**.
+
+Exempel:
+
+- Statistikbearbetning
+- System med fasta och förutsägbara dataintervall
+- Försortering inför mer komplexa algoritmer som **Radix Sort**
+
+### **Minnesanvändning**
+
+Counting Sort kräver **O(k)** extra minne för att lagra frekvenstabellen.
+
+- **Effektivt** när *k* är nära *n*
+- **Ineffektivt** när *k* är mycket större än *n*
+
+### **För- och nackdelar**
+
+**Fördelar**
+
+- Mycket snabb vid rätt förutsättningar
+- Stabil sortering (bevarar ordning av lika element)
+- Enkel implementation
+
+**Nackdelar**
+
+- Kräver extra minne för frekvenstabellen
+- Ineffektiv vid stort spann av möjliga värden
+', NULL),
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+
+('### **Introduktion**
+
+En graf är en datastruktur som består av **noder (vertices)** och **kanter (edges)**, och används för att representera relationer eller kopplingar mellan objekt.
+
+### **Prestanda för insättning och borttagning**
+
+Prestandan beror på hur grafen representeras:
+
+- **Adjacency matrix**:
+  - Insättning/Borttagning: O(1)
+  - Minnesanvändning: O(V²)
+- **Adjacency list**:
+  - Insättning/Borttagning: O(V)
+  - Minnesanvändning: O(V + E)
+
+### **Användningsområden**
+
+Grafer används i många moderna applikationer:
+
+- Nätverksanalys (t.ex. datanätverk)
+- Sociala nätverk (t.ex. kopplingar mellan användare)
+- Väg- och ruttplanering (GPS, kartor)
+- Artificiell intelligens (sökalgoritmer)
+- Sökmotorer (analys av länkar)
+
+### **Minnesanvändning**
+
+- **Adjacency matrix**: O(V²)
+  - Effektivt för täta grafer, men minneskrävande för stora/glesa grafer.
+- **Adjacency list**: O(V + E)
+  - Mer minnesvänligt, särskilt för glesa grafer.
+
+### **Optimerade algoritmer**
+
+Vanliga algoritmer optimerade för grafer inkluderar:
+
+- **DFS (Depth-First Search)**
+- **BFS (Breadth-First Search)**
+- **Dijkstra’s algoritm** (för kortaste vägen)
+- **Kruskal’s algoritm** (för minimala spännträd)
+
+Dessa algoritmer används för att effektivt navigera och analysera grafer, ofta inom nätverksoptimering, AI och databehandling.
+', NULL),
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+
+('### **Introduktion**
+
+En heap är en specialiserad trädstruktur som ofta används för att implementera **prioritetsköer**. Den vanligaste typen är **binär heap**, där varje förälder har ett högre (max-heap) eller lägre (min-heap) värde än sina barn.
+
+### **Prestanda för insättning och borttagning**
+
+- **Tidskomplexitet**: O(log n)
+  - Varje operation kräver att trädet balanseras om för att upprätthålla heap-egenskapen.
+  - Effektivt för system med många dynamiska insättningar och borttagningar.
+
+### **Användningsområden**
+
+Vanliga användningsområden:
+
+- **Prioritetsköer**
+- **Resursallokering**
+- **Schemaläggning**
+- **Algoritmer** som:
+  - **Dijkstra’s algoritm** (kortaste vägen)
+  - **HeapSort**
+
+Används även i realtidsapplikationer där snabb hantering av data krävs.
+
+### **Minnesanvändning**
+
+- **Minnesfotavtryck**: O(n)
+- Heaps kan implementeras med en **array**, vilket gör hanteringen enkel och effektiv.
+- Varje nod placeras på ett specifikt index beroende på dess position i det binära trädet.
+
+### **Optimerade algoritmer**
+
+**HeapSort**
+
+- Effektiv sorteringsalgoritm som använder heapens struktur för att sortera data in-place.
+
+**Dijkstra’s algoritm**
+
+- Utnyttjar min-heap för att snabbt hitta det kortaste avståndet till nästa nod i en graf.
+- Ger stor prestandafördel i nätverksanalys och ruttplanering.
+
+', NULL)
