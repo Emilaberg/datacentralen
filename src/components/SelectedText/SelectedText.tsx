@@ -24,8 +24,8 @@ export default function SelectedText() {
   return (
     <section className="flex flex-col w-full h-full p-5 gap-5 items-center justify-center">
       {isLoading && (
-        <div className="flex justify-center items-center">
-          <p className="text-5xl opacity-50 font-bold text-black">Loading...</p>
+        <div className="flex justify-center items-center mt-50">
+          <p className="text-4xl opacity-50 font-bold text-black">Loading...</p>
         </div>
       )}
       {!isLoading && selectedArticle && (

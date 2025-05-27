@@ -50,7 +50,16 @@ const TeachingCard: React.FC<CardComponentProps> = ({
         <h1 className="text-6xl text-black/80 font-mono">{algorithmName}</h1>
       </div>
       <div className="mt-5 w-full">
-        <p className="font-sans font-medium text-black/50 text-lg tracking-tight">
+        <p
+          className="font-sans font-medium text-black/50 text-lg tracking-tight"
+          style={{
+            display: "-webkit-box",
+            WebkitLineClamp: 2,
+            WebkitBoxOrient: "vertical",
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+          }}
+        >
           {algorithmDescription}
         </p>
       </div>
