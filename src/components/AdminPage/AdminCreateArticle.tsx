@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import AdminLayout from "./AdminLayout";
 import { useLocation } from "react-router-dom";
 import { ArticleProps } from "../../Types/types";
@@ -25,18 +25,18 @@ export default function AdminCreateArticle() {
     article?.colorCodeTwo || "#ffffff"
   );
 
-  const descriptionRef = React.useRef<HTMLTextAreaElement>(null);
-  const textareaRef = React.useRef<HTMLTextAreaElement>(null);
+  const descriptionRef = useRef<HTMLTextAreaElement>(null);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   // Auto-resize both textareas
-  React.useEffect(() => {
+  useEffect(() => {
     if (descriptionRef.current) {
       descriptionRef.current.style.height = "auto";
       descriptionRef.current.style.height =
         descriptionRef.current.scrollHeight + "px";
     }
   }, [description]);
-  React.useEffect(() => {
+  useEffect(() => {
     if (textareaRef.current) {
       textareaRef.current.style.height = "auto";
       textareaRef.current.style.height =
@@ -50,7 +50,7 @@ export default function AdminCreateArticle() {
         <h2 className="text-2xl font-semibold mb-4">
           {article ? "Redigera artikel" : "Skapa ny artikel"}
         </h2>
-        <form className="w-full max-w-lg flex flex-col gap-4">
+        <form className="w-2/4 flex flex-col gap-4">
           <label>
             Titel:
             <input
@@ -91,18 +91,7 @@ export default function AdminCreateArticle() {
               required
             />
           </label>
-          <label>
-            Innehåll:
-            <textarea
-              ref={textareaRef}
-              className="border rounded px-2 py-1 w-full resize-none"
-              value={content}
-              onChange={(e) => setContent(e.target.value)}
-              required
-              rows={1}
-              style={{ minHeight: "100px", overflow: "hidden" }}
-            />
-          </label>
+
           <label>
             Typ:
             <select
@@ -158,6 +147,18 @@ export default function AdminCreateArticle() {
               </div>
             </label>
           </div>
+          <label>
+            Innehåll:
+            <textarea
+              ref={textareaRef}
+              className="border rounded px-5 py-2 w-full resize-none"
+              value={content}
+              onChange={(e) => setContent(e.target.value)}
+              required
+              rows={1}
+              style={{ minHeight: "100px", overflow: "hidden" }}
+            />
+          </label>
           {/* Add your submit button and logic here */}
         </form>
       </div>
