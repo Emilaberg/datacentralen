@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { ArticleProps } from "../../../Types/types";
-import { Trash, NotePencil, DotsThreeVertical } from "@phosphor-icons/react";
+import { DotsThreeVertical } from "@phosphor-icons/react";
 import ActionsDropdown from "../components/ActionsDropdown";
 
 interface ArticlesTableProps {
