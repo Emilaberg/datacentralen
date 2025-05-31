@@ -5,6 +5,8 @@ import { ArticleProps } from "../../Types/types";
 import ArticleView from "./components/ArticleView";
 import FileUpload from "./components/FileUpload";
 import ColorPreview from "./components/ColorPreview";
+import ApiService from "../../Services/ApiService";
+import AuthorizedApiService from "../../Services/AuthorizedApiService";
 import "./admin.css";
 
 const typeOptions = [
@@ -15,7 +17,7 @@ const typeOptions = [
 export default function AdminCreateArticle() {
   const location = useLocation();
   const article = (location.state as { article?: ArticleProps })?.article;
-
+  const api = AuthorizedApiService();
   const [title, setTitle] = useState(article?.title || "");
   const [author, setAuthor] = useState(article?.author || "");
   const [description, setDescription] = useState(article?.description || "");
@@ -28,7 +30,9 @@ export default function AdminCreateArticle() {
     article?.colorCodeTwo || "#70dbb2"
   );
   const [showPreview, setShowPreview] = useState(false);
-
+  const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const descriptionRef = useRef<HTMLTextAreaElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
@@ -48,6 +52,40 @@ export default function AdminCreateArticle() {
         textareaRef.current.scrollHeight + "px";
     }
   }, [content]);
+
+  const handleCreate = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsLoading(true);
+    setError(null);
+    setSuccess(false);
+    try {
+      const response = await api.POSTArticle(
+        {
+          title,
+          author,
+          description,
+          content,
+          type,
+          colorCodeOne,
+          colorCodeTwo,
+          posted: new Date(),
+          lastEdited: new Date(),
+          likes: 0,
+        },
+        true
+      );
+
+      if (response && response.ok) {
+        setSuccess(true);
+      } else {
+        setError("Något gick fel vid skapandet.");
+      }
+    } catch (err: any) {
+      setError(err.message || "Något gick fel vid skapandet.");
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   const mockArticle: ArticleProps = {
     id: 0,
@@ -81,7 +119,7 @@ export default function AdminCreateArticle() {
         {showPreview ? (
           <ArticleView article={mockArticle} />
         ) : (
-          <form className="w-2/4 flex flex-col gap-4">
+          <form className="w-2/4 flex flex-col gap-4" onSubmit={handleCreate}>
             <label>
               Titel:
               <input
@@ -193,13 +231,24 @@ export default function AdminCreateArticle() {
                   setContent(uploadedContent)
                 }
               />
-              <button
-                type="button"
-                className="mt-2 px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 transition self-end"
-                onClick={() => setContent("")}
-              >
-                Töm
-              </button>
+              <div className="flex gap-x-4 mt-2">
+                <button
+                  type="button"
+                  className="mt-2 px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 transition self-end"
+                  onClick={() => setContent("")}
+                >
+                  Töm
+                </button>
+                <button
+                  type="submit"
+                  className="mt-4 px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 transition self-end"
+                  disabled={isLoading}
+                >
+                  {isLoading ? "Skapar..." : "Skapa"}
+                </button>
+              </div>
+              {error && <p className="text-red-500">{error}</p>}
+              {success && <p className="text-green-600">Artikeln skapades!</p>}
             </div>
 
             <label>

@@ -1,21 +1,45 @@
-import React from "react";
+import React, { useState } from "react";
 import AdminLayout from "./AdminLayout";
 import { useGetAllArticles } from "../../components/Hooks/useGetAllArticles";
 import ArticlesTable from "./Table/ArticlesTable";
 import { ClipLoader } from "react-spinners";
 import { ArticleProps } from "../../Types/types";
 import { useNavigate } from "react-router-dom";
+import AuthorizedApiService from "../../Services/AuthorizedApiService";
+import ConfirmModal from "./Modals/ConfirmModal";
 
 export default function AdminManageArticles() {
-  const { data: articles = [], isLoading } = useGetAllArticles();
+  const { data: articles = [], isLoading, refetch } = useGetAllArticles();
   const navigate = useNavigate();
+  const api = AuthorizedApiService();
+  const [modalOpen, setModalOpen] = React.useState(false);
+  const [articleToDelete, setArticleToDelete] =
+    React.useState<HandleDeleteArticle | null>(null);
 
   const handleEdit = (article: ArticleProps) => {
     navigate("/admin-dashboard/create", { state: { article } });
   };
 
-  const handleDelete = (article: ArticleProps) => {
-    alert(`Ta bort artikel: ${article.title}`);
+  interface HandleDeleteArticle {
+    id: number;
+    title: string;
+  }
+
+  const handleDelete = (article: HandleDeleteArticle) => {
+    setArticleToDelete(article);
+    setModalOpen(true);
+  };
+
+  const confirmDelete = async () => {
+    if (!articleToDelete) return;
+    const response = await api.DELETEArticle(articleToDelete.id, true);
+    setModalOpen(false);
+    setArticleToDelete(null);
+    if (response && response.ok) {
+      if (refetch) refetch();
+    } else {
+      alert("Kunde inte ta bort artikeln.");
+    }
   };
 
   return (
@@ -38,6 +62,15 @@ export default function AdminManageArticles() {
               mode="edit"
               onEdit={handleEdit}
               onDelete={handleDelete}
+            />
+            <ConfirmModal
+              open={modalOpen}
+              message={`Är du säker på att du vill ta bort "${articleToDelete?.title}"?`}
+              onConfirm={confirmDelete}
+              onCancel={() => {
+                setModalOpen(false);
+                setArticleToDelete(null);
+              }}
             />
           </div>
         )}
