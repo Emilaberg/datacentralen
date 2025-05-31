@@ -11,6 +11,10 @@ import Editpage from "./routes/Editpage";
 import Logout from "./routes/Logout";
 import SelectedText from "../components/SelectedText/SelectedText";
 import ProtectedRoute from "../components/ProtectedRoute";
+import AdminCreateArticle from "../components/AdminPage/AdminCreateArticle";
+import AdminManageArticles from "../components/AdminPage/AdminManageArticles";
+import AdminOverlook from "../components/AdminPage/AdminOverlook";
+import AdminPage from "../components/AdminPage/AdminPage";
 
 function Router() {
   return (
@@ -28,13 +32,18 @@ function Router() {
             />
 
             <Route
-              path="/dashboard"
+              path="/admin-dashboard"
               element={
                 <ProtectedRoute>
-                  <Editpage />
+                  <AdminPage />
                 </ProtectedRoute>
               }
-            />
+            >
+              <Route path="overlook" element={<AdminOverlook />} />
+              <Route path="manage" element={<AdminManageArticles />} />
+              <Route path="create" element={<AdminCreateArticle />} />
+              <Route index element={<AdminOverlook />} />
+            </Route>
             <Route path="/about-us" element={<AboutUs />} />
             <Route path="*" element={<div>error 404</div>} />
           </Route>

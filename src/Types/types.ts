@@ -25,6 +25,7 @@ export interface ArticleProps {
   title: string;
   author: string;
   posted: Date;
+  description: string;
   lastEdited: Date;
   likes: number;
   content: string;
