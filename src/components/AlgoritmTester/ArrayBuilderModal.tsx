@@ -21,7 +21,6 @@ const ArrayBuilderModal = () => {
 
   const AlgorithmProvider = useAlgorithm();
 
-
   const randomIntArrayInRange = (
     min: number,
     max: number,

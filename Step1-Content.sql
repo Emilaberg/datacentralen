@@ -1,15 +1,10 @@
-﻿
+﻿-- OBS!!!!!!!!!!!!!!!!
 
-
--- OBS!!!!!!!!!!!!!!!!
 -- OM TEXTERNA SKA BLI I RÄTT FORMAT ÄR DET SUPERVIKTIGT ATT DET ÄR SKRIVET SÅ SOM NEDAN, DET GÅR INTE ATT HA DET SOM EN LÅNG STÄNG I EN QUERY
 
-
-
-insert into Articles (Title, Author, Posted, LastEdited, Likes, Content, Description, Type, ColorCodeOne,ColorCodeTwo)
-values 
---('','',GETUTCDATE(), DATEADD(DAY, 2, GETUTCDATE()), 0, '', '', '', '', '' )
-('Quick Sort','Johannes Nilsson',GETUTCDATE(), DATEADD(DAY, 2, GETUTCDATE()), 0, '### **Introduktion**   
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+insert into ArticleContents (Content, ArticleId)
+values('### **Introduktion**   
 Quicksort är en sorteringsalgoritm av typen "Divide and Conquer", vilket är en metod att lösa problem där man delar upp det stora problemet i mindre delar, löser dem och sedan "mergar" resultaten.
 
 ### **Hur fungerar QuickSort?**   
@@ -55,9 +50,12 @@ Sammanfattningsvis är Quicksort en mycket effektiv och snabb sorteringsalgoritm
 
 [https://en.wikipedia.org/wiki/Quicksort](https://en.wikipedia.org/wiki/Quicksort)
 
-[https://www.geeksforgeeks.org/introduction-to-divide-and-conquer-algorithm/](https://www.geeksforgeeks.org/introduction-to-divide-and-conquer-algorithm/)', 'Dela upp listan vid en pivot och sortera delarna rekursivt', 'Sorteringsalgoritm', '#F9B66B', '#F7E6D3' ),
+[https://www.geeksforgeeks.org/introduction-to-divide-and-conquer-algorithm/](https://www.geeksforgeeks.org/introduction-to-divide-and-conquer-algorithm/)', NULL),
 
-('Merge Sort','Johannes Nilsson',GETUTCDATE(), DATEADD(DAY, 2, GETUTCDATE()), 0, '### **Introduktion**  
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+
+('### **Introduktion**  
 Merge Sort är en stabil och effektiv sorteringsalgoritm med en tidskomplexitet på  
 O(n log ⁡n) i alla fall. Den används ofta för stora dataset och externa sorteringar där stabilitet och konsekvent prestanda är viktiga faktorer. Trots att den kräver extra minne är den ett populärt val i många applikationer.
 
@@ -111,9 +109,13 @@ Sammanfattningsvis är Merge Sort en mycket effektiv och stabil sorteringsalgori
 [https://www.w3schools.com/dsa/dsa\_algo\_mergesort.php](https://www.w3schools.com/dsa/dsa_algo_mergesort.php)  
 [https://www.geeksforgeeks.org/merge-sort/](https://www.geeksforgeeks.org/merge-sort/)  
 [https://en.wikipedia.org/wiki/Merge\_sort](https://en.wikipedia.org/wiki/Merge_sort)  
-', 'Dela och erövra genom att dela listan och sammanfoga de sorterade delarna.', 'Sorteringsalgoritm', '#90EE90', '#D8FAD4' ),
+', NULL),
 
-('Array','Johannes Nilsson',GETUTCDATE(), DATEADD(DAY, 2, GETUTCDATE()), 0, '### **Introduktion**  
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+('### **Introduktion**  
 Arrayer är en grundläggande datastruktur inom programmering som används för att lagra flera värden under ett och samma namn. De gör det möjligt att hantera och organisera data på ett strukturerat sätt, vilket är särskilt användbart vid hantering av stora datamängder.
 
 Arrayer används i nästan alla programmeringsspråk och har en central roll i allt från enkla applikationer till komplexa system, såsom databashantering, grafikrendering och algoritmer för databehandling. Deras struktur gör det enkelt att lagra, sortera och komma åt data effektivt, vilket gör dem till ett av de mest använda verktygen inom programmering.
@@ -149,9 +151,14 @@ Algoritmer som binärsökning, sorteringsalgoritmer, hashing och sliding window 
 
 [https://medium.com/@duplessisjdp96/data-structure-stories-the-array-18f4648c414e](https://medium.com/@duplessisjdp96/data-structure-stories-the-array-18f4648c414e)
 
-[https://www.geeksforgeeks.org/introduction-to-arrays-data-structure-and-algorithm-tutorials/](https://www.geeksforgeeks.org/introduction-to-arrays-data-structure-and-algorithm-tutorials/)', 'En samling av element lagrade i en ordnad sekvens, åtkomliga via index.', 'Datastruktur', '#83EDBB', '#D3F7E6' ),
+[https://www.geeksforgeeks.org/introduction-to-arrays-data-structure-and-algorithm-tutorials/](https://www.geeksforgeeks.org/introduction-to-arrays-data-structure-and-algorithm-tutorials/)', NULL),
 
-('Linked List','Johannes Nilsson',GETUTCDATE(), DATEADD(DAY, 2, GETUTCDATE()), 0, '### **Introduktion**
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+('### **Introduktion**
 En linked-list (länkad lista) är en datastruktur där varje element, eller nod, innehåller två delar: ett värde (data) och en pekare till nästa nod i listan. Till skillnad från en array, där alla element lagras i ett sammanhängande block, är varje nod i en linked-list belägen på en separat minnesadress. Detta gör att linked-lists är mycket flexibla när det gäller att lägga till eller ta bort element dynamiskt, eftersom man inte behöver omallokera hela strukturen vid förändringar. Men detta innebär också att de inte har samma snabba åtkomsttider som arrayer.
 
 ### **Hur fungerar en Linked-List?**
@@ -179,9 +186,15 @@ Linked-lists är också bra för att implementera algoritmer som kräver snabb d
 [https://en.wikipedia.org/wiki/Linked\_list](https://en.wikipedia.org/wiki/Linked_list)
 
 [https://medium.com/@anderson.dylan.522/linked-lists-4fce0c482d57](https://medium.com/@anderson.dylan.522/linked-lists-4fce0c482d57)  
-', 'En linjär datastruktur där varje element pekar på nästa element i sekvensen.', 'Datastruktur', '#FF8C00', '#FFE5B3' ),
+', NULL),
 
-('Heap Sort','Emil Åberg',GETUTCDATE(), DATEADD(DAY, 2, GETUTCDATE()), 0, '### **Introduktion** 
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+('### **Introduktion** 
 
 Heap sort är en effektiv sorteringsalgoritm som är jämförelsebaserad. Den fungerar genom att ta en osorterad array och bygga om den till en så kallad heap. En heap är en datastruktur som organiserar elementen i en array baserat på deras storlek, där varje nod är större än sina barn. En heap representeras ofta som ett träd.
 
@@ -239,9 +252,15 @@ Heap sort är en så kallad in-place algoritm, så den behöver inte någon extr
 
 [**pseudocode \- Why is the time complexity of Heap Sort, O(nlogn)? \- Stack Overflow**](https://stackoverflow.com/questions/54078858/why-is-the-time-complexity-of-heap-sort-onlogn)
 
-', 'Använder en heap för att sortera genom att extrahera största/minsta elementet.', 'Sorteringsalgoritm', '#79ACE4', '#D3E4F7' ),
+', NULL),
 
-('Hash Table','Emil Åberg',GETUTCDATE(), DATEADD(DAY, 2, GETUTCDATE()), 0, '### **Introduktion**
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+('### **Introduktion**
 
 En hash table är en typ av datastruktur inom data science och programmering. Ett hash table består av en nyckel och ett värde. Nyckeln används för att hitta värdet i hashtabellen och kan vara en integer eller en string.
 
@@ -288,7 +307,353 @@ För mer information om de olika algoritmernas prestanda, kolla gärna denna pos
 
 [(130) Learn Hash Tables in 13 minutes \#️⃣ \- YouTube](https://www.youtube.com/watch?v=FsfRsGFHuv4)
 
-[security \- Which hashing algorithm is best for uniqueness and speed? \- Software Engineering Stack Exchange](https://softwareengineering.stackexchange.com/questions/49550/which-hashing-algorithm-is-best-for-uniqueness-and-speed)', 'Lagrar nyckel-värdepar och använder en hash-funktion för snabb åtkomst.', 'Datastruktur', '#F5F886', '#F6F7D3' )
+[security \- Which hashing algorithm is best for uniqueness and speed? \- Software Engineering Stack Exchange](https://softwareengineering.stackexchange.com/questions/49550/which-hashing-algorithm-is-best-for-uniqueness-and-speed)', NULL),
+-------------------------------------------------------------------------------------------------------------------------------------------------------
 
+('
 
-select * From Articles
+### **Tidskomplexitet och prestanda**
+
+Shell Sort är en förbättrad version av insättningssortering som använder en **gap-sekvens** för att förbättra prestandan. 
+
+- **Bästa fall:** O(n log n)
+- **Värsta fall:** O(n²) (beroende på gap-sekvens)
+
+För små till medelstora datamängder presterar Shell Sort bättre än enklare sorteringsalgoritmer som **Bubble Sort** och **Insertion Sort**, men för större dataset är algoritmer som **QuickSort** och **MergeSort** mer effektiva.
+
+### **Användningsområden**
+
+Shell Sort används ofta i system där minnesanvändningen är begränsad och där en enkel, stabil och relativt snabb sorteringsmetod krävs.
+
+Typiska användningsområden:
+
+- Inbyggda system
+- Filsortering
+- Mindre databashanteringssystem
+
+Här är prestanda en viktig faktor, men även kodstorlek och enkelhet spelar en stor roll.
+
+### **Minnesanvändning**
+
+Shell Sort är en **in-place-algoritm** och använder därför endast **O(1)** extra minne. Detta gör algoritmen mycket **minnesvänlig**, vilket är fördelaktigt i:
+
+- System med begränsade resurser
+- Inbyggda enheter
+- Mikroprocessorer
+
+### **För- och nackdelar**
+
+**Fördelar**
+
+- Enkel att implementera
+- Låg minnesanvändning
+- God prestanda på små till medelstora dataset
+
+**Nackdelar**
+
+- Prestandan är starkt beroende av **valet av gap-sekvens**
+- Det finns snabbare algoritmer för större dataset (t.ex. QuickSort, MergeSort)
+', NULL),
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+
+('### **Introduktion**
+
+Counting Sort är en icke-jämförelsebaserad sorteringsalgoritm som använder frekvenstabeller för att sortera element.
+
+### **Tidskomplexitet**
+
+- **O(n + k)** där:
+  - *n* är antalet element
+  - *k* är det största värdet i datasetet
+
+Algoritmen är mycket snabb för **små till medelstora dataset** där *k* inte är mycket större än *n*. Däremot blir den ineffektiv när *k* är betydligt större än *n*.
+
+### **Användningsområden**
+
+Counting Sort används ofta för att sortera **heltal inom ett begränsat intervall**.
+
+Exempel:
+
+- Statistikbearbetning
+- System med fasta och förutsägbara dataintervall
+- Försortering inför mer komplexa algoritmer som **Radix Sort**
+
+### **Minnesanvändning**
+
+Counting Sort kräver **O(k)** extra minne för att lagra frekvenstabellen.
+
+- **Effektivt** när *k* är nära *n*
+- **Ineffektivt** när *k* är mycket större än *n*
+
+### **För- och nackdelar**
+
+**Fördelar**
+
+- Mycket snabb vid rätt förutsättningar
+- Stabil sortering (bevarar ordning av lika element)
+- Enkel implementation
+
+**Nackdelar**
+
+- Kräver extra minne för frekvenstabellen
+- Ineffektiv vid stort spann av möjliga värden
+', NULL),
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+
+('### **Introduktion**
+
+En graf är en datastruktur som består av **noder (vertices)** och **kanter (edges)**, och används för att representera relationer eller kopplingar mellan objekt.
+
+### **Prestanda för insättning och borttagning**
+
+Prestandan beror på hur grafen representeras:
+
+- **Adjacency matrix**:
+  - Insättning/Borttagning: O(1)
+  - Minnesanvändning: O(V²)
+- **Adjacency list**:
+  - Insättning/Borttagning: O(V)
+  - Minnesanvändning: O(V + E)
+
+### **Användningsområden**
+
+Grafer används i många moderna applikationer:
+
+- Nätverksanalys (t.ex. datanätverk)
+- Sociala nätverk (t.ex. kopplingar mellan användare)
+- Väg- och ruttplanering (GPS, kartor)
+- Artificiell intelligens (sökalgoritmer)
+- Sökmotorer (analys av länkar)
+
+### **Minnesanvändning**
+
+- **Adjacency matrix**: O(V²)
+  - Effektivt för täta grafer, men minneskrävande för stora/glesa grafer.
+- **Adjacency list**: O(V + E)
+  - Mer minnesvänligt, särskilt för glesa grafer.
+
+### **Optimerade algoritmer**
+
+Vanliga algoritmer optimerade för grafer inkluderar:
+
+- **DFS (Depth-First Search)**
+- **BFS (Breadth-First Search)**
+- **Dijkstra’s algoritm** (för kortaste vägen)
+- **Kruskal’s algoritm** (för minimala spännträd)
+
+Dessa algoritmer används för att effektivt navigera och analysera grafer, ofta inom nätverksoptimering, AI och databehandling.
+', NULL),
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+
+('### **Introduktion**
+
+En heap är en specialiserad trädstruktur som ofta används för att implementera **prioritetsköer**. Den vanligaste typen är **binär heap**, där varje förälder har ett högre (max-heap) eller lägre (min-heap) värde än sina barn.
+
+### **Prestanda för insättning och borttagning**
+
+- **Tidskomplexitet**: O(log n)
+  - Varje operation kräver att trädet balanseras om för att upprätthålla heap-egenskapen.
+  - Effektivt för system med många dynamiska insättningar och borttagningar.
+
+### **Användningsområden**
+
+Vanliga användningsområden:
+
+- **Prioritetsköer**
+- **Resursallokering**
+- **Schemaläggning**
+- **Algoritmer** som:
+  - **Dijkstra’s algoritm** (kortaste vägen)
+  - **HeapSort**
+
+Används även i realtidsapplikationer där snabb hantering av data krävs.
+
+### **Minnesanvändning**
+
+- **Minnesfotavtryck**: O(n)
+- Heaps kan implementeras med en **array**, vilket gör hanteringen enkel och effektiv.
+- Varje nod placeras på ett specifikt index beroende på dess position i det binära trädet.
+
+### **Optimerade algoritmer**
+
+**HeapSort**
+
+- Effektiv sorteringsalgoritm som använder heapens struktur för att sortera data in-place.
+
+**Dijkstra’s algoritm**
+
+- Utnyttjar min-heap för att snabbt hitta det kortaste avståndet till nästa nod i en graf.
+- Ger stor prestandafördel i nätverksanalys och ruttplanering.
+
+', NULL),
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+
+('### **Introduktion**
+
+Bubble Sort är en enkel sorteringsalgoritm som fungerar genom att upprepade gånger jämföra och byta närliggande element om de är i fel ordning. Algoritmen upprepar denna process tills hela listan är sorterad. Trots sin enkelhet används Bubble Sort sällan i praktiska applikationer på grund av dess ineffektivitet jämfört med mer avancerade algoritmer som Quicksort, Mergesort och Heapsort.
+
+### **Hur påverkar tidskomplexiteten prestandan för Bubble Sort vid olika datamängder?**
+
+Bubble Sort har en tidskomplexitet på **O(n²)** i genomsnitt och i värsta fall, vilket gör den ineffektiv för stora dataset. Den måste iterera över listan flera gånger, vilket leder till en kvadratisk ökning av beräkningstiden när antalet element växer.
+
+För **små dataset** kan algoritmen dock vara användbar, eftersom dess implementation är enkel och läsbar. För **medelstora och stora dataset** är dock **Quicksort (O(n log n))**, **Mergesort (O(n log n))** och **Heapsort (O(n log n))** betydligt snabbare, eftersom de kan dela upp problemet rekursivt och hantera sorteringen mer effektivt. Mergesort har stabil sorteringsegenskap, vilket gör den mer pålitlig i vissa fall, medan Quicksort ofta används på grund av dess höga praktiska prestanda.
+
+### **Vilka är de vanligaste användningsområdena för Bubble Sort i praktiska applikationer?**
+
+På grund av sin ineffektivitet används Bubble Sort sällan i verkliga applikationer där prestanda är avgörande. Dock kan den vara användbar i följande scenarier:
+
+- **Utbildningssyfte** – På grund av sin enkelhet används Bubble Sort ofta för att lära ut grunderna i sorteringsalgoritmer och algoritmisk komplexitet. Den är lätt att förstå och illustrerar koncept som iteration och växling av element på ett tydligt sätt.
+- **Nästan sorterade data** – Om datasetet redan är nästan sorterat, kan Bubble Sort prestera bättre och i bästa fall ha en tidskomplexitet på **O(n)**. Däremot är **Insertion Sort (O(n) i bästa fall)** ett ännu bättre alternativ i sådana situationer.
+- **Små dataset** – När datastrukturen är liten och komplexitet inte är ett problem, kan Bubble Sort vara ett enkelt alternativ. Dock är Selection Sort ofta ett bättre val eftersom det gör färre byten, vilket kan vara mer effektivt i vissa fall.
+
+### **Hur hanterar Bubble Sort minnesanvändning och vad är dess minnesfotavtryck?**
+
+Bubble Sort har en minneskomplexitet på **O(1)** eftersom den sorterar listan _in-place_ och inte kräver extra minnesutrymme utöver de givna elementen. Detta är en fördel jämfört med Mergesort, som kräver **O(n)** extra minnesutrymme för sina rekursiva uppdelningar. Däremot är minnesförbrukningen likvärdig med Quicksort i dess in-place-implementation.
+
+Dock kan Quicksort vara mer minneskrävande i sin rekursiva version, där det i värsta fall kan kräva **O(n) extra stackutrymme**. Heapsort är däremot både **in-place och O(n log n)** i prestanda, vilket gör den minnesmässigt effektivare än både Bubble Sort och Mergesort.
+
+### **Vilka är för- och nackdelarna med Bubble Sort jämfört med andra sorteringsalgoritmer?**
+
+**Fördelar:**
+
+- Enkel att implementera och förstå, vilket gör den idealisk för undervisning.
+- Kräver inget extra minnesutrymme utöver den ursprungliga listan (**O(1) extra minnesanvändning**).
+- Effektiv vid nästan sorterade listor, där den kan prestera i **O(n)**.
+
+**Nackdelar:**
+
+- Extremt ineffektiv för stora dataset med en tidskomplexitet på **O(n²)**, vilket gör att den snabbt blir långsam jämfört med **Quicksort (O(n log n))**, **Mergesort (O(n log n))** och **Heapsort (O(n log n))**.
+- Presterar sämre än Quicksort, Mergesort och Heapsort i de flesta praktiska scenarier.
+- Väldigt långsam vid slumpmässiga eller omvända dataset, där en mer effektiv algoritm kan spara betydande beräkningstid.
+- Byter många element, vilket kan vara ineffektivt jämfört med algoritmer som Selection Sort som gör färre byten.
+
+### **Jämförelse med andra sorteringsalgoritmer**
+
+**Sammanfattningsvis**
+
+Bubble Sort en grundläggande algoritm som är enkel att förstå men ineffektiv för stora datamängder. Den används främst i utbildningssammanhang eller vid små, nästan sorterade dataset. För praktiska applikationer är mer avancerade algoritmer som **Quicksort och Mergesort** att föredra på grund av deras betydligt bättre prestanda. Heapsort kan också vara ett alternativ när stabil sortering inte är nödvändig, men man behöver en minnesmässigt effektiv lösning.
+',NULL),
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+
+('### **Introduktion**
+
+Insertion Sort är en enkel och intuitiv sorteringsalgoritm som fungerar genom att upprepade gånger välja ett element och placera det på rätt plats i den redan sorterade delen av listan. Algoritmen är effektiv för små dataset och nästan sorterade listor men blir ineffektiv för stora dataset jämfört med mer avancerade algoritmer som Quicksort och Mergesort.
+
+### **Hur påverkar tidskomplexiteten prestandan för Insertion Sort vid olika datamängder?**
+
+Insertion Sort har en tidskomplexitet på **O(n²)** i genomsnitt och i värsta fall, vilket gör den ineffektiv för stora dataset. Algoritmen jämför och flyttar element ett i taget, vilket leder till en kvadratisk ökning av antalet operationer när datasetet växer.
+
+För **små dataset** kan Insertion Sort dock vara en bra lösning, eftersom den är enkel att implementera och har låg overhead. För **nästan sorterade dataset** presterar den mycket väl, eftersom dess bästa fall är **O(n)** – när listan redan är nära sin sorterade form behöver algoritmen bara göra minimala jämförelser och förflyttningar.
+
+Jämfört med **Bubble Sort**, som har en liknande tidskomplexitet, är Insertion Sort oftast snabbare eftersom den inte utför onödiga byten utan istället flyttar element direkt till rätt position. Däremot är algoritmer som **Quicksort (O(n log n))**, **Mergesort (O(n log n))** och **Heapsort (O(n log n))** mer effektiva för större dataset, eftersom de delar upp sorteringsproblemet och hanterar större volymer mer effektivt.
+
+### **Vilka är de vanligaste användningsområdena för Insertion Sort i praktiska applikationer?**
+
+Trots att den inte används i stora skalbara system har Insertion Sort vissa praktiska tillämpningar:
+
+- **Utbildning** – På grund av sin enkelhet används den ofta för att introducera studenter till sorteringsalgoritmer och algoritmanalys.
+- **Nästan sorterade dataset** – Insertion Sort fungerar mycket effektivt för nästan sorterade listor, vilket gör den användbar för scenarier där en lista ofta uppdateras med små förändringar, exempelvis i realtidsdatabaser och inkrementella sorteringar.
+- **Små dataset** – När datasetet är litet kan Insertion Sort vara snabbare än mer komplexa algoritmer, eftersom dess overhead är minimal.
+- **Del av hybridalgoritmer** – I vissa fall kombineras Insertion Sort med andra algoritmer, t.ex. i **Timsort**, där Insertion Sort används för att hantera små delmängder av data effektivt innan en mer avancerad sorteringsalgoritm tar över.
+
+### **Hur hanterar Insertion Sort minnesanvändning och vad är dess minnesfotavtryck?**
+
+Insertion Sort är en **in-place-algoritm**, vilket innebär att den inte kräver extra minne utöver den ursprungliga listan. Dess minneskomplexitet är **O(1)**, vilket gör den mer minnesvänlig än Mergesort, som kräver **O(n)** extra minnesutrymme.
+
+Jämfört med **Quicksort**, som i sin rekursiva form kan kräva **O(n) extra stackutrymme** i värsta fall, har Insertion Sort fördelen att den inte använder rekursion och därmed har en mer förutsägbar minnesanvändning. **Heapsort (O(1) extra minne)** har liknande minnesfördelar men är betydligt snabbare för större dataset.
+
+### **Vilka är för- och nackdelarna med Insertion Sort jämfört med andra sorteringsalgoritmer?**
+
+**Fördelar:**
+
+- **Enkel att implementera och förstå**, vilket gör den idealisk för undervisning.
+- **Effektiv för små dataset** och nästan sorterade listor, där den kan prestera i **O(n)** i bästa fall.
+- **In-place-sortering** med **O(1) extra minnesanvändning**.
+- **Stabil sorteringsalgoritm**, vilket innebär att element med samma värde behåller sin relativa ordning.
+
+**Nackdelar:**
+
+- **Långsam för stora dataset**, med en tidskomplexitet på **O(n²)** i genomsnitt och värsta fall.
+- **Sämre än Quicksort och Mergesort** för större dataset, eftersom de kan hantera stora mängder data på ett mer effektivt sätt med **O(n log n)** tidskomplexitet.
+- **Kräver fler jämförelser och förflyttningar än vissa andra algoritmer**, vilket kan leda till högre exekveringstid vid stora osorterade dataset.
+
+Sammanfattningsvis är Insertion Sort en enkel men ineffektiv algoritm för stora dataset. Den fungerar dock mycket bra i scenarier där datasetet redan är nästan sorterat eller när prestanda inte är en kritisk faktor. För stora dataset är **Quicksort och Mergesort** betydligt bättre val, medan Heapsort kan vara mer minnesvänligt än Mergesort men erbjuder liknande tidskomplexitet. Insertion Sort används ofta som en del av hybridalgoritmer som Timsort för att förbättra sorteringseffektiviteten i vissa situationer.
+
+Insertion Sort är en enkel sorteringsalgoritm som fungerar genom att upprepade gånger välja ett element och placera det på rätt plats i den redan sorterade delen av listan. Algoritmen är effektiv för små dataset och nästan sorterade listor men blir ineffektiv för stora dataset jämfört med mer avancerade algoritmer som Quicksort och Mergesort.
+
+### **Sammanfattning**
+
+Insertion Sort har en tidskomplexitet på **O(n²)** i genomsnitt och i värsta fall, vilket gör den ineffektiv för stora dataset. Däremot är den snabb för små och nästan sorterade listor där den kan prestera i **O(n)**.
+
+Jämfört med Bubble Sort, som har samma komplexitet, gör Insertion Sort färre byten och är därför oftast snabbare. Däremot är algoritmer som Quicksort och Mergesort betydligt mer effektiva för större dataset. Insertion Sort används ofta när datasetet är litet eller nästan sorterat. Den är vanlig i realtidsapplikationer där nya element läggs till i en redan sorterad lista, exempelvis i realtidsdatabaser. Inom utbildning används den för att lära ut grundläggande sorteringsprinciper. Den används även i hybridalgoritmer som Timsort för att hantera små datamängder effektivt. Insertion Sort är en **in-place-algoritm** med **O(1) minneskomplexitet**, vilket gör den mer minnesvänlig än exempelvis Mergesort, som kräver extra minne. Den använder ingen rekursion, till skillnad från Quicksort, vilket ger en mer stabil minnesanvändning.
+
+### **Jämförelse mellan Insertion Sort och Bubble Sort**
+
+Insertion Sort är i de flesta fall snabbare än Bubble Sort eftersom den flyttar element direkt till rätt plats istället för att göra många onödiga byten. Bubble Sort är dock enklare att implementera och förstå, vilket gör den användbar i utbildningssammanhang. På nästan sorterade listor är Insertion Sort betydligt mer effektiv, medan båda algoritmerna blir ineffektiva vid stora datamängder där Quicksort och Mergesort är bättre alternativ.
+', NULL),
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+
+('### **Introduktion**
+
+En **queue** (kö) är en datastruktur som följer principen **FIFO** (_First In, First Out_), vilket innebär att det första elementet som läggs in är det första som tas bort. Köer används ofta inom programmering för att hantera uppgifter i en sekventiell ordning, som processhantering, uppgiftsköer och nätverkskommunikation. De är användbara när data behöver behandlas i den ordning de anländer.
+
+### **Hur påverkar insättnings- och borttagningsoperationer prestandan i köer?**
+
+Queue-operationer involverar **enqueue** (insättning) och **dequeue** (borttagning). Båda operationerna kan ha en tidskomplexitet på **O(1)** i en optimalt implementerad kö, exempelvis en länkad lista-baserad kö eller en cirkulär array. I en arraybaserad kö kan borttagningar vara kostsamma om de kräver skiftning av element, vilket kan ge en **O(n)**\-komplexitet. Jämfört med stackar, där endast ett element hanteras i taget, kan köer vara mer effektiva för sekventiell databehandling men mindre effektiva för operationer som kräver snabb åtkomst till nyligen inlagd data.
+
+### **Vilka är de vanligaste användningsområdena för köer i moderna applikationer?**
+
+Köer används i en mängd olika tillämpningar där data måste behandlas i en specifik ordning:
+
+- **Process- och trådhantering** – Operativsystem använder köer för att schemalägga processer och hantera resursallokering.
+- **Skrivarköer** – Dokument skrivs ut i den ordning de skickas till skrivaren.
+- **Nätverksbuffertar och datastreaming** – Paket och datapaket skickas och tas emot i en köbaserad struktur.
+- **Bredd-först-sökning (BFS)** – Algoritmen för att traversera grafer använder köer för att hålla reda på noder att besöka.
+- **Jobbhanteringssystem och meddelandeköer** – Exempelvis i distribuerade system och molnapplikationer, där arbetsuppgifter hanteras effektivt genom köer.
+
+### **Hur hanterar kön minnesallokering och vad är dess minnesfotavtryck?**
+
+Köer kan implementeras med **statisk** (array) eller **dynamisk** (länkad lista) minnesallokering. En array-baserad kö kan ha begränsad kapacitet och kan kräva omskalning om den blir full, vilket kan påverka prestandan. En länkad lista-baserad kö växer och krymper dynamiskt, men har en något högre minnesanvändning på grund av pekarstrukturer. Cirkulära köer är en optimering av array-baserade köer som minimerar onödig minnesanvändning och förbättrar effektiviteten vid insättning och borttagning.
+
+### **Vilka algoritmer är optimerade för att arbeta med köer och varför?**
+
+- **Bredd-först-sökning (BFS)** – En algoritm som utforskar grafer nivå för nivå och utnyttjar köer för att hantera ordningen av noder som besöks.
+- **Schemaläggning och resursallokering** – Operativsystem använder köbaserade algoritmer för att hantera CPU-processer och I/O-operationer.
+- **Round-robin-algoritmer** – Används vid processorhantering där varje process får en tidslucka innan den sätts längst bak i kön.
+- **Cache- och databashantering** – Exempelvis **Least Recently Used (LRU)**\-cachehantering där äldre objekt tas bort från kön när den är full.
+
+Köer är en kritisk datastruktur inom både mjukvaruutveckling och datorsystem. De erbjuder en naturlig lösning för problem där data måste behandlas i ordningsföljd, vilket gör dem användbara i allt från systemprogrammering till webbapplikationer. Genom att förstå köns egenskaper och prestandaegenskaper kan utvecklare designa effektiva algoritmer och system för att hantera stora mängder data på ett smidigt sätt
+', NULL),
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+
+('### **Introduktion**
+
+En **stack** är en datastruktur som följer principen **LIFO** (_Last In, First Out_), vilket innebär att det senaste elementet som lagts till är det första som tas bort. Stackar används ofta inom programmering för att hantera rekursion, uttrycksutvärdering och backtracking. De är enkla att implementera och har snabba operationer för insättning och borttagning av element.
+
+### **Hur påverkar insättnings- och borttagningsoperationer prestandan i stacken?**
+
+Stackens insättnings- och borttagningsoperationer (**push** och **pop**) är mycket effektiva med en tidskomplexitet på **O(1)**. Detta beror på att de endast påverkar det översta elementet i stacken. Jämfört med datastrukturer som listor eller köer, där insättning och borttagning kan kräva omfördelning av element, är stacken en enkel och snabb lösning när LIFO-beteende krävs.
+
+### **Vilka är de vanligaste användningsområdena för stackar i moderna applikationer?**
+
+Stackar används i flera olika sammanhang inom programmering och systemutveckling, bland annat:
+
+- **Funktionsanrop och rekursion** – Stacken används för att hålla reda på aktiva funktionsanrop i ett program.
+- **Backtracking-algoritmer** – Exempelvis vid labyrintlösning eller sökningar i grafer där man behöver backa vid återvändsgränder.
+- **Utvärdering av matematiska uttryck** – Stackar används för att konvertera och evaluera uttryck i infix-, prefix- och postfix-notationer.
+- **Webbläsarhistorik och undo/redo-funktioner** – Stackar används för att hantera navigering och åtgärdsförändringar.
+
+### **Hur hanterar stacken minnesallokering och vad är dess minnesfotavtryck?**
+
+Stackar kan implementeras med antingen **statisk** eller **dynamisk** minnesallokering. En statisk stack (array-baserad) har en fördefinierad storlek, vilket kan leda till _stack overflow_ om den överskrids. En dynamisk stack (länkad lista-baserad) kan växa och krympa efter behov, men har en högre minnesöverhead på grund av extra pekarstrukturer. Jämfört med listor och hashtabeller har stacken generellt ett litet minnesfotavtryck men kan växa snabbt vid djupa rekursioner.
+
+### **Vilka algoritmer är optimerade för att arbeta med stackar och varför?**
+
+- **Djup-först-sökning (DFS)** – En algoritm för att traversera grafer där stacken används för att hålla reda på besökta noder.
+- **Utvärdering av uttryck** – Postfix-notation och hantering av parenteser utnyttjar stackens egenskaper.
+- **Undo/redo-funktioner** – Stackar lagrar tidigare och framtida tillstånd av en applikation.
+- **Balanskontroll av parenteser** – Algoritmer som avgör om en sekvens av parenteser är korrekt balanserad.
+
+Dessa algoritmer utnyttjar stackens LIFO-struktur för att hantera data på ett effektivt sätt. Stackar är en av de mest fundamentala datastrukturerna inom datavetenskap och är oumbärliga i många programmeringssammanhang. Deras enkelhet och effektivitet gör dem till ett naturligt val för problem där ordningen på data är viktig. Trots sin begränsade funktionalitet i jämförelse med mer komplexa datastrukturer som träd eller hashtabeller, är stackar ett kraftfullt verktyg som används i allt från operativsystem till spelutveckling. Att förstå stackens egenskaper och användningsområden ger programmerare en viktig grund för att lösa problem på ett både effektivt och strukturerat sätt.
+',NULL)

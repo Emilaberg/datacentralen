@@ -3,6 +3,7 @@ import ApiService from "../../../Services/ApiService";
 import { useQuery } from "@tanstack/react-query";
 import { ArticleCardDTOProps } from "../../../Types/types";
 import { useNavigate } from "react-router-dom";
+import { selectedAlgorithmTypes } from "../../../Types/types";
 
 const AboutUs = () => {
   const { Articles } = ApiService();
@@ -85,7 +86,17 @@ const AboutUs = () => {
             onClick={() => routeToLaroportal("testa-algoritm")}
           >
             {isLoading && <p>Loading...</p>}
-            <h1 className="text-[50px] font-bold">{sortingArticles.length}</h1>
+            <h1 className="text-[50px] font-bold">
+              {
+                Object.keys(selectedAlgorithmTypes).filter(
+                  (key) =>
+                    isNaN(Number(key)) &&
+                    selectedAlgorithmTypes[
+                      key as keyof typeof selectedAlgorithmTypes
+                    ] !== "none"
+                ).length
+              }
+            </h1>
             <p className="text-[17px] italic text-center">
               Interaktiva sorteringsalgoritmer
             </p>
