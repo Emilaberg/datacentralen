@@ -13,6 +13,7 @@ export default function AdminManageArticles() {
   const navigate = useNavigate();
   const api = AuthorizedApiService();
   const [modalOpen, setModalOpen] = React.useState(false);
+  const [errorModalOpen, setErrorModalOpen] = useState(false);
   const [articleToDelete, setArticleToDelete] =
     React.useState<HandleDeleteArticle | null>(null);
 
@@ -38,7 +39,7 @@ export default function AdminManageArticles() {
     if (response && response.ok) {
       if (refetch) refetch();
     } else {
-      alert("Kunde inte ta bort artikeln.");
+      setErrorModalOpen(true);
     }
   };
 
@@ -71,6 +72,18 @@ export default function AdminManageArticles() {
                 setModalOpen(false);
                 setArticleToDelete(null);
               }}
+            />
+            <ConfirmModal
+              open={errorModalOpen}
+              title="Fel"
+              message="Kunde inte ta bort artikeln."
+              buttons={[
+                {
+                  label: "Stäng",
+                  onClick: () => setErrorModalOpen(false),
+                  className: "px-4 py-2 rounded bg-gray-200 hover:bg-gray-300",
+                },
+              ]}
             />
           </div>
         )}

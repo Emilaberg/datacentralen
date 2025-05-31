@@ -5,8 +5,8 @@ import { ArticleProps } from "../../Types/types";
 import ArticleView from "./components/ArticleView";
 import FileUpload from "./components/FileUpload";
 import ColorPreview from "./components/ColorPreview";
-import ApiService from "../../Services/ApiService";
 import AuthorizedApiService from "../../Services/AuthorizedApiService";
+import ConfirmModal from "./Modals/ConfirmModal";
 import "./admin.css";
 
 const typeOptions = [
@@ -31,11 +31,19 @@ export default function AdminCreateArticle() {
   );
   const [showPreview, setShowPreview] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [success, setSuccess] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [successModalOpen, setSuccessModalOpen] = useState(false);
   const descriptionRef = useRef<HTMLTextAreaElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
-
+  const resetForm = () => {
+    setTitle("");
+    setAuthor("");
+    setDescription("");
+    setContent("");
+    setType(typeOptions[0].value);
+    setColorCodeOne("#000000");
+    setColorCodeTwo("#70dbb2");
+  };
   useEffect(() => {
     if (textareaRef.current) {
       const textarea = textareaRef.current;
@@ -57,7 +65,6 @@ export default function AdminCreateArticle() {
     e.preventDefault();
     setIsLoading(true);
     setError(null);
-    setSuccess(false);
     try {
       const response = await api.POSTArticle(
         {
@@ -76,7 +83,7 @@ export default function AdminCreateArticle() {
       );
 
       if (response && response.ok) {
-        setSuccess(true);
+        setSuccessModalOpen(true);
       } else {
         setError("Något gick fel vid skapandet.");
       }
@@ -244,11 +251,16 @@ export default function AdminCreateArticle() {
                   className="mt-4 px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 transition self-end"
                   disabled={isLoading}
                 >
-                  {isLoading ? "Skapar..." : "Skapa"}
+                  {isLoading
+                    ? article
+                      ? "Sparar..."
+                      : "Skapar..."
+                    : article
+                    ? "Spara ändringar"
+                    : "Skapa"}
                 </button>
               </div>
               {error && <p className="text-red-500">{error}</p>}
-              {success && <p className="text-green-600">Artikeln skapades!</p>}
             </div>
 
             <label>
@@ -265,6 +277,24 @@ export default function AdminCreateArticle() {
             </label>
           </form>
         )}
+        <ConfirmModal
+          open={successModalOpen}
+          title="En ny artikel har skapats"
+          message={
+            article ? "Ändringar till artikeln sparad." : "Artikeln skapades!"
+          }
+          buttons={[
+            {
+              label: "OK",
+              onClick: () => {
+                setSuccessModalOpen(false);
+                if (!article) resetForm();
+              },
+              className:
+                "px-4 py-2 rounded bg-transparant text-black border-1 border-black hover:bg-gray-400",
+            },
+          ]}
+        />
       </div>
     </AdminLayout>
   );
