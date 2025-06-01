@@ -560,6 +560,70 @@ const AuthorizedApiService = () => {
     return response;
   };
 
+  /**
+   * Updates an entire article and its content by articleId and articleContentId.
+   *
+   * @param articleId - The ID of the article.
+   * @param articleContentId - The ID of the article content.
+   * @param articleObject - The full article object to update.
+   * @param enableLog - (Optional) Enable or disable logging.
+   * @returns A Promise that resolves to the Response object if successful, or null if the request fails.
+   */
+  const PUTArticleAndContentById = async (
+    articleId: number,
+    articleContentId: number,
+    articleObject: any,
+    enableLog = defaultLogRequest
+  ) => {
+    const response = await SendAuthorizedRequest({
+      url: `Article/article-id/${articleId}/article-content-id/${articleContentId}`,
+      method: HttpMethodType.Put,
+      body: articleObject,
+      enableLog: enableLog,
+    });
+    if (!response || !response.ok) {
+      if (enableLog)
+        console.error(
+          "Failed to update article and content:",
+          response?.status,
+          response?.statusText
+        );
+      return null;
+    }
+    return response;
+  };
+
+  /**
+   * Updates an entire article by its ID.
+   *
+   * @param id - The ID of the article to update.
+   * @param articleUpdate - The updated article data.
+   * @param enableLog - (Optional) A flag to enable or disable logging for the request.
+   * @returns A Promise that resolves to the Response object if successful, or null if the request fails.
+   */
+  const PUTFullArticleUpdate = async (
+    id: number,
+    articleUpdate: {
+      id: number;
+      title: string;
+      author: string;
+      description: string;
+      type: string;
+      colorCodeOne: string;
+      colorCodeTwo: string;
+      content: string;
+    },
+    enableLog = false
+  ) => {
+    const response = await SendAuthorizedRequest({
+      url: `Article/${id}/full-update`,
+      method: HttpMethodType.Put,
+      body: articleUpdate,
+      enableLog,
+    });
+    return response;
+  };
+
   return {
     SendAuthorizedRequest,
     PUTArticleChangeContent,
@@ -572,6 +636,8 @@ const AuthorizedApiService = () => {
     AuthMe,
     TokenIsAuthorized,
     POSTArticle,
+    PUTArticleAndContentById,
+    PUTFullArticleUpdate,
   };
 };
 

@@ -18,6 +18,11 @@ export default function AdminCreateArticle() {
   const location = useLocation();
   const article = (location.state as { article?: ArticleProps })?.article;
   const api = AuthorizedApiService();
+
+  // Store the original article state for comparison in edit mode
+  const [originalArticle, setOriginalArticle] = useState<ArticleProps | null>(
+    article || null
+  );
   const [title, setTitle] = useState(article?.title || "");
   const [author, setAuthor] = useState(article?.author || "");
   const [description, setDescription] = useState(article?.description || "");
@@ -61,34 +66,64 @@ export default function AdminCreateArticle() {
     }
   }, [content]);
 
-  const handleCreate = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
     setError(null);
     try {
-      const response = await api.POSTArticle(
-        {
+      let response;
+      if (article) {
+        // EDIT MODE
+        response = await api.PUTFullArticleUpdate(article.id, {
+          id: article.id,
           title,
           author,
           description,
-          content,
           type,
           colorCodeOne,
           colorCodeTwo,
-          posted: new Date(),
-          lastEdited: new Date(),
-          likes: 0,
-        },
-        true
-      );
+          content,
+        });
+      } else {
+        // CREATE MODE
+        response = await api.POSTArticle(
+          {
+            title,
+            author,
+            description,
+            content,
+            type,
+            colorCodeOne,
+            colorCodeTwo,
+            posted: new Date().toISOString(),
+            lastEdited: new Date().toISOString(),
+            likes: 0,
+          },
+          true
+        );
+      }
 
       if (response && response.ok) {
         setSuccessModalOpen(true);
+
+        // If editing, update originalArticle to current values so button greys out
+        if (article) {
+          setOriginalArticle({
+            ...article,
+            title,
+            author,
+            description,
+            content,
+            type,
+            colorCodeOne,
+            colorCodeTwo,
+          });
+        }
       } else {
-        setError("Något gick fel vid skapandet.");
+        setError("Något gick fel vid sparandet.");
       }
     } catch (err: any) {
-      setError(err.message || "Något gick fel vid skapandet.");
+      setError(err.message || "Något gick fel vid sparandet.");
     } finally {
       setIsLoading(false);
     }
@@ -106,6 +141,26 @@ export default function AdminCreateArticle() {
     posted: new Date(),
     lastEdited: new Date(),
     likes: 0,
+    articleContentId: 0,
+    articleContent: {
+      id: 0,
+      content,
+      articleId: 0,
+    },
+  };
+
+  // Helper to check if any changes were made (only in edit mode)
+  const isArticleChanged = () => {
+    if (!originalArticle) return true; // Always enabled in create mode
+    return (
+      title !== originalArticle.title ||
+      author !== originalArticle.author ||
+      description !== originalArticle.description ||
+      content !== (originalArticle as any).content || // If ArticleProps doesn't have content, adjust accordingly
+      type !== originalArticle.type ||
+      colorCodeOne !== originalArticle.colorCodeOne ||
+      colorCodeTwo !== originalArticle.colorCodeTwo
+    );
   };
 
   return (
@@ -126,7 +181,7 @@ export default function AdminCreateArticle() {
         {showPreview ? (
           <ArticleView article={mockArticle} />
         ) : (
-          <form className="w-2/4 flex flex-col gap-4" onSubmit={handleCreate}>
+          <form className="w-2/4 flex flex-col gap-4" onSubmit={handleSubmit}>
             <label>
               Titel:
               <input
@@ -248,8 +303,15 @@ export default function AdminCreateArticle() {
                 </button>
                 <button
                   type="submit"
-                  className="mt-4 px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 transition self-end"
-                  disabled={isLoading}
+                  className={`mt-4 px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 transition self-end
+    ${
+      isLoading || (article ? !isArticleChanged() : false)
+        ? "opacity-50 cursor-not-allowed"
+        : ""
+    }`}
+                  disabled={
+                    isLoading || (article ? !isArticleChanged() : false)
+                  }
                 >
                   {isLoading
                     ? article
