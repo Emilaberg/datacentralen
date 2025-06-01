@@ -8,7 +8,6 @@ import ColorPreview from "./components/ColorPreview";
 import AuthorizedApiService from "../../Services/AuthorizedApiService";
 import ConfirmModal from "./Modals/ConfirmModal";
 import { RgbaColorPicker } from "react-colorful";
-
 import "./admin.css";
 
 const typeOptions = [
@@ -36,10 +35,8 @@ export default function AdminCreateArticle() {
   const article = (location.state as { article?: ArticleProps })?.article;
   const api = AuthorizedApiService();
 
-  // Local state for edit/create mode
   const [isEditMode, setIsEditMode] = useState(!!article);
 
-  // Store the original article state for comparison in edit mode
   const [originalArticle, setOriginalArticle] = useState<ArticleProps | null>(
     article || null
   );
@@ -147,7 +144,6 @@ export default function AdminCreateArticle() {
       if (response && response.ok) {
         setSuccessModalOpen(true);
 
-        // If editing, update originalArticle to current values so button greys out
         if (isEditMode && originalArticle) {
           setOriginalArticle({
             ...originalArticle,
@@ -160,7 +156,6 @@ export default function AdminCreateArticle() {
             colorCodeTwo: rgbaToString(colorTwo),
           });
         }
-        // If creating, reset form after modal closes (see ConfirmModal below)
       } else {
         setError("Något gick fel vid sparandet.");
       }
@@ -312,7 +307,6 @@ export default function AdminCreateArticle() {
                   <label className="flex flex-col items-start">
                     Färgkod 1:
                     <div className="flex items-center gap-2">
-                      {/* Color preview circle */}
                       <div
                         className="w-12 h-12 rounded-full border cursor-pointer"
                         style={{
@@ -321,7 +315,7 @@ export default function AdminCreateArticle() {
                         }}
                         onClick={() => setShowColorOnePicker((v) => !v)}
                       />
-                      {/* Popover for color picker */}
+
                       {showColorOnePicker && (
                         <div
                           ref={colorOneRef}
@@ -344,7 +338,6 @@ export default function AdminCreateArticle() {
                   <label className="flex flex-col items-start">
                     Färgkod 2:
                     <div className="flex items-center gap-2">
-                      {/* Color preview circle */}
                       <div
                         className="w-12 h-12 rounded-full border cursor-pointer"
                         style={{
@@ -353,7 +346,7 @@ export default function AdminCreateArticle() {
                         }}
                         onClick={() => setShowColorTwoPicker((v) => !v)}
                       />
-                      {/* Popover for color picker */}
+
                       {showColorTwoPicker && (
                         <div
                           ref={colorTwoRef}
