@@ -38,8 +38,8 @@ export interface ArticleProps {
   type: string;
   colorCodeOne?: string;
   colorCodeTwo?: string;
-  articleContentId: number; // <-- Add this
-  articleContent?: ArticleContentProps; // <-- Optional, if you use it
+  articleContentId: number;
+  articleContent?: ArticleContentProps;
 }
 
 export interface ArticleDTOProps {

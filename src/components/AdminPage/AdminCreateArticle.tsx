@@ -7,6 +7,8 @@ import FileUpload from "./components/FileUpload";
 import ColorPreview from "./components/ColorPreview";
 import AuthorizedApiService from "../../Services/AuthorizedApiService";
 import ConfirmModal from "./Modals/ConfirmModal";
+import { RgbaColorPicker } from "react-colorful";
+
 import "./admin.css";
 
 const typeOptions = [
@@ -14,10 +16,28 @@ const typeOptions = [
   { label: "Datastruktur", value: "Datastruktur" },
 ];
 
+// Helper to convert RGBA to CSS rgba() string
+function rgbaToString({
+  r,
+  g,
+  b,
+  a,
+}: {
+  r: number;
+  g: number;
+  b: number;
+  a: number;
+}) {
+  return `rgba(${r},${g},${b},${a})`;
+}
+
 export default function AdminCreateArticle() {
   const location = useLocation();
   const article = (location.state as { article?: ArticleProps })?.article;
   const api = AuthorizedApiService();
+
+  // Local state for edit/create mode
+  const [isEditMode, setIsEditMode] = useState(!!article);
 
   // Store the original article state for comparison in edit mode
   const [originalArticle, setOriginalArticle] = useState<ArticleProps | null>(
@@ -28,27 +48,29 @@ export default function AdminCreateArticle() {
   const [description, setDescription] = useState(article?.description || "");
   const [content, setContent] = useState(article?.content || "");
   const [type, setType] = useState(article?.type || typeOptions[0].value);
-  const [colorCodeOne, setColorCodeOne] = useState(
-    article?.colorCodeOne || "#000000"
-  );
-  const [colorCodeTwo, setColorCodeTwo] = useState(
-    article?.colorCodeTwo || "#70dbb2"
-  );
+  const [colorOne, setColorOne] = useState({ r: 0, g: 0, b: 0, a: 1 });
+  const [colorTwo, setColorTwo] = useState({ r: 112, g: 219, b: 178, a: 1 });
   const [showPreview, setShowPreview] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [successModalOpen, setSuccessModalOpen] = useState(false);
+  const [showColorOnePicker, setShowColorOnePicker] = useState(false);
+  const [showColorTwoPicker, setShowColorTwoPicker] = useState(false);
   const descriptionRef = useRef<HTMLTextAreaElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const colorOneRef = useRef<HTMLDivElement>(null);
+  const colorTwoRef = useRef<HTMLDivElement>(null);
+
   const resetForm = () => {
     setTitle("");
     setAuthor("");
     setDescription("");
     setContent("");
     setType(typeOptions[0].value);
-    setColorCodeOne("#000000");
-    setColorCodeTwo("#70dbb2");
+    setColorOne({ r: 0, g: 0, b: 0, a: 1 });
+    setColorTwo({ r: 112, g: 219, b: 178, a: 1 });
   };
+
   useEffect(() => {
     if (textareaRef.current) {
       const textarea = textareaRef.current;
@@ -66,22 +88,41 @@ export default function AdminCreateArticle() {
     }
   }, [content]);
 
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (
+        colorOneRef.current &&
+        !colorOneRef.current.contains(event.target as Node)
+      ) {
+        setShowColorOnePicker(false);
+      }
+      if (
+        colorTwoRef.current &&
+        !colorTwoRef.current.contains(event.target as Node)
+      ) {
+        setShowColorTwoPicker(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
     setError(null);
     try {
       let response;
-      if (article) {
+      if (isEditMode && originalArticle) {
         // EDIT MODE
-        response = await api.PUTFullArticleUpdate(article.id, {
-          id: article.id,
+        response = await api.PUTFullArticleUpdate(originalArticle.id, {
+          id: originalArticle.id,
           title,
           author,
           description,
           type,
-          colorCodeOne,
-          colorCodeTwo,
+          colorCodeOne: rgbaToString(colorOne),
+          colorCodeTwo: rgbaToString(colorTwo),
           content,
         });
       } else {
@@ -93,8 +134,8 @@ export default function AdminCreateArticle() {
             description,
             content,
             type,
-            colorCodeOne,
-            colorCodeTwo,
+            colorCodeOne: rgbaToString(colorOne),
+            colorCodeTwo: rgbaToString(colorTwo),
             posted: new Date().toISOString(),
             lastEdited: new Date().toISOString(),
             likes: 0,
@@ -107,18 +148,19 @@ export default function AdminCreateArticle() {
         setSuccessModalOpen(true);
 
         // If editing, update originalArticle to current values so button greys out
-        if (article) {
+        if (isEditMode && originalArticle) {
           setOriginalArticle({
-            ...article,
+            ...originalArticle,
             title,
             author,
             description,
             content,
             type,
-            colorCodeOne,
-            colorCodeTwo,
+            colorCodeOne: rgbaToString(colorOne),
+            colorCodeTwo: rgbaToString(colorTwo),
           });
         }
+        // If creating, reset form after modal closes (see ConfirmModal below)
       } else {
         setError("Något gick fel vid sparandet.");
       }
@@ -136,8 +178,8 @@ export default function AdminCreateArticle() {
     description,
     content,
     type,
-    colorCodeOne,
-    colorCodeTwo,
+    colorCodeOne: rgbaToString(colorOne),
+    colorCodeTwo: rgbaToString(colorTwo),
     posted: new Date(),
     lastEdited: new Date(),
     likes: 0,
@@ -156,19 +198,45 @@ export default function AdminCreateArticle() {
       title !== originalArticle.title ||
       author !== originalArticle.author ||
       description !== originalArticle.description ||
-      content !== (originalArticle as any).content || // If ArticleProps doesn't have content, adjust accordingly
+      content !== (originalArticle as any).content ||
       type !== originalArticle.type ||
-      colorCodeOne !== originalArticle.colorCodeOne ||
-      colorCodeTwo !== originalArticle.colorCodeTwo
+      rgbaToString(colorOne) !==
+        rgbaToString(originalArticle.colorCodeOne as any) ||
+      rgbaToString(colorTwo) !==
+        rgbaToString(originalArticle.colorCodeTwo as any)
     );
+  };
+
+  const handleSwitchToCreate = () => {
+    setIsEditMode(false);
+    setOriginalArticle(null);
+    resetForm();
   };
 
   return (
     <AdminLayout>
       <div className="w-full mt-20 flex flex-col items-center">
         <h2 className="text-2xl font-semibold mb-4">
-          {article ? "Redigera artikel" : "Skapa ny artikel"}
+          {isEditMode ? "Redigera artikel" : "Skapa ny artikel"}
         </h2>
+        {isEditMode && (
+          <div className="relative w-auto mb-2">
+            <div className="p-4 bg-yellow-100 border-l-4 border-yellow-500 text-yellow-900 rounded">
+              <span className="font-semibold">* Observera:</span> Du är i{" "}
+              <b>redigeringsläge</b> just nu. Vill du skapa en ny artikel
+              istället?
+            </div>
+            <div className="absolute mt-2" style={{ left: 0, top: "100%" }}>
+              <button
+                type="button"
+                className="mt-1 px-2 py-1 text-xs bg-yellow-300 hover:bg-yellow-400 rounded border border-yellow-500 text-yellow-900 transition"
+                onClick={handleSwitchToCreate}
+              >
+                Byt till skapa ny artikel
+              </button>
+            </div>
+          </div>
+        )}
         <div className="flex justify-end w-2/4 mb-2">
           <button
             type="button"
@@ -244,46 +312,71 @@ export default function AdminCreateArticle() {
                   <label className="flex flex-col items-start">
                     Färgkod 1:
                     <div className="flex items-center gap-2">
-                      <input
-                        type="color"
-                        value={colorCodeOne}
-                        onChange={(e) => setColorCodeOne(e.target.value)}
-                        className="w-12 h-12 rounded-full appearance-none cursor-pointer"
-                        style={{ border: "none", padding: 0 }}
+                      {/* Color preview circle */}
+                      <div
+                        className="w-12 h-12 rounded-full border cursor-pointer"
+                        style={{
+                          background: rgbaToString(colorOne),
+                          border: "2px solid #ccc",
+                        }}
+                        onClick={() => setShowColorOnePicker((v) => !v)}
                       />
+                      {/* Popover for color picker */}
+                      {showColorOnePicker && (
+                        <div
+                          ref={colorOneRef}
+                          className="absolute z-50 mt-2"
+                          style={{ left: "60px" }}
+                        >
+                          <RgbaColorPicker
+                            color={colorOne}
+                            onChange={setColorOne}
+                          />
+                        </div>
+                      )}
                       <input
-                        className="border rounded px-2 py-1 w-28"
-                        value={colorCodeOne}
-                        onChange={(e) => setColorCodeOne(e.target.value)}
+                        className="border rounded px-2 py-1 w-36"
+                        value={rgbaToString(colorOne)}
+                        readOnly
                       />
                     </div>
                   </label>
                   <label className="flex flex-col items-start">
                     Färgkod 2:
                     <div className="flex items-center gap-2">
-                      <input
-                        type="color"
-                        value={colorCodeTwo}
-                        onChange={(e) => setColorCodeTwo(e.target.value)}
-                        className="w-12 h-12 rounded-full appearance-none outline-none border-none border-transparent cursor-pointer"
+                      {/* Color preview circle */}
+                      <div
+                        className="w-12 h-12 rounded-full border cursor-pointer"
                         style={{
-                          padding: 0,
-                          background: "none",
-                          boxShadow: "none",
+                          background: rgbaToString(colorTwo),
+                          border: "2px solid #ccc",
                         }}
+                        onClick={() => setShowColorTwoPicker((v) => !v)}
                       />
+                      {/* Popover for color picker */}
+                      {showColorTwoPicker && (
+                        <div
+                          ref={colorTwoRef}
+                          className="absolute z-50 mt-2"
+                          style={{ left: "60px" }}
+                        >
+                          <RgbaColorPicker
+                            color={colorTwo}
+                            onChange={setColorTwo}
+                          />
+                        </div>
+                      )}
                       <input
-                        className="border rounded px-2 py-1 w-28"
-                        value={colorCodeTwo}
-                        onChange={(e) => setColorCodeTwo(e.target.value)}
+                        className="border rounded px-2 py-1 w-36"
+                        value={rgbaToString(colorTwo)}
+                        readOnly
                       />
                     </div>
                   </label>
                 </div>
-
                 <ColorPreview
-                  gradientColor1={colorCodeOne}
-                  gradientColor2={colorCodeTwo}
+                  gradientColor1={rgbaToString(colorOne)}
+                  gradientColor2={rgbaToString(colorTwo)}
                 />
               </div>
             </div>
@@ -305,26 +398,25 @@ export default function AdminCreateArticle() {
                   type="submit"
                   className={`mt-4 px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 transition self-end
     ${
-      isLoading || (article ? !isArticleChanged() : false)
+      isLoading || (isEditMode ? !isArticleChanged() : false)
         ? "opacity-50 cursor-not-allowed"
         : ""
     }`}
                   disabled={
-                    isLoading || (article ? !isArticleChanged() : false)
+                    isLoading || (isEditMode ? !isArticleChanged() : false)
                   }
                 >
                   {isLoading
-                    ? article
+                    ? isEditMode
                       ? "Sparar..."
                       : "Skapar..."
-                    : article
+                    : isEditMode
                     ? "Spara ändringar"
                     : "Skapa"}
                 </button>
               </div>
               {error && <p className="text-red-500">{error}</p>}
             </div>
-
             <label>
               Innehåll:
               <textarea
@@ -341,16 +433,18 @@ export default function AdminCreateArticle() {
         )}
         <ConfirmModal
           open={successModalOpen}
-          title="En ny artikel har skapats"
+          title={isEditMode ? "Ändringar sparade" : "En ny artikel har skapats"}
           message={
-            article ? "Ändringar till artikeln sparad." : "Artikeln skapades!"
+            isEditMode
+              ? "Ändringar till artikeln sparad."
+              : "Artikeln skapades!"
           }
           buttons={[
             {
               label: "OK",
               onClick: () => {
                 setSuccessModalOpen(false);
-                if (!article) resetForm();
+                if (!isEditMode) resetForm();
               },
               className:
                 "px-4 py-2 rounded bg-transparant text-black border-1 border-black hover:bg-gray-400",
