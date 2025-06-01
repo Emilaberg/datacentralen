@@ -33,16 +33,22 @@ const Navbar = () => {
         <Link className="hover:underline" to="about-us">
           Om projektet
         </Link>
-        {auth.token && <span>inloggad</span>}
       </div>
-      <Link
-        className="mr-32 bg-black text-white flex gap-2 py-2 px-4 rounded-[10px]"
-        to={"https://github.com/Emilaberg/datacentralen"}
-        target="_blank"
-      >
-        <span className="hover:underline">Github</span>
-        <img src={githubIcon} alt="github icon" />
-      </Link>
+      <div className="flex items-center gap-5">
+        {auth.token && (
+          <span className="text-green-700 font-semibold bg-green-100 px-2 py-1 rounded text-sm">
+            Du är inloggad
+          </span>
+        )}
+        <Link
+          className="mr-32 bg-black text-white flex gap-2 py-2 px-4 rounded-[10px]"
+          to={"https://github.com/Emilaberg/datacentralen"}
+          target="_blank"
+        >
+          <span className="hover:underline">Github</span>
+          <img src={githubIcon} alt="github icon" />
+        </Link>
+      </div>
     </nav>
   );
 };
