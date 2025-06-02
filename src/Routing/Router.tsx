@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import Index from "./routes/Index";
 import TestaAlgoritm from "./routes/TestaAlgoritm";
 import Laroportal from "./routes/Laroportal";
@@ -11,6 +11,10 @@ import Editpage from "./routes/Editpage";
 import Logout from "./routes/Logout";
 import SelectedText from "../components/SelectedText/SelectedText";
 import ProtectedRoute from "../components/ProtectedRoute";
+import AdminCreateArticle from "../components/AdminPage/AdminCreateArticle";
+import AdminManageArticles from "../components/AdminPage/AdminManageArticles";
+import AdminOverlook from "../components/AdminPage/AdminOverlook";
+import AdminPage from "../components/AdminPage/AdminPage";
 
 function Router() {
   return (
@@ -28,13 +32,18 @@ function Router() {
             />
 
             <Route
-              path="/dashboard"
+              path="/admin-dashboard"
               element={
                 <ProtectedRoute>
-                  <Editpage />
+                  <AdminPage />
                 </ProtectedRoute>
               }
-            />
+            >
+              <Route path="overlook" element={<AdminOverlook />} />
+              <Route path="manage" element={<AdminManageArticles />} />
+              <Route path="create" element={<AdminCreateArticle />} />
+              <Route index element={<Navigate to={"overlook"} />} />
+            </Route>
             <Route path="/about-us" element={<AboutUs />} />
             <Route path="*" element={<div>error 404</div>} />
           </Route>

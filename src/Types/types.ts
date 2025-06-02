@@ -20,17 +20,26 @@ export interface ProviderProps {
   logout(): void;
 }
 
+export interface ArticleContentProps {
+  id: number;
+  content: string;
+  articleId: number;
+}
+
 export interface ArticleProps {
   id: number;
   title: string;
   author: string;
-  posted: Date;
-  lastEdited: Date;
+  posted: Date | string;
+  description: string;
+  lastEdited: Date | string;
   likes: number;
   content: string;
   type: string;
   colorCodeOne?: string;
   colorCodeTwo?: string;
+  articleContentId: number;
+  articleContent?: ArticleContentProps;
 }
 
 export interface ArticleDTOProps {

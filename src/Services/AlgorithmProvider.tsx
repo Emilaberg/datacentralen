@@ -366,7 +366,7 @@ const AlgorithmProvider = ({ children }: AlgorithmProviderProps) => {
     arr: number[],
     low: number,
     high: number
-  ): Promise<{ iterations: number, timeElapsed: number }> {
+  ): Promise<{ iterations: number; timeElapsed: number }> {
     let iterations: number = 0;
     const startTime = Date.now();
 
@@ -424,7 +424,7 @@ const AlgorithmProvider = ({ children }: AlgorithmProviderProps) => {
     arr: number[],
     left: number,
     right: number
-  ): Promise<{ iterations: number, timeElapsed: number }> {
+  ): Promise<{ iterations: number; timeElapsed: number }> {
     let iterations: number = 0;
     const startTime = Date.now();
 

@@ -102,6 +102,30 @@ const ApiService = () => {
     }
   };
 
+  const CreateArticle = async (newArticle: any) => {
+    try {
+      const token = localStorage.getItem("token"); // or wherever you store your JWT
+      const response = await fetch("https://localhost:7033/api/Article", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          ...(token ? { Authorization: `Bearer ${token}` } : {}),
+        },
+        body: JSON.stringify(newArticle),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Failed to create article: ${response.statusText}`);
+      }
+
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.error("Error creating article:", error);
+      throw error;
+    }
+  };
+
   return {
     Articles,
     ArticlesDTO,
@@ -110,6 +134,7 @@ const ApiService = () => {
     GetArticleById,
     UpdateArticle,
     UpdateLikes,
+    CreateArticle,
   };
 };
 

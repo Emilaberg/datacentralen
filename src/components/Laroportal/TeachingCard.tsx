@@ -37,31 +37,46 @@ const TeachingCard: React.FC<CardComponentProps> = ({
 
   return (
     <div
-      className={"w-[530px] h-72 rounded-3xl rounded-tr-none p-5"}
+      className={
+        "w-[530px] h-72 rounded-3xl rounded-tr-none p-5 flex flex-col justify-between"
+      }
       style={{
         background: `linear-gradient(343deg, ${gradientColor1} 20%, ${gradientColor2} 92%)`,
         ...alternatingBorderRadius,
       }}
     >
-      <div className="w-fit px-3 py-1 bg-white rounded-xl flex items-center justify-center">
-        <p className="text-sm font-medium text-black/50">{algorithmType}</p>
-      </div>
-      <div className="mt-3.5">
-        <h1 className="text-6xl text-black/80 font-mono">{algorithmName}</h1>
-      </div>
-      <div className="mt-5 w-full">
-        <p
-          className="font-sans font-medium text-black/50 text-lg tracking-tight"
-          style={{
-            display: "-webkit-box",
-            WebkitLineClamp: 2,
-            WebkitBoxOrient: "vertical",
-            overflow: "hidden",
-            textOverflow: "ellipsis",
-          }}
-        >
-          {algorithmDescription}
-        </p>
+      <div>
+        <div className="w-fit px-3 py-1 bg-white rounded-xl flex items-center justify-center">
+          <p className="text-sm font-medium text-black/50">{algorithmType}</p>
+        </div>
+        <div className="mt-3.5">
+          <h1
+            style={{
+              display: "-webkit-box",
+              WebkitLineClamp: 1,
+              WebkitBoxOrient: "vertical",
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+            }}
+            className="text-6xl text-black/80 font-mono"
+          >
+            {algorithmName}
+          </h1>
+        </div>
+        <div className="mt-5 w-full">
+          <p
+            className="font-sans font-medium text-black/50 text-lg tracking-tight"
+            style={{
+              display: "-webkit-box",
+              WebkitLineClamp: 2,
+              WebkitBoxOrient: "vertical",
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+            }}
+          >
+            {algorithmDescription}
+          </p>
+        </div>
       </div>
       <div
         className="items-center gap-8 mt-10 hover:underline hover:cursor-pointer inline-flex"
