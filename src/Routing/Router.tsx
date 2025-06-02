@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import Index from "./routes/Index";
 import TestaAlgoritm from "./routes/TestaAlgoritm";
 import Laroportal from "./routes/Laroportal";
@@ -42,7 +42,7 @@ function Router() {
               <Route path="overlook" element={<AdminOverlook />} />
               <Route path="manage" element={<AdminManageArticles />} />
               <Route path="create" element={<AdminCreateArticle />} />
-              <Route index element={<AdminOverlook />} />
+              <Route index element={<Navigate to={"overlook"} />} />
             </Route>
             <Route path="/about-us" element={<AboutUs />} />
             <Route path="*" element={<div>error 404</div>} />
