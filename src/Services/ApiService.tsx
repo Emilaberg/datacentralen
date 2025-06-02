@@ -47,13 +47,8 @@ const ApiService = () => {
     return data;
   };
 
-  const SingleArticle = async (id: number) => {
-    const data = await ApiCaller(`https://localhost:7033/api/Article/${id}`);
-
-    return data;
-  };
-
   const GroupedArticlesDropdown = async (amount: number) => {
+    4;
     const data = await ApiCaller(
       `https://localhost:7033/api/Article/GroupedDropdown/${amount}`
     );
@@ -87,6 +82,26 @@ const ApiService = () => {
     }
   };
 
+  const UpdateLikes = async (id: number, increment: boolean) => {
+    try {
+      const response = await fetch(
+        `https://localhost:7033/api/Article/${id}/likes?increment=${increment}`,
+        {
+          method: "PUT",
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(`Failed to update likes: ${response.statusText}`);
+      }
+
+      return true;
+    } catch (error) {
+      console.error("Error updating likes:", error);
+      throw error;
+    }
+  };
+
   return {
     Articles,
     ArticlesDTO,
@@ -94,6 +109,7 @@ const ApiService = () => {
     GroupedArticlesDropdown,
     GetArticleById,
     UpdateArticle,
+    UpdateLikes,
   };
 };
 

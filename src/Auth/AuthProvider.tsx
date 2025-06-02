@@ -10,15 +10,22 @@ const AuthContext = createContext<ProviderProps>({
 
 const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const navigate = useNavigate();
-  const {AuthMe} = AuthorizedApiService();
-
+  const {AuthMe, TokenIsAuthorized} = AuthorizedApiService();
   const [token, setToken] = useState<string>(localStorage.getItem("AuthToken") ?? "");
 
   const authenticate = async (username: string, password: string) => {
+    if(!(await TokenIsAuthorized)) setToken("")
     const response = await AuthMe(username,password);
-
-    if(!response) return;
-    navigate("/");
+    
+    
+    if (!response || response.status < 200 || response.status >= 300) {
+      return;
+    }
+    const tokn = localStorage.getItem("AuthToken")
+    if(tokn !== null){
+      setToken(tokn)
+    }
+    navigate("/dashboard");
   };
 
 

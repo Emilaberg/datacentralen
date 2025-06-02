@@ -6,8 +6,8 @@ import passwordIcon from "../../../assets/icons/lock-solid.svg";
 import { Link } from "react-router-dom";
 
 const Loginpage = () => {
-  const auth = useAuth();
 
+  const auth = useAuth();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -16,7 +16,8 @@ const Loginpage = () => {
     setError("");
 
     try {
-      auth.authenticate(username,password);
+      await auth.authenticate(username, password)
+
     } catch (error) {
       console.error("Login error:", error);
       setError("Fel användarnamn eller lösenord");
