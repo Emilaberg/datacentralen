@@ -12,8 +12,13 @@ const AuthorizedApiService = () => {
    * @property {string} url - The URL endpoint to which the request will be sent to. Already includes the base URL .
    * Example: "Auth/login"
    * @property {Map<string, string> | null} headers - A Map of headers to be included in the request.
+   * @property {Map<string, string> | null} headers - A Map of headers to be included in the request.
    * @property {HttpMethodType} method - The HTTP method to be used for the request (e.g., GET, POST, PUT, DELETE).
    * @property {object} body - The request payload to be sent in the request body. Will get a JSON.Stringify() before sending.
+   * @property {boolean} enableLog  (Optional) A flag to enable or disable logging for the request.
+   * - If `true`, logs detailed information about the request and response to the console.
+   * - If `false`, suppresses logging.
+   * - Defaults to `true` if not provided.
    * @property {boolean} enableLog  (Optional) A flag to enable or disable logging for the request.
    * - If `true`, logs detailed information about the request and response to the console.
    * - If `false`, suppresses logging.
@@ -103,9 +108,11 @@ const AuthorizedApiService = () => {
           : null,
         body: requestProps.body,
         enableLog: enableLog,
+        enableLog: enableLog,
       });
     }
     try {
+      //send requst to api, if request fails it will log to console, which is default browser behavior that I cannot change
       //send requst to api, if request fails it will log to console, which is default browser behavior that I cannot change
       returnValue = await fetch(url, {
         method: method,

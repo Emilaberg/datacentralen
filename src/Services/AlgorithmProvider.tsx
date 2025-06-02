@@ -160,6 +160,7 @@ const AlgorithmProvider = ({ children }: AlgorithmProviderProps) => {
       iterations: 0,
       timeElapsed: 0,
     };
+
     switch (selectedAlgorithm) {
       case selectedAlgorithmTypes.bubble:
         result = await bubbleSort(array);
@@ -176,18 +177,18 @@ const AlgorithmProvider = ({ children }: AlgorithmProviderProps) => {
         break;
 
       case selectedAlgorithmTypes.insertion:
-        await insertionSort(array);
+        result = await insertionSort(array);
         break;
       case selectedAlgorithmTypes.heap:
-        await heapSort(array);
+        result = await heapSort(array);
         break;
 
       case selectedAlgorithmTypes.quick:
-        await quickSort(array, 0, array.length - 1);
+        result = await quickSort(array, 0, array.length - 1);
         break;
 
       case selectedAlgorithmTypes.merge:
-        await mergeSort(array, 0, array.length - 1);
+        result = await mergeSort(array, 0, array.length - 1);
         break;
 
       case selectedAlgorithmTypes.none:
@@ -310,6 +311,7 @@ const AlgorithmProvider = ({ children }: AlgorithmProviderProps) => {
     const timeDiff = endTime - startTime - iterations * iterationSpeed;
     setTimeElapsed(timeDiff);
     setTimeComplexity("O(n²)");
+    return { iterations, timeElapsed: timeDiff };
   }
 
   async function heapSort(array: number[]) {
@@ -357,13 +359,14 @@ const AlgorithmProvider = ({ children }: AlgorithmProviderProps) => {
     const timeDiff = endTime - startTime - iterations * iterationSpeed;
     setTimeElapsed(timeDiff);
     setTimeComplexity("O(n log n)");
+    return { iterations, timeElapsed: timeDiff };
   }
 
   async function quickSort(
     arr: number[],
     low: number,
     high: number
-  ): Promise<void> {
+  ): Promise<{ iterations: number; timeElapsed: number }> {
     let iterations: number = 0;
     const startTime = Date.now();
 
@@ -414,13 +417,14 @@ const AlgorithmProvider = ({ children }: AlgorithmProviderProps) => {
     const timeDiff = endTime - startTime - iterations * iterationSpeed;
     setTimeElapsed(timeDiff);
     setTimeComplexity("O(n log n)");
+    return { iterations, timeElapsed: timeDiff };
   }
 
   async function mergeSort(
     arr: number[],
     left: number,
     right: number
-  ): Promise<void> {
+  ): Promise<{ iterations: number; timeElapsed: number }> {
     let iterations: number = 0;
     const startTime = Date.now();
 
@@ -497,6 +501,7 @@ const AlgorithmProvider = ({ children }: AlgorithmProviderProps) => {
     const timeDiff = endTime - startTime - iterations * iterationSpeed;
     setTimeElapsed(timeDiff);
     setTimeComplexity("O(n log n)");
+    return { iterations, timeElapsed: timeDiff };
   }
 
   const ContextValues = useMemo(
